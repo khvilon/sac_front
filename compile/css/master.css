@@ -1027,11 +1027,19 @@ header h1
 #regions-params,
 #params-selector, 
 #graph-selector,
-#graph-regions-selector,
 #graph-data
 {
   position:relative;
   right:0;
+  -moz-transition:all 1s linear;
+  -o-transition:all 1s linear;
+  -webkit-transition:all 1s linear;
+  transition:all 1s linear;
+}
+
+#graph-regions-selector {
+  position:relative;
+  left:0;
   -moz-transition:all 1s linear;
   -o-transition:all 1s linear;
   -webkit-transition:all 1s linear;
@@ -1046,6 +1054,7 @@ header h1
 #graph-regions-nav-show.hidden
 {
   left:-390px;
+  right: auto !important;
 }
 
 #region-data,
@@ -1225,4 +1234,9 @@ label {
 .buttoms li.current {
   cursor: default;
   background: rgba(77, 130, 172, 0.6);
+}
+
+#content .data.region .scroll#region-data-place li ul {
+  height: auto;
+  visibility: visible;
 }

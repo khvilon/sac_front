@@ -1238,6 +1238,7 @@ var RegionsSelectorWidget = function(app) {
 	this.bindEvents_ = function() {
 		this.elements["SHOW"].on("click", $.proxy(this.onShowClick_, this));
 		this.elements["DATA-HIDDEN"].on("click", $.proxy(this.onHiddenClick_, this));
+		this.elements["FILTER"].on("keyup", $.proxy(this.onFilterClick_, this));
 	}
 
 	this.onRegionClick_ = function(evt) {
@@ -1257,7 +1258,7 @@ var RegionsSelectorWidget = function(app) {
 	}
 
 	this.onRegionNameClick_ = function(evt) {
-		$(evt.target).parent().find("ul").slideToggle("slow");
+		$(evt.target).parent().find("ul").slideToggle("fast");
 	}
 
 	this.onShowClick_ = function(evt) {
@@ -1339,7 +1340,7 @@ var RegionsSelectorWidget = function(app) {
 
 	this.filteringParametrs = function(filterValue) {
 		var elements = $(this.CSS["DATA-PLACE"]).find("ul li ul li");
-
+		console.log(elements);
 		$.each(elements, function(key, value) {
 			var elem = $(value).attr("data-name");
 			if(elem.toLowerCase().indexOf(filterValue.toLowerCase()) == -1) {
@@ -1949,7 +1950,6 @@ var GraphRegionsSelectorWidget = function(app) {
 		$(this.CSS["DATA-PLACE"]+ " li span").on("click", $.proxy(this.onRegionNameClick_, this));
 
 		this.elements["FILTER"].on("keyup", $.proxy(this.onFilterClick_, this));
-		
 	}
 
 	this.findRegionsByParent_ = function(data, parent, html, sep) {
@@ -2000,7 +2000,6 @@ var GraphRegionsSelectorWidget = function(app) {
 
 	this.filteringParametrs = function(filterValue) {
 		var elements = $(this.CSS["DATA-PLACE"]).find("ul li ul li");
-
 		$.each(elements, function(key, value) {
 			var elem = $(value).attr("data-name");
 			if(elem.toLowerCase().indexOf(filterValue.toLowerCase()) == -1) {
