@@ -1,0 +1,150 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Автоматизированная подсистема мониторинга. Национальная система химической и биологической безопасности Российской Федерации</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="./css/master.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <div id="app">
+            <!-- Панель управления начало -->
+            <div id="miniMap">
+                <a>Центральный <br />федеральный округ</a>
+            </div>
+            <div id="panels">
+                <header class="nav-elements">
+                    <a href="#"></a>
+                    <p>Автоматизированная подсистема мониторинга <br />Национальная система химической и биологической безопасности Российской Федерации</p>
+                    <h1>Российская Федерация</h1>
+                </header>
+                <div id="content">
+                    <div class="time nav-elements">
+                        <b><span id="hour">16</span>:<span id="minute">40</span></b>
+                        <p><span id="day">04</span> <span id="month">апреля</span> <span id="age">2013</span></p>
+                    </div>
+                    <div class="nav nav-elements" id="footer-nav-widget">
+                    </div>
+                    <div class="legend" id="legend-widget">
+                        <p>н/д</p>
+                        <p>0-7</p>
+                        <p>8-15</p>
+                        <p>16-20</p>
+                        <a id="map-color-toggler">показать <br />значения</a>
+                    </div>
+                    <div class="legend" id="regions-legend-widget" >
+                        <p>&nbsp;</p>
+                        <p>&nbsp;</p>
+                        <p>&nbsp;</p>
+                        <p>&nbsp;</p>
+                        <a id="regions-map-color-toggler">показать <br />значения</a>
+                    </div>
+                    <div id="map-params">
+                        <div class="show nav-elements" id="paramers-show"></div>
+                        <div class="data" id="parametrs-widget">
+                            <a href="#" class="hidden"></a>
+                            <h3>&nbsp;</h3>
+                            <p id="param-info">&nbsp;</p>
+                            <input type="text" class="search" id="params-filter" placeholder="Поиск" />
+                            <select class="year" id="age_select"></select>
+                            <section class="scroll" id="parametrs-list"></section>
+                        </div>
+                    </div> 
+                    <div id="regions-params"  class="hidden">
+                        <div class="show nav-elements" id="regions-paramers-show"></div>
+                        <div class="data" id="regions-parametrs-widget">
+                            <a href="#" class="hidden"></a>
+                            <h3>&nbsp;</h3>
+                            <p id="regions-param-info">&nbsp;</p>
+                            <input type="text" class="search" id="regions-params-filter" placeholder="Поиск" />
+                            <select class="year" id="regions_age_select"></select>
+                            <section class="scroll" id="regions-parametrs-list"></section>
+                        </div>
+                    </div>
+                    <div id="load">
+                        <img src="/static/images/load.png" id="load-image" alt="" />
+                    </div>
+                    <div id="regions-selector" class="hidden">
+                        <a href="#" class="show-f reg" id="regions-nav-show"></a>
+                        <div class="data region hidden" id="region-data">
+                            <a href="#" class="hidden" id="region-data-hidden"></a>
+                            <input type="text" class="search" placeholder="Поиск" id="region-selector-filter" />
+                            <section class="scroll" id="region-data-place"></section>
+                        </div>
+                    </div>
+                    <div class="table hidden" id="format-data">
+                        <div id="table-format">
+                            <table>
+                                <col width="320px" />
+                                <col width="550px" />
+                                <col width="70px" />
+                                <col width="100px" />
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class=" hidden" id="graph-content">
+                        <div id="graph-panel"></div>
+                        <div id="graph-datas">
+                            <input type="text" id="graph-datas-begin" />
+                            <input id="graph-datas-end" />
+                        </div>
+                    </div>
+                    <div id="params-selector" class="hidden">
+                        <a href="#" class="show-f" id="params-nav-show"></a>
+                        <div class="data f hidden" id="params-data">
+                            <a href="#" class="hidden" id="params-data-hidden"></a>
+                            <h3>&nbsp;</h3>
+                            <input type="text" class="search" placeholder="Поиск" />
+                            <select class="year" id="params-age-selected"></select>
+                            <section class="scroll" id="params-data-place"></section>
+                        </div>
+                    </div>
+                    <div id="graph-selector" class="hidden">
+                        <a href="#" class="show-f" id="graph-nav-show"></a>
+                        <div class="data g hidden" id="graph-data">
+                            <a href="#" class="hidden" id="graph-data-hidden"></a>
+                            <h3>&nbsp;</h3>
+                            <input type="text" class="search" placeholder="Поиск" />
+                            <section class="scroll" id="graph-data-place"></section>
+                        </div>
+                    </div>
+                    <div id="graph-regions-selector" class="hidden">
+                        <a href="#" class="show-f reg" id="graph-regions-nav-show"></a>
+                        <div class="data region hidden" id="graph-region-data">
+                            <a href="#" class="hidden" id="graph-region-data-hidden"></a>
+                            <input type="text" class="search" placeholder="Поиск" id="graph-region-selector-filter" />
+                            <section class="scroll" id="graph-region-data-place"></section>
+                        </div>
+                    </div>
+                    <div id="regions-left-camera"></div>
+                    <div id="regions-right-camera"></div>
+                </div>
+            </div>
+            <!-- Панель управления конец -->
+            
+            <div id="bg-colored-image"></div>
+            <div id="bg-image"></div>
+            <div id="bg-regions-image"></div>
+            <div id="bg-svg">
+                <object id="svg" type="image/svg+xml" data="" width="100%" height="100%"></object>
+            </div>
+            <div id="bg-video">
+                <video id="video" type="video/mp4" class="video"  preload="auto" width="1920" height="1080" ></video>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="./js/jquery-2.0.0.min.js"></script>
+        <script type="text/javascript" src="./js/jquery-migrate-1.1.1.min.js"></script>
+        <script type="text/javascript" src="./js/jquery.selectbox-0.2.min.js"></script>
+        <script type="text/javascript" src="./js/jquery.mousewheel.js"></script>
+        <script type="text/javascript" src="./js/mwheelIntent.js"></script>
+        <script type="text/javascript" src="./js/jquery.jscrollpane.min.js"></script>
+        <script type="text/javascript" src="./js/jquery.datepick.min.js"></script>
+        <script type="text/javascript" src="./js/jquery.datepick-ru.js"></script>
+        <script type="text/javascript" src="./js/jquery.flot.min.js"></script>
+        
+        <script type="text/javascript" src="./js/api.js"></script>
+        <script type="text/javascript" src="./js/config.js"></script>
+        <script type="text/javascript" src="./js/main.js"></script>
+    </body>
+</html>
