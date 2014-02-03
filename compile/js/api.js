@@ -308,7 +308,7 @@ var ParametrsWidgets = function(app) {
 		"MAP-PARAMS": $(this.CSS["MAP-PARAMS"])
 	}
 
-	this.animateStep = "-350px";
+	this.animateStep = "-500px";
 	this.animateSpeed = 1000;
 	this.legendWidget = new LegendWidget(this.app);
 	this.scrollApi = null;
