@@ -10,6 +10,8 @@
 	width: 90px;
 	display: block;
 	float: right;
+	top: 85px;
+	right: 10px;
 }
 .sbSelector{
 	display: block;
