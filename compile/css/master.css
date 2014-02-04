@@ -897,9 +897,11 @@ header h1
 
 #map-params.hidden,#regions-params.hidden,#graph-params.hidden,#events-params.hidden
 {
-  right:-370px;
+  right: -370px;
 }
-
+#map-params.hidden,#regions-params.hidden {
+  right: -500px;
+}
 #regions-selector
 {
   position:relative;
@@ -1061,7 +1063,12 @@ header h1
   -webkit-transition:all 1s linear;
   transition:all 1s linear;
 }
-
+#regions-params .data .scroll {
+  max-height: 500px !important;
+}
+#regions-params .jspVerticalBar {
+  background-size: 100% 100%;
+}
 #graph-regions-selector {
   position:relative;
   left:0;

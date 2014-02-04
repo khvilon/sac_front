@@ -46,7 +46,7 @@ var RegionsParametrsWidgets = function(app) {
 		"MAP-PARAMS": $(this.CSS["MAP-PARAMS"])
 	}
 
-	this.animateStep = "-350px";
+	this.animateStep = "-500px";
 	this.animateSpeed = 1000;
 	this.legendWidget = new RegionsLegendWidget(this.app);
 	this.scrollApi = null;
@@ -327,7 +327,6 @@ var ParametrsWidgets = function(app) {
 
 	this.getParametrById = function(id) {
 		var par = null;
-		console.log(this.parametrs);
 		$.each(this.parametrs, function(key, value) {
 			$.each(value.parameters, function(key2, value2) {
 				if(value2 && value2.id == id) {
