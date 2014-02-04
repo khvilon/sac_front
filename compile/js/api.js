@@ -1,3 +1,15 @@
+function hiddenParentList(list) {
+	var parentElements = list;
+	$.each(parentElements, function(key, value) {
+		var sub = $(value).find("li:not(.hidde)");
+		if(sub.size() == 0) {
+			$(value).addClass("hidde");
+		} else {
+			$(value).removeClass("hidde");
+		}
+	});
+}
+
 function decorateValues(val, fixed) {
 	var valItem = val;
 	if(valItem) {
@@ -248,7 +260,7 @@ var RegionsParametrsWidgets = function(app) {
 				$(value).removeClass("hidde");
 			}
 		});
-		
+		hiddenParentList($(this.CSS["PARAMETRS-LIST"]).find(".jspPane > ul > li"));
 	}
 
 	this.getParamsByRegionAndYeage = function(region_id) {
@@ -551,13 +563,7 @@ var ParametrsWidgets = function(app) {
 			}
 		});
 
-		var elems = $(this.CSS["PARAMETRS-LIST"]).find("ul");
-		$.each(elems, function(key, value) {
-			if($(value).find("li ul li:not(.hidde)").size() == 0) {
-				$(value).addClass("hidde");
-			}
-		})
-		
+		hiddenParentList($(this.CSS["PARAMETRS-LIST"]).find(".jspPane > ul > li"));
 	}
 
 	this.getParamsByRegionAndYeage = function(region_id) {
@@ -1339,7 +1345,7 @@ var RegionsSelectorWidget = function(app) {
 
 	this.filteringParametrs = function(filterValue) {
 		var elements = $(this.CSS["DATA-PLACE"]).find("ul li ul li");
-		console.log(elements);
+
 		$.each(elements, function(key, value) {
 			var elem = $(value).attr("data-name");
 			if(elem.toLowerCase().indexOf(filterValue.toLowerCase()) == -1) {
@@ -1348,6 +1354,8 @@ var RegionsSelectorWidget = function(app) {
 				$(value).removeClass("hidde");
 			}
 		});
+
+		hiddenParentList($(this.CSS["DATA-PLACE"]).find(".jspPane > ul > li"));
 	}
 
 	this.bindEvents_();
@@ -1553,6 +1561,8 @@ var ParamsSelectorWidget = function(app) {
 				$(value).removeClass("hidde");
 			}
 		});
+
+		hiddenParentList($(this.CSS["PARAMETRS-LIST"]).find(".jspPane > ul > li"));
 	}
 
 	this.initScroll_();
@@ -1831,6 +1841,8 @@ var GraphParamsSelector = function(app) {
 				$(value).removeClass("hidde");
 			}
 		});
+
+		hiddenParentList($(this.CSS["PARAMETRS-LIST"]).find(".jspPane > ul > li"));
 	}
 
 	this.onResponseRegions_ = function(regions) {
@@ -2007,6 +2019,8 @@ var GraphRegionsSelectorWidget = function(app) {
 				$(value).removeClass("hidde");
 			}
 		});
+
+		hiddenParentList($(this.CSS["PARAMETRS-LIST"]).find(".jspPane > ul > li"));
 	}
 
 	this.bindEvents_();
