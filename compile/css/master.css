@@ -591,7 +591,12 @@ header h1
   overflow:auto;
   max-height:250px;
 }
-
+#content #map-params .data .scroll {
+  max-height: 500px;
+}
+#map-params .jspVerticalBar {
+  background-size: 100% 100%;
+}
 #content .show
 {
   position:absolute;
@@ -901,6 +906,15 @@ header h1
   transition:all 1s linear;
 }
 
+#regions-selector h2 {
+  position: absolute;
+  left: 40px;
+  top: 15px;
+  color: #ffffff;
+  font-family: NeoSansPro-Light;
+  font-size: 21px;
+}
+
 #region-data .jspVerticalBar, 
 #graph-region-data .jspVerticalBar
 {
@@ -942,7 +956,14 @@ header h1
   height:670px;
   margin:85px 13px 75px 35px;
 }
+#table-format th {
+  color: #ffffff;
+  font-size: 20px;
+  font-family: NeoSansPro-Light;
+  font-weight: bold;
+  padding: 4px;
 
+}
 #table-format .jspVerticalBar
 {
   background:url(/static/images/formats/s3.png) left top no-repeat;
