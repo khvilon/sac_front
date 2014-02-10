@@ -122,20 +122,21 @@ header h1
 #events-legend p {
   display: inline-block;
   border-radius: 100%;
-  width: 80px;
-  height: 80px;
+  width: 97px;
+  height: 97px;
   font-family:NeoSansPro-Medium;
   font-size:38px;
   color:#000000;
   text-align:center;
-  line-height: 80px;
+  line-height: 105px;
   margin-right: 20px;
+  text-indent: -4px;
 }
 #events-legend p.yellow {
-  background: yellow;
+  background:url("/static/images/yellow_circle.png") left top no-repeat;
 }
 #events-legend p.red {
-  background: red;
+  background:url("/static/images/red_circle.png") left top no-repeat;
 }
 #events-legend.hidden {
   display: none;
