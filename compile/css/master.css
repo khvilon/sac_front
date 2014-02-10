@@ -1054,7 +1054,8 @@ header h1
 #regions-params,
 #params-selector, 
 #graph-selector,
-#graph-data
+#graph-data,
+#reports-params-selector
 {
   position:relative;
   right:0;
@@ -1119,7 +1120,8 @@ header h1
 #params-nav-show.hidden, 
 #graph-data.hidden, 
 #graph-selector.hidden, 
-#graph-nav-show.hidden
+#graph-nav-show.hidden,
+#reports-params-selector.hidden
 {
   right:-370px!important;
 }

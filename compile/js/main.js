@@ -361,6 +361,23 @@ var GraphPanel = function(app) {
 	}
 }
 
+var ReportsPanel = function(app) {
+	this.app = app;
+
+	this.show = function() {
+		console.log("gf");
+		this.app.reportsParamsSelector.show();
+		//this.app.graphRegionsSelectorWidget.show();
+		//this.app.graphWidget.show();
+	}
+
+	this.hidden = function() {
+		this.app.reportsParamsSelector.hidden();
+		//this.app.graphRegionsSelectorWidget.hidden();
+		//this.app.graphWidget.hidden();
+	}
+}
+
 /**
  * [ description]
  * @param  {[type]} app [description]
@@ -851,6 +868,7 @@ var Application = function() {
 		this.formatManager = new FormatManager(this);
 		this.graphParamsSelector = new GraphParamsSelector(this);
 		this.graphRegionsSelectorWidget = new GraphRegionsSelectorWidget(this);
+		this.reportsParamsSelector = new ReportsParamsSelector(this);
 
 		this.regionsMapColorWidget = new RegionsMapColorWidget(this);
 		
@@ -861,6 +879,7 @@ var Application = function() {
 		this.districtsPanel = new DistrictsPanel(this);
 		this.graphPanel = new GraphPanel(this);
 		this.formatPanel = new FormatPanel(this);
+		this.reportsPanel = new ReportsPanel(this);
 		this.mapEventsPanel = new MapEventsPanel(this);
 
 		this.regionsMapColorWidget.enable();

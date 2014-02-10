@@ -124,6 +124,7 @@ var FooterNavWidget = function(app) {
 				this.app.regionPanel.hidden();
 				this.app.formatPanel.hidden();
 				this.app.mapEventsPanel.hidden();
+				this.app.reportsPanel.hidden();
 
 				this.app.graphPanel.show();
 			}
@@ -133,6 +134,7 @@ var FooterNavWidget = function(app) {
 				this.app.regionPanel.hidden();
 				this.app.graphPanel.hidden();
 				this.app.mapEventsPanel.hidden();
+				this.app.reportsPanel.hidden();
 
 				this.app.formatPanel.show();
 			}
@@ -142,6 +144,7 @@ var FooterNavWidget = function(app) {
 				this.app.graphPanel.hidden();
 				this.app.formatPanel.hidden();
 				this.app.mapEventsPanel.hidden();
+				this.app.reportsPanel.hidden();
 
 				this.app.regionPanel.show();
 			}
@@ -150,6 +153,7 @@ var FooterNavWidget = function(app) {
 				this.app.graphPanel.hidden();
 				this.app.formatPanel.hidden();
 				this.app.mapEventsPanel.hidden();
+				this.app.reportsPanel.hidden();
 
 				this.app.districtsPanel.show();
 			}
@@ -158,8 +162,19 @@ var FooterNavWidget = function(app) {
 				this.app.graphPanel.hidden();
 				this.app.formatPanel.hidden();
 				this.app.districtsPanel.hidden();
+				this.app.reportsPanel.hidden();
 				
 				this.app.mapEventsPanel.show();
+			}
+
+			if(itemId == "REPORTS") {
+				this.app.regionPanel.hidden();
+				this.app.graphPanel.hidden();
+				this.app.formatPanel.hidden();
+				this.app.districtsPanel.hidden();
+				this.app.mapEventsPanel.hidden();
+
+				this.app.reportsPanel.show();
 			}
 		}
 		

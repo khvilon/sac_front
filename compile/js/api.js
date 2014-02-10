@@ -1860,6 +1860,225 @@ var GraphParamsSelector = function(app) {
 	this.app.ageSelectorFormatWidget.draw();
 }
 
+/**
+ * [GraphParametrsWidgets description]
+ * @param {[type]} app [description]
+ */
+var ReportsParamsSelector = function(app) {
+	this.app = app;
+	this.CSS = {
+		"MAIN": "#reports-params-selector",
+		"HIDDEN": "hidden",
+		"SHOW": "#graph-nav-show",
+		"DATA": "#graph-data",
+		"DATA-HIDDEN": "#graph-data-hidden",
+		"DATA-PLACE": "#reports-params-data-place",
+		"LOAD": "#load"
+	};
+
+	this.elements = {
+		"MAIN": $(this.CSS["MAIN"]),
+		"SHOW": $(this.CSS["SHOW"]),
+		"DATA": $(this.CSS["DATA"]),
+		"DATA-HIDDEN": $(this.CSS["DATA-HIDDEN"]),
+		"DATA-PLACE": $(this.CSS["DATA-PLACE"]),
+		"FILTER":  $(this.CSS["DATA"]).find("input")
+	}
+
+	this.isDataShow = false;
+	this.parametrs = {};
+	this.scrollApi = null;
+	this.onUpdateGraph = new signals.Signal();
+	this.onUpdateGraph.add(OnGraphUpdateEvent);
+
+	this.initScroll_ = function() {
+		$(this.CSS["DATA-PLACE"]).jScrollPane(
+			{
+				showArrows: true,
+				verticalDragMinHeight: 60,
+	    		verticalDragMaxHeight: 60,
+	    		autoReinitialise: true
+			}
+		);
+		this.scrollApi = this.elements["DATA-PLACE"].data('jsp');
+	}
+
+	this.show = function() {
+		this.elements["MAIN"].removeClass(this.CSS["HIDDEN"]);
+	}
+
+	this.hidden = function() {
+		this.elements["MAIN"].addClass(this.CSS["HIDDEN"]);
+	}
+
+	this.bindEvents_ = function() {
+		this.elements["SHOW"].on("click", $.proxy(this.onShowClick_, this));
+		this.elements["DATA-HIDDEN"].on("click", $.proxy(this.onHiddenClick_, this));
+
+		$(this.CSS["DATA-PLACE"]).on("click", ".graph-params-checkbox" , $.proxy(this.onParamClick_, this));
+		$(this.CSS["DATA-PLACE"]).on("click", ".graph-params-name", $.proxy(this.onParamNameClick_, this));
+
+		this.elements["FILTER"].on("keyup", $.proxy(this.onFilterClick_, this));
+	}
+
+	this.onShowClick_ = function(evt) {
+		this.isDataShow = true;
+		this.elements["DATA"].removeClass(this.CSS["HIDDEN"]);
+		this.elements["SHOW"].addClass(this.CSS["HIDDEN"]);
+	}
+
+	this.onHiddenClick_ = function(evt) {
+		this.isDataShow = false;
+		this.elements["DATA"].addClass(this.CSS["HIDDEN"]);
+		this.elements["SHOW"].removeClass(this.CSS["HIDDEN"]);
+	}
+
+	this.onParamsGet_ = function(data) {
+		this.parametrs = this.prepareParamerts_(data);
+		this.drawParamets_(this.parametrs);
+
+		this.app.formatWidget.updateContent();
+	}
+
+	this.updateParams = function(ids, age) {
+		this.app.paramsManager.getParamsByRegionAndAge(
+			ids,
+			age,
+			$.proxy(this.onParamsGet_, this)
+		);
+	}
+
+	this.drawParamets_ = function(params) {
+		if(!this.scrollApi) {
+			this.initScroll_();
+		}
+		var html = "";
+		var self = this;
+		var contentPane = this.scrollApi.getContentPane();
+
+		$.each(params, function(key, value) {
+			var elementCurrentGroup = $("ul[data-id='"+value.id+"']", self.CSS["DATA-PLACE"]);
+			if(elementCurrentGroup.size() == 0) {
+				var html =  "<ul data-id='"+value.id+"' class='first'><li class='first-li'>";
+					html += "<span class='group graph-params-name'>"+value.name+"</span><a href='#' class='graph-params-checkbox'></a>";
+					html += "<ul class='itemShow'></ul></li></ul>";
+
+				contentPane.append(html);
+			}
+
+			var elementCurrentGroup = $("ul[data-id='"+value.id+"']", self.CSS["DATA-PLACE"]);
+
+			if(value.parameters.length > 0) {
+				$.each(value.parameters, function(key2, value2) {
+					var paramCurrent = $("li[data-id='"+value2.id+"']", self.CSS["DATA-PLACE"]);
+					if(paramCurrent.size() == 0) {
+						var html = "<li data-name='"+value2.name+"' data-id='"+value2.id+"'><span  class='param params-name '><em class='spr'>-</em> <em class='name'>"+value2.name+"</em></span><a class='graph-params-checkbox' href='#'></a></li>";
+
+						elementCurrentGroup.find("ul").append(html);
+					} else {
+						paramCurrent.find("i").html(value2.value);
+					}
+				});	
+			}
+		});
+		this.scrollApi.reinitialise();
+	}
+
+	this.prepareParamerts_ = function(data) {
+		var ret = {};
+
+		$.each(data, function(key, value) {
+			if(!ret[value.group_id]) {
+				ret[value.group_id] = {
+					id: value.group_id,
+					name: value.group_name,
+					parameters: []
+				}
+			}
+			ret[value.group_id].parameters.push({
+				id: value.id,
+				name: value.name,
+				value: value.param_val
+			});
+		});
+
+		return ret;
+	}
+
+	this.onParamClick_ = function(evt) {
+		var current = $(evt.target);
+		var parent = $(evt.target).parent();
+
+		$(evt.target).toggleClass("current");
+
+		if(current.hasClass("current")) {
+			parent.find("ul a").addClass("current");
+		} else {
+			parent.find("ul a").removeClass("current");
+		}
+
+		$(this.CSS["LOAD"]).addClass("onShow");
+		this.onUpdateGraph.dispatch(this.app);
+	}
+
+	this.onParamNameClick_ = function(evt) {
+		$(evt.target).parent().find("ul").toggleClass("itemShow");
+	}
+
+	this.getCurrentIds = function() {
+		var currentsA = $(this.elements["DATA-PLACE"]).find("li a.current");
+		var ids = [];
+
+		$.each(currentsA, function(key, value) {
+			ids.push($(value).parent().attr("data-id"));
+		});
+
+		return ids;
+	}
+
+	this.onFilterClick_ = function(evt) {
+		var filterValue = $(evt.target).val();
+
+		if(filterValue.length > 0) {
+			this.filteringParametrs(filterValue);	
+		} else {
+			this.clearFilter_();
+		}
+	}
+
+	this.clearFilter_ = function() {
+		$(this.CSS["DATA-PLACE"]).find(".hidde").removeClass("hidde");
+	}
+
+	this.filteringParametrs = function(filterValue) {
+		var elements = $(this.CSS["DATA-PLACE"]).find("ul li ul li");
+
+		$.each(elements, function(key, value) {
+			var elem = $(value).attr("data-name");
+			if(elem.toLowerCase().indexOf(filterValue.toLowerCase()) == -1) {
+				$(value).addClass("hidde");
+			} else {
+				$(value).removeClass("hidde");
+			}
+		});
+
+		hiddenParentList($(this.CSS["PARAMETRS-LIST"]).find(".jspPane > ul > li"));
+	}
+
+	this.onResponseRegions_ = function(regions) {
+		var ids = [];
+		$.each(regions, function(key, value) {
+			ids.push(value.id);
+		});
+		this.updateParams(ids, 2012);
+	}
+
+	this.initScroll_();
+	this.bindEvents_();
+
+	this.app.regionsManagerLocal.getRegions($.proxy(this.onResponseRegions_, this));
+}
+
 
 /**
  * [GraphRegionsSelectorWidget description]

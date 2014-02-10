@@ -21,6 +21,9 @@ var ConfigApp = {
 		}, 
 		"EVENTS": {
 			"title": "События"
+		},
+		"REPORTS": {
+			"title": "Отчеты"
 		}
 	},
 	"REGIONS": {
