@@ -586,7 +586,7 @@ var MapEventsPanel = function(app) {
 		this.elements["CONTAINER"].removeClass("onHidden");
 		this.app.eventRightWidgets.fullShow();
 		this.app.eventLegendWidgets.fullShow();
-		this.app.legendWidget.show();
+		this.app.eventsLegendWidget.show();
 	}
 
 	this.hidden = function() {
@@ -594,7 +594,7 @@ var MapEventsPanel = function(app) {
 		this.app.eventRightWidgets.fullHidden();
 		this.app.eventLegendWidgets.fullHidden();
 		this.app.eventsDrawWidget.hidden();
-		this.app.legendWidget.hide();
+		this.app.eventsLegendWidget.hide();
 	}
 }
 

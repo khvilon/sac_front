@@ -787,10 +787,9 @@ var LegendService = function(app) {
 				string += parseInt(data[colorName][1]);
 			}
 			$(element).html(string);
-			$(element).removeClass("hidden");
 		}
 		if(!data[colorName] && $(element).hasClass(colorName)) {
-			$(element).addClass("hidden");
+			$(element).html("нет данных");
 		}
 	}
 }
@@ -885,7 +884,6 @@ var MapColorWidget = function(app) {
 	}
 
 	this.updateParams = function() {
-
 		if(this.state && this.app.parametrsWidgets.currentParametr) {
 			this.app.paramsManager.getParamValues(
 				this.app.parametrsWidgets.currentParametr.id,
