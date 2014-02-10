@@ -2107,6 +2107,14 @@ var GraphWidget = function(app) {
 		}
 	}
 
+	this.showGraph = function() {
+		$(".legend_button").removeClass("current");
+		$(".graph_button").addClass("current");
+		$(".flot-base, .flot-text, .flot-overlay").show();
+		$("#graph-content .legend").hide();
+		this.state = 1;
+	}
+
 	this.testState_ = function() {
 		if(this.state = 1) {
 			$(".flot-base, .flot-text, .flot-overlay").show();

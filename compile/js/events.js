@@ -7,6 +7,7 @@ var OnGraphUpdateEvent = function(app) {
 
 	this.onGraphDataRequest_ = function(data) {
 		$(this.app.graphWidget.CSS["LOAD"]).removeClass("onShow");
+		this.app.graphWidget.showGraph();
 		this.app.graphWidget.updateContent(data);
 	}
 	
