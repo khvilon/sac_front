@@ -858,7 +858,7 @@ header h1
   background:url(/static/images/formats/table.png) center center no-repeat;
   height:830px;
   width:1130px;
-  left:420px;
+  left:260px;
   top:155px;
   z-index:200;
 }
@@ -1278,4 +1278,26 @@ label {
 #events-params .inner_table {
   margin-left: 75px;
   margin-right: 30px;
+}
+
+#parametrs-widget {
+  background:url(/static/images/data-1.png) left top no-repeat !important;
+  background-size: 100% 100% !important;
+}
+#parametrs-widget.data .search, #parametrs-widget.data .year {
+  margin-top: 65px !important;
+}
+#map-params .sbHolder {
+  top: 65px !important;
+}
+#regions-parametrs-widget.data .hidden,
+#parametrs-widget.data .hidden {
+  top: 437px !important;
+  left: 37px !important;
+}
+#parametrs-widget.data h3 {
+  margin-top: 35px !important;
+}
+#parametrs-widget.data #param-info {
+  top: 95px !important;
 }
