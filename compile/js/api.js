@@ -380,7 +380,8 @@ var ParametrsWidgets = function(app) {
 			});
 			this.app.legendManager.getLegendByParamAndSubject(
 				this.currentParametr.id, 
-				this.app.currentRegion
+				this.app.currentRegion,
+				$.proxy(this.getLegendByParamAndSubjectCallback, this)
 			);
 		} else {
 			/*$(this.CSS["PARAMETRS-LIST"]).find(".active").removeClass("active");
@@ -391,6 +392,11 @@ var ParametrsWidgets = function(app) {
 			this.legendWidget.hide();
 			this.app.mapColorel.hidden();*/
 		}
+	}
+
+	this.getLegendByParamAndSubjectCallback = function(data) {
+		this.app.legendWidget.setLevelText(data);
+		this.app.legendWidget.show();
 	}
 
 	this.setTitle = function(title) {
@@ -429,8 +435,8 @@ var ParametrsWidgets = function(app) {
 				this.currentParametr.id, 
 				this.app.currentRegion,
 				function(data) {
-					//self.legendWidget.setLevelText(data);
-					//self.legendWidget.show();
+					self.legendWidget.setLevelText(data);
+					self.legendWidget.show();
 				}
 			);	
 		}
@@ -529,7 +535,7 @@ var ParametrsWidgets = function(app) {
 		);
 
 		if(this.currentParametr != null) {
-			//this.legendWidget.show();
+			this.legendWidget.show();
 		}
 		this.initScroll_();
 	}
@@ -730,11 +736,8 @@ var EventLegendWidgets = function(app) {
  */
 var LegendWidget = function(app) {
 	this.app =  app;
-	this.animateStep = "-400px";
-	this.animateSpeed = 1000;
 	this.isShow = false;
-
-	
+	this.legendService = new LegendService(app);
 
 	this.CSS = {
 		"MAIN": "#legend-widget"
@@ -744,80 +747,51 @@ var LegendWidget = function(app) {
 		"MAIN": $(this.CSS["MAIN"])
 	}
 
-	$(this.CSS["MAIN"]).find("p:first-child").html("нет<br /> данных");
-
-	this.show = function() {
-		if(!this.isShow) {
-			this.elements["MAIN"].css({
-				right: this.animateStep,
-				display: "block"
-			});
-			this.elements["MAIN"].animate({
-					right: "0px"
-				},
-				this.animateSpeed
-			);
-
-			this.isShow = true;
-		}
-		
-	}
-
 	this.setLevelText = function(data) {
 		var $p = $(this.CSS["MAIN"]).find("p");
+		var self = this;
 		$.each($p, function(key, value) {
-			if(key == 0) {
-				$(value).html("нет<br /> данных");
-			}
-			if(key == 1 && data["red"]) {
-				var string = "";
-				if(data["red"][0]) {
-					string += parseInt(data["red"][0]);
-				}
-				if(data["red"][1]) {
-					if(data["red"][0]) {
-						string += "-";
-					}
-					string += parseInt(data["red"][1]);
-				}
-			}
-			if(key == 2 && data["yellow"]) {
-				var string = "";
-				if(data["yellow"][0]) {
-					string += parseInt(data["yellow"][0]);
-				}
-				if(data["yellow"][1]) {
-					if(data["yellow"][0]) {
-						string += "-";
-					}
-					string += parseInt(data["yellow"][1]);
-				}
-				$(value).html(string);
-			}
-			if(key == 3 && data["green"]) {
-				var string = "";
-				if(data["green"][0]) {
-					string += parseInt(data["green"][0]);
-				}
-				if(data["green"][1]) {
-					if(data["green"][0]) {
-						string += "-";
-					}
-					string += parseInt(data["green"][1]);
-				}
-				$(value).html(string);
-			}
+			self.legendService.setHtmlValueByColorName(value, "red", 1, data);
+			self.legendService.setHtmlValueByColorName(value, "yellow", 2, data);
+			self.legendService.setHtmlValueByColorName(value, "green", 3, data);
+			self.legendService.setHtmlValueByColorName(value, "blue", 4, data);
 		});
 	}
 
-	this.hide = function() {
-		this.elements["MAIN"].animate( {
-				right: this.animateStep
-			},
-			this.animateSpeed 
-		);
+	this.show = function() {
+		if(!this.isShow) {
+			this.elements["MAIN"].removeClass("hidden");
+			this.isShow = true;
+		}
+	}
 
+	this.hide = function() {
+		this.elements["MAIN"].addClass("hidden");
 		this.isShow = false;
+	}
+}
+
+var LegendService = function(app) {
+	this.app =  app;
+
+	this.setHtmlValueByColorName = function(element, colorName, key, data) {
+		if(key == key && data[colorName] && $(element).hasClass(colorName)) {
+			var string = "";
+			if(data[colorName][0]) {
+				string += parseInt(data[colorName][0]);
+			}
+			if(data[colorName][1]) {
+				if(data[colorName][0]) {
+					string += "-";
+				}
+				string += parseInt(data[colorName][1]);
+			}
+			$(element).html(string);
+			$(element).removeClass("hidden");
+		}
+		if(!data[colorName] && $(element).hasClass(colorName)) {
+			$(element).addClass("hidden");
+		}
 	}
 }
 
@@ -827,9 +801,8 @@ var LegendWidget = function(app) {
  */
 var RegionsLegendWidget = function(app) {
 	this.app =  app;
-	this.animateStep = "-400px";
-	this.animateSpeed = 1000;
 	this.isShow = false;
+	this.legendService = new LegendService(app);
 
 	this.CSS = {
 		"MAIN": "#regions-legend-widget"
@@ -841,28 +814,39 @@ var RegionsLegendWidget = function(app) {
 
 	this.show = function() {
 		if(!this.isShow) {
-			this.elements["MAIN"].css({
-				right: this.animateStep,
-				display: "block"
-			});
-			this.elements["MAIN"].animate({
-					right: "0px"
-				},
-				this.animateSpeed
-			);
-
+			this.elements["MAIN"].removeClass("hidden");
 			this.isShow = true;
 		}
-		
 	}
 
 	this.hide = function() {
-		this.elements["MAIN"].animate( {
-				right: this.animateStep
-			},
-			this.animateSpeed 
-		);
+		this.elements["MAIN"].addClass("hidden");
+		this.isShow = false;
+	}
+}
 
+var EventsLegendWidget = function(app) {
+	this.app =  app;
+	this.isShow = false;
+	this.legendService = new LegendService(app);
+
+	this.CSS = {
+		"MAIN": "#events-legend-widget"
+	}
+
+	this.elements = {
+		"MAIN": $(this.CSS["MAIN"])
+	}
+
+	this.show = function() {
+		if(!this.isShow) {
+			this.elements["MAIN"].removeClass("hidden");
+			this.isShow = true;
+		}
+	}
+
+	this.hide = function() {
+		this.elements["MAIN"].addClass("hidden");
 		this.isShow = false;
 	}
 }

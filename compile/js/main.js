@@ -306,6 +306,10 @@ var DistrictsPanel = function(app) {
 		this.app.mapColorWidget.updateParams();
 		this.app.mapColorel.show();
 		this.app.pageTitleWidget.show();
+
+		if(this.app.parametrsWidgets.currentParametr && this.app.parametrsWidgets.currentParametr.id) {
+			this.app.legendWidget.show();
+		}
 	}
 
 	this.hidden = function() {
@@ -314,6 +318,7 @@ var DistrictsPanel = function(app) {
 		this.app.mapStateManager.SVGWriter.hide();
 
 		this.app.parametrsWidgets.fullHidden();
+		this.app.legendWidget.hide();
 		this.app.paramsSelectorWidget.hidden();
 		this.app.mapColorel.hidden();
 	}
@@ -450,6 +455,8 @@ var RegionPanel = function(app) {
 
 		this.app.regionsParametrsWidgets.fullShow();
 		this.app.regionsMapColorWidget.updateParams();
+
+		this.app.regionsLegendWidget.show();
 	}
 
 	this.hidden = function() {
@@ -459,6 +466,8 @@ var RegionPanel = function(app) {
 
 		this.app.regionsParametrsWidgets.fullHidden();
 		this.app.regionsSelectorWidget.hidden();
+
+		this.app.regionsLegendWidget.hide();
 	}
 
 	this.addBlur = function() {
@@ -577,6 +586,7 @@ var MapEventsPanel = function(app) {
 		this.elements["CONTAINER"].removeClass("onHidden");
 		this.app.eventRightWidgets.fullShow();
 		this.app.eventLegendWidgets.fullShow();
+		this.app.legendWidget.show();
 	}
 
 	this.hidden = function() {
@@ -584,6 +594,7 @@ var MapEventsPanel = function(app) {
 		this.app.eventRightWidgets.fullHidden();
 		this.app.eventLegendWidgets.fullHidden();
 		this.app.eventsDrawWidget.hidden();
+		this.app.legendWidget.hide();
 	}
 }
 
@@ -858,6 +869,7 @@ var Application = function() {
 		this.regionsMapColorel = new RegionsMapColorel(this);
 		this.legendWidget = new LegendWidget(this);
 		this.regionsLegendWidget = new RegionsLegendWidget(this);
+		this.eventsLegendWidget = new EventsLegendWidget(this);
 		this.pageTitleWidget = new PageTitleWidget(this);
 		this.eventsDrawWidget = new EventsDrawWidget(this);
 		

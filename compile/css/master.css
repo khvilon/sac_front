@@ -247,12 +247,8 @@ header h1
 #content .legend
 {
   position:absolute;
-  height:523px;
-  width:287px;
-  background:url(/static/images/legend.png) right bottom no-repeat;
-  display:none;
-  bottom:0;
-  right:0;
+  bottom:100px;
+  left: 350px;
   z-index:130;
   -moz-transition:opacity .3s linear;
   -o-transition:opacity .3s linear;
@@ -260,20 +256,38 @@ header h1
   transition:opacity .3s linear;
 }
 
+#content .legend.hidden {
+  bottom: -523px;
+}
+
 #content .legend p
 {
   font-family:NeoSansPro-Light;
-  font-size:18px;
+  font-size:24px;
   color:#fff;
   display:block;
-  min-height: 37px;
-  padding:3px 0 3px 190px;
+  min-height: 57px;
+  padding:3px 40px 3px 220px;
+  float: left;
+  line-height:57px;
+  font-weight: bold;
 }
 
-#content .legend p:first-child
-{
-  margin-top:270px;
-  position:relative;
+#content .legend p.hidden {
+  display: none;
+}
+
+#content .legend p.green {
+  background: url("/static/images/green.png") left top no-repeat;
+}
+#content .legend p.yellow {
+  background: url("/static/images/yellow.png") left top no-repeat;
+}
+#content .legend p.red {
+  background: url("/static/images/red.png") left top no-repeat;
+}
+#content .legend p.blue {
+  background: url("/static/images/blue.png") left top no-repeat;
 }
 
 #content .legend a
@@ -282,7 +296,7 @@ header h1
   font-size:18px;
   color:#fff;
   display:block;
-  line-height:15px;
+  line-height:57px;
   text-decoration:none;
   padding:10px 0 0 160px;
   position: absolute;

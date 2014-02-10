@@ -101,6 +101,8 @@ var OnDistrictChangeState = function(app, mapStateManager, video_id, currentRegi
 		}
 	}
 
+	var self = this;
+
 	if(this.app.parametrsWidgets.currentParametr != null) {
 		this.app.mapColorel.colored(
 			this.app.parametrsWidgets.currentParametr.id, 
@@ -108,8 +110,17 @@ var OnDistrictChangeState = function(app, mapStateManager, video_id, currentRegi
 			this.app.ageSelectorWidget.selectedYear,
 			$.proxy(this.onAfterEvent_, this)
 		);
+		this.app.legendManager.getLegendByParamAndSubject(
+			this.app.parametrsWidgets.currentParametr, 
+			this.app.parametrsWidgets.currentParametr.id,
+			function(data) {
+				self.app.legendWidget.setLevelText(data);
+				self.app.legendWidget.show();
+			}
+		);
 	} else {
 		this.finishEvent += 1;
+		this.app.legendWidget.hidden();
 	}
 
 	this.app.videoPlayer.play(
