@@ -14,10 +14,10 @@ var ConfigApp = {
 			"title": "Регионы"
 		},
 		"FORMAT": {
-			"title": "Формат"
+			"title": "Форматы"
 		},
 		"GRAPH": {
-			"title": "График"
+			"title": "Графики"
 		}, 
 		"EVENTS": {
 			"title": "События"
