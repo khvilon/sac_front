@@ -1855,7 +1855,8 @@ var ReportsParamsSelector = function(app) {
 		"DATA": "#graph-data",
 		"DATA-HIDDEN": "#graph-data-hidden",
 		"DATA-PLACE": "#reports-params-data-place",
-		"LOAD": "#load"
+		"LOAD": "#load",
+		"AGE-SELECT": "#reposrts-params-age-selected"
 	};
 
 	this.elements = {
@@ -1864,6 +1865,7 @@ var ReportsParamsSelector = function(app) {
 		"DATA": $(this.CSS["DATA"]),
 		"DATA-HIDDEN": $(this.CSS["DATA-HIDDEN"]),
 		"DATA-PLACE": $(this.CSS["DATA-PLACE"]),
+		"AGE-SELECT": $(this.CSS["AGE-SELECT"]),
 		"FILTER":  $(this.CSS["DATA"]).find("input")
 	}
 
@@ -1942,7 +1944,7 @@ var ReportsParamsSelector = function(app) {
 			var elementCurrentGroup = $("ul[data-id='"+value.id+"']", self.CSS["DATA-PLACE"]);
 			if(elementCurrentGroup.size() == 0) {
 				var html =  "<ul data-id='"+value.id+"' class='first'><li class='first-li'>";
-					html += "<span class='group graph-params-name'>"+value.name+"</span><a href='#' class='graph-params-checkbox'></a>";
+					html += "<span class='group graph-params-name'>"+value.name+"</span>";
 					html += "<ul class='itemShow'></ul></li></ul>";
 
 				contentPane.append(html);
@@ -1954,7 +1956,7 @@ var ReportsParamsSelector = function(app) {
 				$.each(value.parameters, function(key2, value2) {
 					var paramCurrent = $("li[data-id='"+value2.id+"']", self.CSS["DATA-PLACE"]);
 					if(paramCurrent.size() == 0) {
-						var html = "<li data-name='"+value2.name+"' data-id='"+value2.id+"'><span  class='param params-name '><em class='spr'>-</em> <em class='name'>"+value2.name+"</em></span><a class='graph-params-checkbox' href='#'></a></li>";
+						var html = "<li data-name='"+value2.name+"' data-id='"+value2.id+"'><span  class='param params-name '><em class='spr'>-</em> <em class='name'>"+value2.name+"</em></span></li>";
 
 						elementCurrentGroup.find("ul").append(html);
 					} else {

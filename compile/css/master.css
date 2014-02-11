@@ -248,7 +248,7 @@ header h1
 {
   position:absolute;
   bottom:100px;
-  left: 350px;
+  left: 275px;
   z-index:130;
   -moz-transition:opacity .3s linear;
   -o-transition:opacity .3s linear;

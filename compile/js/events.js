@@ -120,7 +120,7 @@ var OnDistrictChangeState = function(app, mapStateManager, video_id, currentRegi
 		);
 	} else {
 		this.finishEvent += 1;
-		this.app.legendWidget.hidden();
+		this.app.legendWidget.hide();
 	}
 
 	this.app.videoPlayer.play(
