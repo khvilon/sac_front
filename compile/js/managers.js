@@ -143,6 +143,20 @@ var GraphManager = function(app) {
 	}
 }
 
+var DictionaryManager = function(app) {
+	this.app = app;
+
+	this.getAll = function(callback) {
+		$.ajax(
+			{
+				url: this.app.apiHost + "/subject_dictionary.json/",
+				type: "GET",
+				success: callback
+			}
+		);
+	}
+}
+
 /**
  * [ description]
  * @param  {[type]} app [description]

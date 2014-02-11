@@ -880,6 +880,7 @@ var Application = function() {
 		this.eventsLegendWidget = new EventsLegendWidget(this);
 		this.pageTitleWidget = new PageTitleWidget(this);
 		this.eventsDrawWidget = new EventsDrawWidget(this);
+		this.dictionaryManager = new DictionaryManager(this);
 		
 		this.regionsSelectorWidget = new RegionsSelectorWidget(this);
 		this.paramsSelectorWidget = new ParamsSelectorWidget(this);

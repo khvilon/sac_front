@@ -5,7 +5,7 @@ var ConfigApp = {
 		"MAP": "/static/images/map/",
 		"MINI-MAP": "/static/images/mini/"
 	},
-	"API-HOST": "http://localhost:3000",
+	"API-HOST": "http://192.168.1.110:3000",
 	"FOOTER-NAV": {
 		"MAP": {
 			"title": "округа"

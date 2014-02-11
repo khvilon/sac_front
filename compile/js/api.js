@@ -2062,7 +2062,7 @@ var ReportsParamsSelector = function(app) {
 	this.initScroll_();
 	this.bindEvents_();
 
-	this.app.regionsManagerLocal.getRegions($.proxy(this.onResponseRegions_, this));
+	//this.app.dictionaryManager.getAll($.proxy(this.onResponseRegions_, this));
 	this.app.ageSelectorReportsWidget.draw();
 }
 
@@ -2164,23 +2164,6 @@ var ReportsDiscSelector = function(app) {
 		var self = this;
 		var contentPane = this.scrollApi.getContentPane();
 
-		params = [
-			{
-				id: "1",
-				name: "test1"
-			},
-			{
-				id: "2",
-				name: "test2"
-			},
-			{
-				id: "3",
-				name: "test3"
-			}
-		]
-
-		console.log(params);
-
 		$.each(params, function(key, value) {
 			var elementCurrentGroup = $("ul[data-id='"+value.id+"']", self.CSS["DATA-PLACE"]);
 			if(elementCurrentGroup.size() == 0) {
@@ -2275,18 +2258,10 @@ var ReportsDiscSelector = function(app) {
 		hiddenParentList($(this.CSS["PARAMETRS-LIST"]).find(".jspPane > ul > li"));
 	}
 
-	this.onResponseRegions_ = function(regions) {
-		var ids = [];
-		$.each(regions, function(key, value) {
-			ids.push(value.id);
-		});
-		this.updateParams(ids, 2012);
-	}
-
 	this.initScroll_();
 	this.bindEvents_();
 
-	this.app.regionsManagerLocal.getRegions($.proxy(this.onResponseRegions_, this));
+	this.app.dictionaryManager.getAll($.proxy(this.drawParamets_, this));
 }
 
 
