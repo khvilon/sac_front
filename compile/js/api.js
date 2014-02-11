@@ -1852,10 +1852,11 @@ var ReportsParamsSelector = function(app) {
 		"MAIN": "#reports-params-selector",
 		"HIDDEN": "hidden",
 		"SHOW": "#graph-nav-show",
-		"DATA": "#graph-data",
+		"DATA": "#reports-params-data-place",
 		"DATA-HIDDEN": "#graph-data-hidden",
 		"DATA-PLACE": "#reports-params-data-place",
 		"LOAD": "#load",
+		"FILTER": "#fff",
 		"AGE-SELECT": "#reposrts-params-age-selected"
 	};
 
@@ -1866,7 +1867,7 @@ var ReportsParamsSelector = function(app) {
 		"DATA-HIDDEN": $(this.CSS["DATA-HIDDEN"]),
 		"DATA-PLACE": $(this.CSS["DATA-PLACE"]),
 		"AGE-SELECT": $(this.CSS["AGE-SELECT"]),
-		"FILTER":  $(this.CSS["DATA"]).find("input")
+		"FILTER":  $(this.CSS["FILTER"])
 	}
 
 	this.isDataShow = false;
@@ -1896,13 +1897,31 @@ var ReportsParamsSelector = function(app) {
 	}
 
 	this.bindEvents_ = function() {
+		var self = this;
 		this.elements["SHOW"].on("click", $.proxy(this.onShowClick_, this));
 		this.elements["DATA-HIDDEN"].on("click", $.proxy(this.onHiddenClick_, this));
 
 		$(this.CSS["DATA-PLACE"]).on("click", ".graph-params-checkbox" , $.proxy(this.onParamClick_, this));
 		$(this.CSS["DATA-PLACE"]).on("click", ".graph-params-name", $.proxy(this.onParamNameClick_, this));
 
-		this.elements["FILTER"].on("keyup", $.proxy(this.onFilterClick_, this));
+		this.elements["FILTER"].keyup(function() {
+			var filterValue = self.elements["FILTER"].val();
+
+			if(filterValue.length > 0) {
+				var elements = $(self.CSS["DATA"]).find("li");
+				console.log(elements);
+				$.each(elements, function(key, value) {
+					var elem = $(value).attr("data-name");
+					if(elem.toLowerCase().indexOf(filterValue.toLowerCase()) == -1) {
+						$(value).addClass("hidde");
+					} else {
+						$(value).removeClass("hidde");
+					}
+				});
+			} else {
+				self.clearFilter_();
+			}
+		});
 	}
 
 	this.onShowClick_ = function(evt) {
@@ -1932,7 +1951,7 @@ var ReportsParamsSelector = function(app) {
 		);
 	}
 
-	this.drawParamets_ = function(params) {
+	this.drawParamets_ = function() {
 		if(!this.scrollApi) {
 			this.initScroll_();
 		}
@@ -1943,24 +1962,22 @@ var ReportsParamsSelector = function(app) {
 		params = [
 			{
 				id: "1",
-				name: "test1"
+				name: "Отчет 1"
 			},
 			{
 				id: "2",
-				name: "test2"
+				name: "Отчет 2"
 			},
 			{
 				id: "3",
-				name: "test3"
+				name: "Отчет 3"
 			}
 		]
-
-		console.log(params);
 
 		$.each(params, function(key, value) {
 			var elementCurrentGroup = $("ul[data-id='"+value.id+"']", self.CSS["DATA-PLACE"]);
 			if(elementCurrentGroup.size() == 0) {
-				var html =  "<ul data-id='"+value.id+"' class='first'><li class='first-li'>";
+				var html =  "<ul data-id='"+value.id+"' class='first'><li data-name='"+value.name+"'>";
 					html += "<span class='group graph-params-name'>"+value.name+"</span>";
 					html += "<ul class='itemShow'></ul></li></ul>";
 
@@ -2062,7 +2079,7 @@ var ReportsParamsSelector = function(app) {
 	this.initScroll_();
 	this.bindEvents_();
 
-	//this.app.dictionaryManager.getAll($.proxy(this.onResponseRegions_, this));
+	this.drawParamets_();
 	this.app.ageSelectorReportsWidget.draw();
 }
 
@@ -2080,6 +2097,7 @@ var ReportsDiscSelector = function(app) {
 		"DATA-HIDDEN": "#graph-data-hidden",
 		"DATA-PLACE": "#reports-disc-data-place",
 		"LOAD": "#load",
+		"FILTER": "#ff",
 		"AGE-SELECT": "#reposrts-disc-age-selected"
 	};
 
@@ -2090,7 +2108,7 @@ var ReportsDiscSelector = function(app) {
 		"DATA-HIDDEN": $(this.CSS["DATA-HIDDEN"]),
 		"DATA-PLACE": $(this.CSS["DATA-PLACE"]),
 		"AGE-SELECT": $(this.CSS["AGE-SELECT"]),
-		"FILTER":  $(this.CSS["DATA"]).find("input")
+		"FILTER":  $(this.CSS["FILTER"])
 	}
 
 	this.isDataShow = false;
@@ -2098,6 +2116,18 @@ var ReportsDiscSelector = function(app) {
 	this.scrollApi = null;
 	this.onUpdateGraph = new signals.Signal();
 	this.onUpdateGraph.add(OnGraphUpdateEvent);
+
+	this.onFilterClick_ = function(evt) {
+		
+	}
+
+	this.clearFilter_ = function() {
+		$(this.CSS["PARAMETRS-LIST"]).find(".hidde").removeClass("hidde");
+	}
+
+	this.filteringParametrs = function(filterValue) {
+
+	}
 
 	this.initScroll_ = function() {
 		$(this.CSS["DATA-PLACE"]).jScrollPane(
@@ -2120,13 +2150,28 @@ var ReportsDiscSelector = function(app) {
 	}
 
 	this.bindEvents_ = function() {
-		this.elements["SHOW"].on("click", $.proxy(this.onShowClick_, this));
-		this.elements["DATA-HIDDEN"].on("click", $.proxy(this.onHiddenClick_, this));
-
-		$(this.CSS["DATA-PLACE"]).on("click", ".graph-params-checkbox" , $.proxy(this.onParamClick_, this));
+		var self = this;
+		//$(this.CSS["DATA-PLACE"]).on("click", ".graph-params-checkbox" , $.proxy(this.onParamClick_, this));
 		$(this.CSS["DATA-PLACE"]).on("click", ".graph-params-name", $.proxy(this.onParamNameClick_, this));
 
-		this.elements["FILTER"].on("keyup", $.proxy(this.onFilterClick_, this));
+		this.elements["FILTER"].keyup(function() {
+			var filterValue = self.elements["FILTER"].val();
+
+			if(filterValue.length > 0) {
+				var elements = $(self.CSS["DATA"]).find("li");
+				console.log(elements);
+				$.each(elements, function(key, value) {
+					var elem = $(value).attr("data-name");
+					if(elem.toLowerCase().indexOf(filterValue.toLowerCase()) == -1) {
+						$(value).addClass("hidde");
+					} else {
+						$(value).removeClass("hidde");
+					}
+				});
+			} else {
+				self.clearFilter_();
+			}
+		});
 	}
 
 	this.onShowClick_ = function(evt) {
@@ -2167,7 +2212,7 @@ var ReportsDiscSelector = function(app) {
 		$.each(params, function(key, value) {
 			var elementCurrentGroup = $("ul[data-id='"+value.id+"']", self.CSS["DATA-PLACE"]);
 			if(elementCurrentGroup.size() == 0) {
-				var html =  "<ul data-id='"+value.id+"' class='first'><li class='first-li'>";
+				var html =  "<ul data-id='"+value.id+"' class='first'><li data-name='"+value.name+"'>";
 					html += "<span class='group graph-params-name'>"+value.name+"</span>";
 					html += "<ul class='itemShow'></ul></li></ul>";
 
