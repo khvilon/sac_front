@@ -338,7 +338,7 @@ var ConfigApp = {
 	  "/static/video/23-in.mp4",
 	  "/static/video/23-out.mp4",
 	  "/static/video/24-in.mp4",
-	  "/static/video/24-out.mp4",*/
+	  "/static/video/24-out.mp4",
 	  "/static/video/25-in.mp4",
 	  "/static/video/25-out.mp4",
 	  "/static/video/26-in.mp4",
@@ -756,7 +756,7 @@ var ConfigManager = function(app, config) {
 	this.config = config;
 
 	this.getMapById = function(id_region) {
-		return this.app.getResByPath(this.config["PATHES"]["MAP"]+id_region+".jpg").toURL();
+		return this.app.getResByPath(this.config["PATHES"]["MAP"]+id_region+".jpg");
 	}
 
 	this.getMiniMapById = function(id_region) {
@@ -770,13 +770,13 @@ var ConfigManager = function(app, config) {
 	this.getInVideoById = function(id_region) {
 		var res = this.app.getResByPath(this.config["PATHES"]["VIDEO"]+id_region+"-in.mp4");
 		if(res) {
-			return res.toURL();
+			return res;
 		} else {
 			return null;
 		}
 	}
 
 	this.getOutVideoById = function(id_region) {
-		return this.app.getResByPath(this.config["PATHES"]["VIDEO"]+id_region+"-out.mp4").toURL();
+		return this.app.getResByPath(this.config["PATHES"]["VIDEO"]+id_region+"-out.mp4");
 	}
 }

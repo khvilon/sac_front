@@ -410,7 +410,7 @@ var RegionPanel = function(app) {
 	this.svgWriter = new SVGLoader(this);
 
 	this.getBgCurrentCamera = function() {
-		return this.app.getResByPath(ConfigApp["REGIONS"][this.currentCamera]["MAP"]).toURL();
+		return this.app.getResByPath(ConfigApp["REGIONS"][this.currentCamera]["MAP"]) ;
 	}
 
 	this.getSVGCurrentCamera = function() {
@@ -499,9 +499,8 @@ var RegionPanel = function(app) {
 			startState = "RIGHT";
 			endState = "CENTER";
 		}
-
 		this.app.videoPlayer.play(
-			this.app.getResByPath(this.getVideoName(startState, endState)).toURL(),
+			this.app.getResByPath(this.getVideoName(startState, endState)) ,
 			{
 				onEndedCallback: $.proxy(this.onVideoPlayEnd_, this),
 				poster: this.bgImage	
@@ -547,9 +546,8 @@ var RegionPanel = function(app) {
 			startState = "LEFT";
 			endState = "CENTER";
 		}
-
 		this.app.videoPlayer.play(
-			this.app.getResByPath(this.getVideoName(startState, endState)).toURL(),
+			this.app.getResByPath(this.getVideoName(startState, endState)) ,
 			{
 				onEndedCallback: $.proxy(this.onVideoPlayEnd_, this),
 				poster: this.bgImage	
@@ -747,7 +745,8 @@ var Application = function() {
 	var self = this;
 
 	this.getResByPath = function(path) {
-		return this.res[path];
+		console.log(path);
+		return path;
 	}
 	
 	this.CSS = {
