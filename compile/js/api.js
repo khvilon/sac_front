@@ -2117,16 +2117,8 @@ var ReportsDiscSelector = function(app) {
 	this.onUpdateGraph = new signals.Signal();
 	this.onUpdateGraph.add(OnGraphUpdateEvent);
 
-	this.onFilterClick_ = function(evt) {
-		
-	}
-
 	this.clearFilter_ = function() {
 		$(this.CSS["PARAMETRS-LIST"]).find(".hidde").removeClass("hidde");
-	}
-
-	this.filteringParametrs = function(filterValue) {
-
 	}
 
 	this.initScroll_ = function() {
@@ -2151,7 +2143,7 @@ var ReportsDiscSelector = function(app) {
 
 	this.bindEvents_ = function() {
 		var self = this;
-		//$(this.CSS["DATA-PLACE"]).on("click", ".graph-params-checkbox" , $.proxy(this.onParamClick_, this));
+
 		$(this.CSS["DATA-PLACE"]).on("click", ".graph-params-name", $.proxy(this.onParamNameClick_, this));
 
 		this.elements["FILTER"].keyup(function() {
@@ -2246,7 +2238,7 @@ var ReportsDiscSelector = function(app) {
 	this.onParamClick_ = function(evt) {
 		var current = $(evt.target);
 		var parent = $(evt.target).parent();
-
+		console.log(parent.parent());
 		$(evt.target).toggleClass("current");
 
 		if(current.hasClass("current")) {
@@ -2256,11 +2248,15 @@ var ReportsDiscSelector = function(app) {
 		}
 
 		$(this.CSS["LOAD"]).addClass("onShow");
-		this.onUpdateGraph.dispatch(this.app);
 	}
 
 	this.onParamNameClick_ = function(evt) {
-		$(evt.target).parent().find("ul").toggleClass("itemShow");
+		var current = $(evt.target);
+		var parent = $(evt.target).parent();
+		var id = parent.parent().attr("data-id");
+
+		this.app.reportsWidget.show();
+		this.app.reportsWidget.update(id);
 	}
 
 	this.getCurrentIds = function() {
@@ -2641,6 +2637,81 @@ var GraphWidget = function(app) {
 	}
 
 	this.bindEvents_();
+}
+
+/**
+ * [GraphWidget description]
+ * @param {[type]} app [description]
+ */
+var ReportsWidget = function(app) {
+	this.app = app;
+	this.scrollApi = null;
+
+	this.CSS = {
+		"MAIN": "#reports-content",
+		"HIDDEN": "hidden",
+		"LOAD": "#load",
+		"DATA-PLACE": "#reports-panel",
+		"DATES": "#reports-datas"
+	}
+
+	this.elements = {
+		"MAIN": $(this.CSS["MAIN"]),
+		"DATA-BEGIN": $(this.CSS["DATA-BEGIN"]),
+		"DATA-END": $(this.CSS["DATA-END"]),
+		"DATA-PLACE": $(this.CSS["DATA-PLACE"]),
+		"BUTTONS": $(this.CSS["BUTTONS"], this.CSS["MAIN"])
+	}
+
+	this.show = function() {
+		this.elements["MAIN"].removeClass(this.CSS["HIDDEN"]);
+	}
+
+	this.hidden = function() {
+		this.elements["MAIN"].addClass(this.CSS["HIDDEN"]);
+	}
+
+	this.showGraph = function() {
+		$(".legend_button").removeClass("current");
+		$(".graph_button").addClass("current");
+		$(".flot-base, .flot-text, .flot-overlay").show();
+		$("#graph-content .legend").hide();
+		this.state = 1;
+	}
+
+	this.update = function(id) {
+		var self = this;
+		this.app.dictionaryManager.getById(id, function(data) {
+			var contentPane = app.reportsWidget.scrollApi.getContentPane();
+			var self = this;
+			var main = app.reportsWidget.elements["MAIN"].find("tbody");
+
+			main.html("");
+			$.each(data, function(key, value) {
+				console.log(value);
+				var html = "<tr>";
+				html += '<td>'+value.name+'</td>';
+				html += "</tr>";
+				main.append(html);
+			});
+			app.reportsWidget.scrollApi.reinitialise();
+			console.log(app.reportsWidget.scrollApi);
+		});
+	}
+
+	this.initScroll_ = function() {
+		$(this.CSS["DATA-PLACE"]).jScrollPane(
+			{
+				showArrows: true,
+				verticalDragMinHeight: 60,
+	    		verticalDragMaxHeight: 60,
+	    		autoReinitialise: true
+			}
+		);
+		this.scrollApi = this.elements["DATA-PLACE"].data('jsp');
+	}
+
+	this.initScroll_();
 }
 
 /**

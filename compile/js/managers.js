@@ -154,6 +154,16 @@ var DictionaryManager = function(app) {
 				success: callback
 			}
 		);
+	},
+	this.getById = function(id, callback) {
+		$.ajax(
+			{
+				url: this.app.apiHost + "/dictionary/"+id,
+				type: "GET",
+				success: callback
+			}
+		);
+
 	}
 }
 

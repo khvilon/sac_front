@@ -865,6 +865,21 @@ header h1
   top:155px;
   z-index:200;
 }
+#content #reports-content
+{
+  position:absolute;
+  background:url(/static/images/formats/table.png) center center no-repeat;
+  height:830px;
+  width:1130px; 
+  left:420px;
+  top:155px;
+  z-index:200;
+
+  -moz-transition:all 1s linear;
+  -o-transition:all 1s linear;
+  -webkit-transition:all 1s linear;
+  transition:all 1s linear;
+}
 
 #content #event-content
 {
@@ -966,18 +981,21 @@ header h1
 
 #format-data.hidden, 
 #graph-content.hidden,
-#event-content.hidden
+#event-content.hidden,
+#reports-content.hidden
 {
   top:1200px!important;
 }
 
-#table-format
+#table-format,
+#reports-panel
 {
   overflow:auto;
   height:670px;
   margin:85px 13px 75px 35px;
 }
-#table-format th {
+#table-format th,
+#reports-panel th {
   color: #ffffff;
   font-size: 20px;
   font-family: NeoSansPro-Light;
@@ -985,7 +1003,8 @@ header h1
   padding: 4px;
 
 }
-#table-format .jspVerticalBar
+#table-format .jspVerticalBar,
+#reports-panel  .jspVerticalBar
 {
   background:url(/static/images/formats/s3.png) left top no-repeat;
 }

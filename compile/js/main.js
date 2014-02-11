@@ -380,6 +380,7 @@ var ReportsPanel = function(app) {
 	this.hidden = function() {
 		this.app.reportsParamsSelector.hidden();
 		this.app.reportsDiscSelector.hidden();
+		this.app.reportsWidget.hidden();
 		//this.app.graphRegionsSelectorWidget.hidden();
 		//this.app.graphWidget.hidden();
 	}
@@ -891,6 +892,7 @@ var Application = function() {
 		this.graphRegionsSelectorWidget = new GraphRegionsSelectorWidget(this);
 		this.reportsParamsSelector = new ReportsParamsSelector(this);
 		this.reportsDiscSelector = new ReportsDiscSelector(this);
+		this.reportsWidget = new ReportsWidget(this);
 
 		this.regionsMapColorWidget = new RegionsMapColorWidget(this);
 		
