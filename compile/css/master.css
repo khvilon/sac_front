@@ -1070,7 +1070,8 @@ header h1
 #params-selector, 
 #graph-selector,
 #graph-data,
-#reports-params-selector
+#reports-params-selector,
+#reports-disc-selector
 {
   position:relative;
   right:0;
@@ -1078,6 +1079,13 @@ header h1
   -o-transition:all 1s linear;
   -webkit-transition:all 1s linear;
   transition:all 1s linear;
+}
+#reports-disc-selector {
+  left: 0px !important;
+  right: auto !important;
+}
+#reports-disc-selector.hidden {
+  left: -375px !important;
 }
 #regions-params .data .scroll {
   max-height: 500px !important;
@@ -1314,4 +1322,13 @@ label {
 }
 #parametrs-widget.data #param-info {
   top: 95px !important;
+}
+
+#reports-disc-selector .data.region .search {
+  margin-top: -10px !important;
+  position: relative;
+  top: -5px;
+}
+#reports-disc-selector .data ul.first {
+  margin-left: 0px !important;
 }

@@ -372,12 +372,14 @@ var ReportsPanel = function(app) {
 	this.show = function() {
 		console.log("gf");
 		this.app.reportsParamsSelector.show();
+		this.app.reportsDiscSelector.show();
 		//this.app.graphRegionsSelectorWidget.show();
 		//this.app.graphWidget.show();
 	}
 
 	this.hidden = function() {
 		this.app.reportsParamsSelector.hidden();
+		this.app.reportsDiscSelector.hidden();
 		//this.app.graphRegionsSelectorWidget.hidden();
 		//this.app.graphWidget.hidden();
 	}
@@ -861,6 +863,12 @@ var Application = function() {
 			selectedYear: 2012,
 			container: "#regions_age_select"
 		});
+		this.ageSelectorReportsWidget = new YearSelectWidget(this, {
+			years: [2014, 2013, 2012, 2011, 2010, 2009, 2008],
+			selectedYear: 2012,
+			container: "#reposrts-params-age-selected",
+			onAfterYearSelected: $.proxy(this.onFormatUpdateContentEventBind_, this)
+		});
 		this.parametrsWidgets = new ParametrsWidgets(this);
 		this.eventLegendWidgets = new EventLegendWidgets(this);
 		this.eventRightWidgets = new EventRightWidgets(this);
@@ -881,6 +889,7 @@ var Application = function() {
 		this.graphParamsSelector = new GraphParamsSelector(this);
 		this.graphRegionsSelectorWidget = new GraphRegionsSelectorWidget(this);
 		this.reportsParamsSelector = new ReportsParamsSelector(this);
+		this.reportsDiscSelector = new ReportsDiscSelector(this);
 
 		this.regionsMapColorWidget = new RegionsMapColorWidget(this);
 		
