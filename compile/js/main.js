@@ -745,8 +745,7 @@ var Application = function() {
 	var self = this;
 
 	this.getResByPath = function(path) {
-		console.log(path);
-		return path;
+		return this.res[path];
 	}
 	
 	this.CSS = {
