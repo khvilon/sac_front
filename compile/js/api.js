@@ -384,7 +384,7 @@ var ParametrsWidgets = function(app) {
 				this.app.currentRegion,
 				$.proxy(this.getLegendByParamAndSubjectCallback, this)
 			);
-			*/
+				*/
 		} else {
 			/*$(this.CSS["PARAMETRS-LIST"]).find(".active").removeClass("active");
 			this.setTitle("");
@@ -1062,14 +1062,12 @@ var MapColorel = function(app) {
 		"IMAGE": $(this.CSS["CONTAINER"]).find("img")
 	}
 
-
 	this.colored = function(params_id, region_id, year, callback) {
 		var self = this;
 		var mapPath = this.app.apiHost+this.ajaxPath+params_id+"/"+region_id+"/"+year+"/map";
 
-		if(this.isShowed) {
-			this.elements["CONTAINER"].removeClass("onShow");
-		}
+		this.elements["CONTAINER"].removeClass("onShow");
+
 		$.ajax({ url: mapPath }).always(function(data) {
 			self.onGetMapLink_(data, callback);
 		});
@@ -1077,17 +1075,20 @@ var MapColorel = function(app) {
 
 	this.onGetMapLink_ = function(data, callback) {
 		var link = data.responseText;
-		var self = this;
-		var image = new Image();
+		if(link != "add values or maps for region") {
+			var self = this;
+			var image = new Image();
+			
+	        image.src = self.app.apiHost+link;
 
-        image.src = self.app.apiHost+link;
-
-        image.onload = function() {
-    		self.elements["CONTAINER"].css("backgroundImage", "url('"+self.app.apiHost+link+"')");
-    		if(callback) {
-        		callback();
-			}
-        }
+	        image.onload = function() {
+	        	self.elements["CONTAINER"].addClass("onShow");
+	        	self.elements["CONTAINER"].css("backgroundImage", "url('"+self.app.apiHost+link+"')");
+	    		if(callback) {
+	        		callback();
+				}
+	        }	
+		}
 	}
 
 	this.show = function() {
@@ -1154,7 +1155,6 @@ var RegionsMapColorel = function(app) {
         image.src = self.app.apiHost+link;
 
         image.onload = function() {
-        	console.log(self.app.apiHost+link);
         	self.app.regionPanel.setBg(self.app.apiHost+link);
 			self.elements["CONTAINER"].addClass("onShow");
 			//$(self.CSS["LOAD"]).removeClass("onShow");

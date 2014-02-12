@@ -83,14 +83,16 @@ var SVGLoader = function(app, config) {
 				"fill-opacity": self.maxOpacity
 			});
 
-			self.app.legendManager.getLegendByParamAndSubject(
-				self.app.parametrsWidgets.currentParametr.id, 
-				$(this).attr("target"),
-				function(data) {
-					self.app.legendWidget.setLevelText(data);
-					self.app.legendWidget.show();
-				}
-			);
+			if(self.app.parametrsWidgets.currentParametr && self.app.parametrsWidgets.currentParametr.id) {
+				self.app.legendManager.getLegendByParamAndSubject(
+					self.app.parametrsWidgets.currentParametr.id, 
+					$(this).attr("target"),
+					function(data) {
+						self.app.legendWidget.setLevelText(data);
+						self.app.legendWidget.show();
+					}
+				);	
+			}
 		});
 		groups.on("mouseout", function() {
 			var paths = $(this).stop().find("path");

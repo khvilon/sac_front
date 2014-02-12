@@ -93,7 +93,7 @@ var OnDistrictChangeState = function(app, mapStateManager, video_id, currentRegi
 
 		this.mapStateManager.SVGWriter.show();
 		this.app.mapStateManager.show();
-		this.app.mapColorel.show();
+		//this.app.mapColorel.show();
 		this.app.videoPlayer.hide();
 		
 		if(this.app.mapStateManager.onAfterStateChange) {
