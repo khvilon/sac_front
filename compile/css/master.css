@@ -994,6 +994,10 @@ header h1
   height:670px;
   margin:85px 13px 75px 35px;
 }
+#report-pdf {
+  height:670px;
+  margin:85px 13px 75px 35px;
+}
 #table-format th,
 #reports-panel th {
   color: #ffffff;

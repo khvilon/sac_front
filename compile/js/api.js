@@ -1962,15 +1962,13 @@ var ReportsParamsSelector = function(app) {
 		params = [
 			{
 				id: "1",
-				name: "Отчет 1"
+				name: "Заболеваемость всего населения по классам, группам болезней и отдельным заболеваниям с диагнозом, установленным впервые в жизни, по субъектам Российской Федерации за 2011-2012гг",
+				link: "/static/pdf/1.pdf"
 			},
 			{
 				id: "2",
-				name: "Отчет 2"
-			},
-			{
-				id: "3",
-				name: "Отчет 3"
+				name: "Сведения о параметрах реализации приоритетного национального проекта 'Здоровье' Министерство здравоохранения и социального развития Российской Федерации на 1 апреля 2012 г.",
+				link: "/static/pdf/2.pdf"
 			}
 		]
 
@@ -1978,12 +1976,22 @@ var ReportsParamsSelector = function(app) {
 			var elementCurrentGroup = $("ul[data-id='"+value.id+"']", self.CSS["DATA-PLACE"]);
 			if(elementCurrentGroup.size() == 0) {
 				var html =  "<ul data-id='"+value.id+"' class='first'><li data-name='"+value.name+"'>";
-					html += "<span class='group graph-params-name'>"+value.name+"</span>";
-					html += "<ul class='itemShow'></ul></li></ul>";
+					html += "<span link="+value.link+" class='link_click_pdf group graph-params-name'>"+value.name+"</span>";
 
 				contentPane.append(html);
 			}
 		});
+
+		$(".link_click_pdf").on("click", function() {
+			self.app.reportsWidget.show();
+
+			$("#report-pdf").html('<object width="100%" type="application/pdf" height="670px" src="'+$(this).attr("link")+'""></object>');
+			$("#reports-panel").hide();
+			
+			$("#report-pdf").show();
+			
+		});
+
 		this.scrollApi.reinitialise();
 	}
 
@@ -2151,7 +2159,6 @@ var ReportsDiscSelector = function(app) {
 
 			if(filterValue.length > 0) {
 				var elements = $(self.CSS["DATA"]).find("li");
-				console.log(elements);
 				$.each(elements, function(key, value) {
 					var elem = $(value).attr("data-name");
 					if(elem.toLowerCase().indexOf(filterValue.toLowerCase()) == -1) {
@@ -2254,6 +2261,9 @@ var ReportsDiscSelector = function(app) {
 		var current = $(evt.target);
 		var parent = $(evt.target).parent();
 		var id = parent.parent().attr("data-id");
+
+		$("#reports-panel").show();
+		$("#report-pdf").hide();
 
 		this.app.reportsWidget.show();
 		this.app.reportsWidget.update(id);
