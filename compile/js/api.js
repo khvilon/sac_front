@@ -2688,9 +2688,22 @@ var ReportsWidget = function(app) {
 
 			main.html("");
 			$.each(data, function(key, value) {
-				console.log(value);
+				if(!value.region_name && value.district_name) {
+					value.region_name = value.district_name;	
+				}
+				if(!value.region_name && value.short_name) {
+					value.region_name = value.short_name;	
+				}
+				if(!value.region_name && value.group_name) {
+					value.region_name = value.group_name;	
+				}
+				
 				var html = "<tr>";
 				html += '<td>'+value.name+'</td>';
+				if(value.region_name) {
+					html += '<td>'+value.region_name+"</td>";
+				}
+				console.log(value);
 				html += "</tr>";
 				main.append(html);
 			});
