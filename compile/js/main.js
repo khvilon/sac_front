@@ -82,12 +82,23 @@ var SVGLoader = function(app, config) {
 			paths.attr({
 				"fill-opacity": self.maxOpacity
 			});
+
+			self.app.legendManager.getLegendByParamAndSubject(
+				self.app.parametrsWidgets.currentParametr.id, 
+				$(this).attr("target"),
+				function(data) {
+					self.app.legendWidget.setLevelText(data);
+					self.app.legendWidget.show();
+				}
+			);
 		});
 		groups.on("mouseout", function() {
 			var paths = $(this).stop().find("path");
 			paths.attr({
 				"fill-opacity": self.minOpacity
 			});
+
+			self.app.legendWidget.hide();
 		});
 
 		if(this.onGroupClick) {
@@ -682,6 +693,8 @@ var MapStateManager = function(app) {
 		this.app.prevState();
 
 		this.OnDistrictChangeState.dispatch(this.app, this, outVideo);
+
+		this.app.legendWidget.hide();
 	}
 
 	this.clear = function() {
@@ -696,7 +709,9 @@ var MapStateManager = function(app) {
 
 	this.onSvgClick_ = function(evt) {
 		var newIdRegion = $(evt.target).parent().attr("target");
+
 		if(newIdRegion) {
+			this.app.legendWidget.hide();
 			var inVideo = this.app.configManager.getInVideoById(newIdRegion);
 			if(inVideo) {
 				this.onBeforeVideoPlay_();
@@ -745,7 +760,7 @@ var Application = function() {
 	var self = this;
 
 	this.getResByPath = function(path) {
-		return this.res[path];
+		return path;
 	}
 	
 	this.CSS = {

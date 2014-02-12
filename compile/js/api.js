@@ -378,11 +378,13 @@ var ParametrsWidgets = function(app) {
 					self.elements["UOM"].html("");
 				}
 			});
+			/*
 			this.app.legendManager.getLegendByParamAndSubject(
 				this.currentParametr.id, 
 				this.app.currentRegion,
 				$.proxy(this.getLegendByParamAndSubjectCallback, this)
 			);
+			*/
 		} else {
 			/*$(this.CSS["PARAMETRS-LIST"]).find(".active").removeClass("active");
 			this.setTitle("");
