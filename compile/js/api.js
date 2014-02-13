@@ -379,13 +379,33 @@ var ParametrsWidgets = function(app) {
 					self.elements["UOM"].html("");
 				}
 			});
-			/*
-			this.app.legendManager.getLegendByParamAndSubject(
+			
+			this.app.legendParamsManager.getLegendByParamAndSubject(
 				this.currentParametr.id, 
 				this.app.currentRegion,
-				$.proxy(this.getLegendByParamAndSubjectCallback, this)
+				this.app.ageSelectorWidget.selectedYear,
+				function(data) {
+					var newData = {};
+					newData["green"] = [0];
+					newData["yellow"] = [0];
+					newData["red"] = [0];
+
+					$.each(data, function(value, key){
+						if(key == "#7fff7f") {
+							newData["green"][0] += 1; 
+						}
+						if(key == "#ff7f7f") {
+							newData["red"][0] += 1; 
+						}
+						if(key == "#ffff7f") {
+							newData["yellow"][0] += 1; 
+						}
+					});
+					self.legendWidget.setLevelText(newData);
+					self.legendWidget.show();
+				}
 			);
-				*/
+				
 		} else {
 			/*$(this.CSS["PARAMETRS-LIST"]).find(".active").removeClass("active");
 			this.setTitle("");
@@ -788,6 +808,9 @@ var LegendService = function(app) {
 					string += "-";
 				}
 				string += parseInt(data[colorName][1]);
+			}
+			if(string == "") {
+				string = "0";
 			}
 			$(element).html(string);
 		}
@@ -1911,8 +1934,7 @@ var ReportsParamsSelector = function(app) {
 			var filterValue = self.elements["FILTER"].val();
 
 			if(filterValue.length > 0) {
-				var elements = $(self.CSS["DATA"]).find("li");
-				console.log(elements);
+				var elements = $(self.CSS["DATA"]).find("li")
 				$.each(elements, function(key, value) {
 					var elem = $(value).attr("data-name");
 					if(elem.toLowerCase().indexOf(filterValue.toLowerCase()) == -1) {
@@ -2252,7 +2274,6 @@ var ReportsDiscSelector = function(app) {
 	this.onParamClick_ = function(evt) {
 		var current = $(evt.target);
 		var parent = $(evt.target).parent();
-		console.log(parent.parent());
 		$(evt.target).toggleClass("current");
 
 		if(current.hasClass("current")) {
@@ -2720,12 +2741,10 @@ var ReportsWidget = function(app) {
 				if(value.region_name) {
 					html += '<td>'+value.region_name+"</td>";
 				}
-				console.log(value);
 				html += "</tr>";
 				main.append(html);
 			});
 			app.reportsWidget.scrollApi.reinitialise();
-			console.log(app.reportsWidget.scrollApi);
 		});
 	}
 

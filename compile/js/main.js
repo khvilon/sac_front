@@ -903,6 +903,7 @@ var Application = function() {
 		this.pageTitleWidget = new PageTitleWidget(this);
 		this.eventsDrawWidget = new EventsDrawWidget(this);
 		this.dictionaryManager = new DictionaryManager(this);
+		this.legendParamsManager = new LegendParamsManager(this);
 		
 		this.regionsSelectorWidget = new RegionsSelectorWidget(this);
 		this.paramsSelectorWidget = new ParamsSelectorWidget(this);

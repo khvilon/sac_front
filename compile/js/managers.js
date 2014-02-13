@@ -40,6 +40,15 @@ var LegendManager = function(app) {
 	}
 }
 
+var LegendParamsManager = function(app) {
+	this.app = app;
+	this.ajaxPath = "/color_and_subject_list/";
+
+	this.getLegendByParamAndSubject = function(param_id, subject_id, age, callback) {
+		$.get(this.app.apiHost + this.ajaxPath + param_id + "/" + subject_id + "/" + age, callback);
+	}
+}
+
 
 /**
  * [ParamsManager description]
