@@ -2539,18 +2539,44 @@ var GraphWidget = function(app) {
 		"BUTTONS": $(this.CSS["BUTTONS"], this.CSS["MAIN"])
 	}
 
+	var self = this;
+
 	this.ageSelectorGraphStartWidget = new YearSelectWidget(this, {
 		years: [2008, 2009, 2010, 2011, 2012, 2013, 2014],
 		selectedYear: 2008,
 		container: "#graph-datas-begin",
-		onAfterYearSelected: $.proxy(this.onUpdateGraphDispather_, this)
+		onAfterYearSelected: function() {
+			self.app.graphManager.getGraph(
+				self.app.graphRegionsSelectorWidget.getCurrentIds(),
+				self.app.graphParamsSelector.getCurrentIds(),
+				self.app.graphWidget.getBeginData(),
+				self.app.graphWidget.getEndData(),
+				function(data) {
+					$(self.app.graphWidget.CSS["LOAD"]).removeClass("onShow");
+					self.app.graphWidget.showGraph();
+					self.app.graphWidget.updateContent(data);
+				}
+			);
+		}
 	});
 
 	this.ageSelectorGraphEndWidget = new YearSelectWidget(this, {
 		years: [2008, 2009, 2010, 2011, 2012, 2013, 2014],
 		selectedYear: 2012,
 		container: "#graph-datas-end",
-		onAfterYearSelected: $.proxy(this.onUpdateGraphDispather_, this)
+		onAfterYearSelected: function() {
+			self.app.graphManager.getGraph(
+				self.app.graphRegionsSelectorWidget.getCurrentIds(),
+				self.app.graphParamsSelector.getCurrentIds(),
+				self.app.graphWidget.getBeginData(),
+				self.app.graphWidget.getEndData(),
+				function(data) {
+					$(self.app.graphWidget.CSS["LOAD"]).removeClass("onShow");
+					self.app.graphWidget.showGraph();
+					self.app.graphWidget.updateContent(data);
+				}
+			);
+		}
 	});
 
 	this.ageSelectorGraphStartWidget.draw();
