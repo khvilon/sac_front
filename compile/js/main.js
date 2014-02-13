@@ -99,8 +99,6 @@ var SVGLoader = function(app, config) {
 			paths.attr({
 				"fill-opacity": self.minOpacity
 			});
-
-			self.app.legendWidget.hide();
 		});
 
 		if(this.onGroupClick) {
@@ -679,6 +677,8 @@ var MapStateManager = function(app) {
 		this.app.mapColorWidget.updateParams();
 		this.SVGWriter.load(this.app.configManager.getSvgById(this.app.currentRegion));
 		this.app.parametrsWidgets.getParamsByRegionAndYeage(this.app.currentRegion);
+
+		this.app.legendWidget.show();
 	}
 
 	this.setBgImage = function(bgImageLoaded) {
