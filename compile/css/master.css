@@ -1226,6 +1226,8 @@ header h1
   overflow-y: auto;
   background: none;
   width: 100% !important;
+  bottom: auto !important;
+  left: 0px !important;
 }
 #graph-panel .legend table {
   position: static !important;
