@@ -2541,6 +2541,7 @@ var GraphWidget = function(app) {
 
 	var self = this;
 
+	/*
 	this.ageSelectorGraphStartWidget = new YearSelectWidget(this, {
 		years: [2008, 2009, 2010, 2011, 2012, 2013, 2014],
 		selectedYear: 2008,
@@ -2581,6 +2582,69 @@ var GraphWidget = function(app) {
 
 	this.ageSelectorGraphStartWidget.draw();
 	this.ageSelectorGraphEndWidget.draw();
+	*/
+
+	this.elements["DATA-BEGIN"].on("keyup", function() {
+		$(self.app.graphWidget.CSS["LOAD"]).addClass("onShow");
+
+		self.app.graphManager.getGraph(
+			self.app.graphRegionsSelectorWidget.getCurrentIds(),
+			self.app.graphParamsSelector.getCurrentIds(),
+			self.app.graphWidget.getBeginData(),
+			self.app.graphWidget.getEndData(),
+			function(data) {
+				$(self.app.graphWidget.CSS["LOAD"]).removeClass("onShow");
+				self.app.graphWidget.showGraph();
+				self.app.graphWidget.updateContent(data);
+				$(self.app.graphWidget.CSS["LOAD"]).removeClass("onShow");
+			}
+		);
+	});
+
+	this.elements["DATA-END"].on("keyup", function() {
+		$(self.app.graphWidget.CSS["LOAD"]).addClass("onShow");
+
+		self.app.graphManager.getGraph(
+			self.app.graphRegionsSelectorWidget.getCurrentIds(),
+			self.app.graphParamsSelector.getCurrentIds(),
+			self.app.graphWidget.getBeginData(),
+			self.app.graphWidget.getEndData(),
+			function(data) {
+				$(self.app.graphWidget.CSS["LOAD"]).removeClass("onShow");
+				self.app.graphWidget.showGraph();
+				self.app.graphWidget.updateContent(data);
+				$(self.app.graphWidget.CSS["LOAD"]).removeClass("onShow");
+			}
+		);
+	});
+
+	$(".navss").on("click", function() {
+		var ids = $(this).attr("ids");
+		var state = $(this).attr("state");
+		var currentValue = parseInt($("#"+ids).val());
+
+		if(state == 1) {
+			$("#"+ids).val(currentValue - 1);
+		}
+		if(state == 2) {
+			$("#"+ids).val(currentValue + 1);
+		}
+
+		$(self.app.graphWidget.CSS["LOAD"]).addClass("onShow");
+
+		self.app.graphManager.getGraph(
+			self.app.graphRegionsSelectorWidget.getCurrentIds(),
+			self.app.graphParamsSelector.getCurrentIds(),
+			self.app.graphWidget.getBeginData(),
+			self.app.graphWidget.getEndData(),
+			function(data) {
+				$(self.app.graphWidget.CSS["LOAD"]).removeClass("onShow");
+				self.app.graphWidget.showGraph();
+				self.app.graphWidget.updateContent(data);
+				$(self.app.graphWidget.CSS["LOAD"]).removeClass("onShow");
+			}
+		);
+	});
 
 	this.onUpdateGraphDispather_ = function() {
 		this.onUpdateGraph.dispatch(this.app);
@@ -2693,11 +2757,11 @@ var GraphWidget = function(app) {
 	}
 
 	this.getBeginData = function() {
-		return this.ageSelectorGraphStartWidget.selectedYear;
+		return this.elements["DATA-BEGIN"].val();
 	}
 
 	this.getEndData = function() {
-		return this.ageSelectorGraphEndWidget.selectedYear;
+		return this.elements["DATA-END"].val();
 	}
 
 	this.bindEvents_();
