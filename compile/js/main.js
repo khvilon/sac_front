@@ -111,7 +111,7 @@ var SVGLoader = function(app, config) {
 
 		var svg = $(this.CSS["SVG"])[0].getSVGDocument();
 		var self = this;
-		console.log($(this.CSS["SVG"])[0].getSVGDocument());
+
 		$.each($(svg).find("g"), function(key, value) {
 			var id = $(value).attr("target");
 			if(id && data[id] != 0) {
@@ -635,6 +635,8 @@ var MapStateManager = function(app) {
 	this.regions = {};
 	this.currentRegionData = {};
 	this.stateElements["BG-IMAGE"] = $(this.stateCSS["BG-IMAGE"]);
+	this.level = 0;
+	this.maxLevel = 2;
 
 	this.addBlur = function() {
 		this.stateElements["BG-IMAGE"].addClass("blur");
@@ -687,6 +689,7 @@ var MapStateManager = function(app) {
 	}
 
 	this.onBack_ = function() {
+		this.level -= 1;
 		this.onBeforeVideoPlay_();
 
 		var outVideo = this.app.configManager.getOutVideoById(this.app.currentRegion);
@@ -712,9 +715,12 @@ var MapStateManager = function(app) {
 	this.onSvgClick_ = function(evt) {
 		var newIdRegion = $(evt.target).parent().attr("target");
 
-		if(newIdRegion) {
+		if(newIdRegion && this.level != this.maxLevel) {
 			this.app.legendWidget.hide();
+			this.level += 1;
+
 			var inVideo = this.app.configManager.getInVideoById(newIdRegion);
+
 			if(inVideo) {
 				this.onBeforeVideoPlay_();
 
