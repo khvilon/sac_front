@@ -2867,12 +2867,19 @@ var EventsDrawWidget = function(app) {
 	this.CSS = {
 		"MAIN": "#event-content",
 		"HIDDEN": "hidden",
-		"LOAD": "#load"
+		"LOAD": "#load",
+		"CLOSE": ".close"
 	}
 
 	this.elements = {
 		"MAIN": $(this.CSS["MAIN"]),
+		"CLOSE": $(this.CSS["MAIN"]).find(this.CSS["CLOSE"])
 	}
+
+	var self = this;
+	this.elements["CLOSE"].on("click", function() {
+		self.hidden();
+	});
 
 
 	this.show = function() {
@@ -2880,6 +2887,7 @@ var EventsDrawWidget = function(app) {
 	}
 
 	this.hidden = function() {
+		console.log("gf");
 		this.elements["MAIN"].addClass(this.CSS["HIDDEN"]);
 	}
 }

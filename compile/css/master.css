@@ -919,6 +919,10 @@ header h1
   z-index:200;
 }
 
+#content #event-content .inner {
+  position: relative;
+}
+
 #content .table table
 {
   width:1020px;
@@ -1420,4 +1424,18 @@ label {
   border-style: solid;
   border-width: 17.5px 0 17.5px 15px;
   border-color: transparent transparent transparent #ffffff;
+}
+
+.close {
+  background: url("../../images/cancel_32.png") left top no-repeat;
+  cursor: pointer;
+  display: block;
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  right: 25px;
+  top: -25px;
+
+  z-index: 20;
+   -webkit-filter: invert(100%);  
 }
