@@ -1985,13 +1985,17 @@ var ReportsParamsSelector = function(app) {
 		});
 
 		$(".link_click_pdf").on("click", function() {
-			self.app.reportsWidget.show();
+			$(self.CSS["LOAD"]).addClass("onShow");
+			var self2 = this;
+			setTimeout(function() {
+				$(self.CSS["LOAD"]).removeClass("onShow");
+				self.app.reportsWidget.show();
 
-			$("#report-pdf").html('<object width="100%" type="application/pdf" height="670px" src="'+$(this).attr("link")+'""></object>');
-			$("#reports-panel").hide();
-			
-			$("#report-pdf").show();
-			
+				$("#report-pdf").html('<object width="100%" type="application/pdf" height="670px" src="'+$(self2).attr("link")+'""></object>');
+				$("#reports-panel").hide();
+				
+				$("#report-pdf").show();
+			}, 3000);
 		});
 
 		this.scrollApi.reinitialise();
