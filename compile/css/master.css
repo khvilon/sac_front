@@ -578,13 +578,13 @@ header h1
 }
 
 #content .data .scroll li ul li:first-child,
-.regions-params li:first-child,
+#regions-params li:first-child,
 #reports-disc-selector li:first-child,
 #reports-params-selector li:first-child {
   border-top: 1px solid rgba(255, 255, 255, 0.5);
 }
 #content .data .scroll li ul li,
-.regions-params li
+#regions-params li,
 #reports-disc-selector li,
 #reports-params-selector li
 {

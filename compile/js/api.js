@@ -6,6 +6,7 @@ function hiddenParentList(list) {
 			$(value).addClass("hidde");
 		} else {
 			$(value).removeClass("hidde");
+			parentElements.find("ul").show();
 		}
 	});
 }
