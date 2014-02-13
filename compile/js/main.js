@@ -99,6 +99,38 @@ var SVGLoader = function(app, config) {
 			paths.attr({
 				"fill-opacity": self.minOpacity
 			});
+			
+			if(self.app.parametrsWidgets.currentParametr.id) {
+				self.app.legendParamsManager.getLegendByParamAndSubject(
+					self.app.parametrsWidgets.currentParametr.id, 
+					self.app.currentRegion,
+					self.app.ageSelectorWidget.selectedYear,
+					function(data) {
+						var newData = {};
+						newData["green"] = [0];
+						newData["yellow"] = [0];
+						newData["red"] = [0];
+						newData["blue"] = [0];
+
+						$.each(data, function(value, key){
+							if(key == "#7fff7f") {
+								newData["green"][0] += 1; 
+							}
+							if(key == "#ff7f7f") {
+								newData["red"][0] += 1; 
+							}
+							if(key == "#ffff7f") {
+								newData["yellow"][0] += 1; 
+							}
+							if(!key) {
+								newData["blue"][0] += 1; 
+							}
+						});
+						self.app.legendWidget.setLevelText(newData);
+						self.app.legendWidget.show();
+					}
+				);
+			}
 		});
 
 		if(this.onGroupClick) {

@@ -389,6 +389,7 @@ var ParametrsWidgets = function(app) {
 					newData["green"] = [0];
 					newData["yellow"] = [0];
 					newData["red"] = [0];
+					newData["blue"] = [0];
 
 					$.each(data, function(value, key){
 						if(key == "#7fff7f") {
@@ -399,6 +400,9 @@ var ParametrsWidgets = function(app) {
 						}
 						if(key == "#ffff7f") {
 							newData["yellow"][0] += 1; 
+						}
+						if(!key) {
+							newData["blue"][0] += 1; 
 						}
 					});
 					self.legendWidget.setLevelText(newData);
