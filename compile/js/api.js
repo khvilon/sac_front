@@ -1978,7 +1978,7 @@ var ReportsParamsSelector = function(app) {
 			var elementCurrentGroup = $("ul[data-id='"+value.id+"']", self.CSS["DATA-PLACE"]);
 			if(elementCurrentGroup.size() == 0) {
 				var html =  "<ul data-id='"+value.id+"' class='first'><li data-name='"+value.name+"'>";
-					html += "<span link="+value.link+" class='link_click_pdf group graph-params-name'>"+value.name+"</span>";
+					html += "<span link="+value.link+" class='link_click_pdf graph-params-name'>"+value.name+"</span>";
 
 				contentPane.append(html);
 			}
@@ -2218,7 +2218,7 @@ var ReportsDiscSelector = function(app) {
 			var elementCurrentGroup = $("ul[data-id='"+value.id+"']", self.CSS["DATA-PLACE"]);
 			if(elementCurrentGroup.size() == 0) {
 				var html =  "<ul data-id='"+value.id+"' class='first'><li data-name='"+value.name+"'>";
-					html += "<span class='group graph-params-name'>"+value.name+"</span>";
+					html += "<span class=' graph-params-name'>"+value.name+"</span>";
 					html += "<ul class='itemShow'></ul></li></ul>";
 
 				contentPane.append(html);

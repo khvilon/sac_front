@@ -4,6 +4,8 @@
 @import "jquery.jscrollpane.css";
 @import "jquery.datepick.css";
 
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:400,300,700&subset=latin,cyrillic);
+
 @-webkit-keyframes rotating {
     from{
         -webkit-transform: rotate(0deg);
@@ -64,7 +66,7 @@ header a
 
 header p
 {
-  font-family:NeoSansPro-Light;
+  font-family: 'Open Sans', sans-serif;
   font-size:21px;
   color:transparent;
   line-height:25px;
@@ -78,7 +80,7 @@ header h1
   background:url(/static/images/region.png) center center no-repeat;
   height:70px;
   width:590px;
-  font-family:NeoSansPro-Light;
+  font-family: 'Open Sans', sans-serif;
   font-size:21px;
   color:#fff;
   line-height:67px;
@@ -170,7 +172,7 @@ header h1
 
 #content .time b
 {
-  font-family:NeoSansPro-Light;
+  font-family: 'Open Sans', sans-serif;
   font-size:30px;
   color:#fff;
   text-align:center;
@@ -181,7 +183,7 @@ header h1
 
 #content .time p
 {
-  font-family:NeoSansPro-Light;
+  font-family: 'Open Sans', sans-serif;
   font-size:13px;
   color:#fff;
   text-align:center;
@@ -207,7 +209,7 @@ header h1
 {
   width:100px;
   height:30px;
-  font-family:NeoSansPro-Light;
+  font-family: 'Open Sans', sans-serif;
   font-size:20px;
   color:#fff;
   text-decoration:none;
@@ -262,8 +264,8 @@ header h1
 
 #content .legend p
 {
-  font-family:NeoSansPro-Light;
-  font-size:24px;
+  font-family: 'Open Sans', sans-serif;
+  font-size:21px;
   color:#fff;
   display:block;
   min-height: 57px;
@@ -292,7 +294,7 @@ header h1
 
 #content .legend a
 {
-  font-family:NeoSansPro-Light;
+  font-family: 'Open Sans', sans-serif;
   font-size:18px;
   color:#fff;
   display:block;
@@ -503,7 +505,7 @@ header h1
 {
   height:36px;
   color:#fff;
-  font-family:NeoSansPro-Light;
+  font-family: 'Open Sans', sans-serif;
   padding-left:120px;
   line-height:100%;
   position:absolute;
@@ -519,7 +521,7 @@ header h1
   width:225px;
   height:30px;
   padding-left:110px;
-  font-family:NeoSansPro-Light;
+  font-family: 'Open Sans', sans-serif;
   color:#fff;
   font-size:20px;
   margin-bottom:35px;
@@ -555,11 +557,12 @@ header h1
 #content .data .scroll li
 {
   display:block;
-  font-family:NeoSansPro-Light;
+  font-family: 'Open Sans', sans-serif;
   font-size:18px;
   color:#fff;
   overflow:hidden;
   line-height:120%;
+  position: relative;
 }
 
 #content .data .jspContainer
@@ -574,12 +577,27 @@ header h1
   display:block;
 }
 
-#content .data .scroll li ul li
+#content .data .scroll li ul li:first-child,
+.regions-params li:first-child,
+#reports-disc-selector li:first-child,
+#reports-params-selector li:first-child {
+  border-top: 1px solid rgba(255, 255, 255, 0.5);
+}
+#content .data .scroll li ul li,
+.regions-params li
+#reports-disc-selector li,
+#reports-params-selector li
 {
-  padding-top:4px;
-  padding-bottom:4px;
+  padding-top:7px;
+  padding-bottom:7px;
   position:relative;
   padding-left:10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+#reports-disc-selector li {
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 #content .data .scroll li ul li .spr
@@ -591,9 +609,15 @@ header h1
 
 #content .data .scroll .group
 {
-  padding-bottom:16px;
-  padding-top:4px;
+  padding-bottom:14px;
+  padding-top:14px;
   display:block;
+  font-weight: bold;
+}
+#content .data .scroll ul li ul .group {
+  font-weight: normal !important;
+  padding-top: 4px !important;
+  padding-bottom: 4px !important;
 }
 
 #content .data li.current
@@ -773,6 +797,9 @@ header h1
   height:30px;
   width:40px;
   float:right;
+  position: absolute;
+  right: 0px;
+  top: 10px;
 }
 
 #content .data.f section ul a.current ,#content .data.region section ul a.current, #content .data.g section ul a.current
@@ -906,7 +933,7 @@ header h1
 {
   border:1px solid rgba(180,218,255,0.33);
   height:18px;
-  font-family:NeoSansPro-Light;
+  font-family: 'Open Sans', sans-serif;
   font-size:16px;
   color:#fff;
   padding:10px;
@@ -1015,7 +1042,7 @@ header h1
 
 #loading
 {
-  font-family:NeoSansPro-Light;
+  font-family: 'Open Sans', sans-serif;
   position:absolute;
   left:42%;
   top:60%;
@@ -1244,7 +1271,7 @@ header h1
 }
 
 label {
-  font-family:NeoSansPro-Light;
+  font-family: 'Open Sans', sans-serif;
   font-size:16px;
   color:#fff;
   padding-left: 5px;
@@ -1252,13 +1279,13 @@ label {
 }
 
 .flot-text {
-  font-family:NeoSansPro-Light;
+  font-family: 'Open Sans', sans-serif;
   font-size:14px !important;
   color:#fff !important;
 }
 
 .legendLabel {
-  font-family:NeoSansPro-Light;
+  font-family: 'Open Sans', sans-serif;
   font-size:16px;
   color:#fff;
   padding-left: 5px;
@@ -1275,7 +1302,7 @@ label {
   margin: 95px 0px 0px 55px;
 }
 .inner_table th {
-  font-family:NeoSansPro-Light;
+  font-family: 'Open Sans', sans-serif;
   background: rgba(2, 52, 102, 0.9);
   color: #ffffff;
   font-size: 18px;
@@ -1284,7 +1311,7 @@ label {
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
 .inner_table td {
-  font-family:NeoSansPro-Light;
+  font-family: 'Open Sans', sans-serif;
   background: rgba(2, 52, 102, 0.4);
   color: #ffffff;
   font-size: 16px;
