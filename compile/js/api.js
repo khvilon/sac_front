@@ -2703,6 +2703,7 @@ var GraphWidget = function(app) {
 	}
 
 	this.updateContent = function(data) {
+		var self = this;
 		var lines = [];
 		var options = {
 		    series: {
@@ -2729,21 +2730,127 @@ var GraphWidget = function(app) {
 		};
 		
 		$.each(data, function(key, value) {
-			$.each(value.subjects, function(key2, value2) {
-				var dataLine = {};
-				var line = [];
+			if(key != "param_levels") {
+				$.each(value.subjects, function(key2, value2) {
+					var dataLine = {};
+					var line = [];
 
-				$.each(value2.vals_numeric, function(key3, value3) {
-					var d = new Date("01/12/"+parseInt(key3.toString().slice(0, 4)));
-					var point = [d.getTime(), value3];
-					line.push(point);
-				});	
+					$.each(value2.vals_numeric, function(key3, value3) {
+						var d = new Date("01/12/"+parseInt(key3.toString().slice(0, 4)));
+						var point = [d.getTime(), value3];
+						line.push(point);
+					});	
+					
+					dataLine["label"] = value.param_name+"<br/> <i>"+value2.subject_name+"</i>";
+					dataLine["data"] = line;
+
+					lines.push(dataLine);
+				});
+			} else {
+				var dataLine1 = {};
+				var line1 = [];
+
+				var d = new Date("01/12/"+self.getBeginData());
+				var point = [d.getTime(), value["#7fff7f_down_level"]];
+				line1.push(point);
+
+				var d = new Date("01/12/"+self.getEndData());
+				var point = [d.getTime(), value["#7fff7f_down_level"]];
+				line1.push(point);
 				
-				dataLine["label"] = value.param_name+"<br/> <i>"+value2.subject_name+"</i>";
-				dataLine["data"] = line;
+				dataLine1["label"] = "";
+				dataLine1["data"] = line1;
+				dataLine1["color"] = "rgba(127, 255, 127, 0.5)";
 
-				lines.push(dataLine);
-			});
+				lines.push(dataLine1);
+
+				var dataLine2 = {};
+				var line2 = [];
+
+				var d = new Date("01/12/"+self.getBeginData());
+				var point = [d.getTime(), value["#7fff7f_up_level"]];
+				line2.push(point);
+
+				var d = new Date("01/12/"+self.getEndData());
+				var point = [d.getTime(), value["#7fff7f_up_level"]];
+				line2.push(point);
+				
+				dataLine2["label"] = "";
+				dataLine2["data"] = line2;
+				dataLine2["color"] = "rgba(127, 255, 127, 0.5)";
+
+				console.log(dataLine2);
+
+				lines.push(dataLine2);
+
+				var dataLine3 = {};
+				var line3 = [];
+
+				var d = new Date("01/12/"+self.getBeginData());
+				var point = [d.getTime(), value["#ff7f7f_down_level"]];
+				line3.push(point);
+
+				var d = new Date("01/12/"+self.getEndData());
+				var point = [d.getTime(), value["#ff7f7f_down_level"]];
+				line3.push(point);
+				
+				dataLine3["label"] = "";
+				dataLine3["data"] = line3;
+				dataLine3["color"] = "rgba(255, 127, 127, 0.5)";
+
+				lines.push(dataLine3);
+
+				var dataLine4 = {};
+				var line4 = [];
+
+				var d = new Date("01/12/"+self.getBeginData());
+				var point = [d.getTime(), value["#ff7f7f_up_level"]];
+				line4.push(point);
+
+				var d = new Date("01/12/"+self.getEndData());
+				var point = [d.getTime(), value["#ff7f7f_up_level"]];
+				line4.push(point);
+				
+				dataLine4["label"] = "";
+				dataLine4["data"] = line4;
+				dataLine4["color"] = "rgba(255, 127, 127, 0.5)";
+
+				lines.push(dataLine4);
+
+				var dataLine5 = {};
+				var line5 = [];
+
+				var d = new Date("01/12/"+self.getBeginData());
+				var point = [d.getTime(), value["#ffff7f_down_level"]];
+				line5.push(point);
+
+				var d = new Date("01/12/"+self.getEndData());
+				var point = [d.getTime(), value["#ffff7f_down_level"]];
+				line5.push(point);
+				
+				dataLine5["label"] = "";
+				dataLine5["data"] = line5;
+				dataLine5["color"] = "rgba(255, 255, 127, 0.5)";
+
+				lines.push(dataLine5);
+
+				var dataLine6 = {};
+				var line6 = [];
+
+				var d = new Date("01/12/"+self.getBeginData());
+				var point = [d.getTime(), value["#ffff7f_up_level"]];
+				line6.push(point);
+
+				var d = new Date("01/12/"+self.getEndData());
+				var point = [d.getTime(), value["#ffff7f_up_level"]];
+				line6.push(point);
+				
+				dataLine6["label"] = "";
+				dataLine6["data"] = line6;
+				dataLine6["color"] = "rgba(255, 255, 127, 0.5)";
+
+				lines.push(dataLine6);
+			}
 		});
 
 		$.plot(this.elements["GRAPH"], lines, options);
