@@ -1489,10 +1489,23 @@ label {
 #reports-data {
   position: relative;
   display: none;
+  padding: 50px;
+}
+
+#reports-data .close {
+  top: 40px !important;
+  right: 40px !important;
+  cursor: pointer;
+  z-index: 50;
+}
+
+#reports-data table {
+  table-layout: auto !important;
 }
 
 #report-pdf h2,
-#reports-panel h2 {
+#reports-panel h2,
+#reports-data h2 {
   margin-bottom: 20px;
   padding-right: 10px;
   padding-left: 10px;

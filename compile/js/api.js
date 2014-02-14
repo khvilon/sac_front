@@ -2907,6 +2907,11 @@ var ReportsWidget = function(app) {
 		"BUTTONS": $(this.CSS["BUTTONS"], this.CSS["MAIN"])
 	}
 
+	$("#reports-data .close").on("click", function() {
+		$("#reports-data").hide();
+		$("#reports-panel").show();
+	})
+
 	this.show = function() {
 		this.elements["MAIN"].removeClass(this.CSS["HIDDEN"]);
 	}
@@ -2923,52 +2928,80 @@ var ReportsWidget = function(app) {
 		this.state = 1;
 	}
 
-	this.update = function(id) {
-		var self = this;
-		this.app.dictionaryManager.getById(id, function(data) {
-			var contentPane = app.reportsWidget.scrollApi.getContentPane();
-			var self = this;
-			var main = app.reportsWidget.elements["MAIN"].find("tbody");
+	this.getSubjectCallback_ = function(data) {
+		$("#reports-data").show();
+		$("#reports-panel").hide();
 
-			main.html("");
+		var contentPane = this.app.reportsWidget.scrollApi.getContentPane();
+		var main = this.app.reportsWidget.elements["MAIN"].find("#reports-data tbody");
 
-			var html = "<tr>";
-			$.each(data, function(key, value) {
-				if(!value.region_name && value.district_name) {
-					value.region_name = value.district_name;	
-				}
-				if(!value.region_name && value.short_name) {
-					value.region_name = value.short_name;	
-				}
-				if(!value.region_name && value.group_name) {
-					value.region_name = value.group_name;	
-				}
-				
-				html += '<td><a data-id="'+value.id+'">'+value.name+'</a></td>';
-				if(value.region_name) {
-					html += '<td>'+value.region_name+"</td>";
-				}
-				html += "</tr>";
-			});
+		main.html("");
 
-			main.append(html);
+		var html = "<tr>";
+		html += '<td>'+data.capital_name+'</td>';
+		html += '<td>'+data.deputy_head_name+'</td>';
+		html += '<td>'+data.deputy_head_phone+'</td>';
+		html += '<td>'+data.head_name+'</td>';
+		html += '<td>'+data.head_phone+'</td>';
+		html += '<td>'+data.population+'</td>';
+		html += "</tr>";
 
-			$(main).find("a").on("click", function() {
-				var id = $(this).attr("data-id");
-				$("#reports-data").show();
-				console.log(self);
-				$.ajax(
-					{
-						url: self.app.apiHost + "/get_subject_info/"+id,
-						type: "GET",
-						success: function(data) {
-							console.log(data);
-						}
-					}
-				);
-			});
-			app.reportsWidget.scrollApi.reinitialise();
+		main.append(html);
+		app.reportsWidget.scrollApi.reinitialise();
+	}
+
+	this.subjectCallback_ = function(event) {
+		var id = $(event.target).attr("data-id");
+		$("#reports-data h2").html($(event.target).html());
+
+		$.ajax(
+			{
+				url: this.app.apiHost + "/get_subject_info/"+id,
+				type: "GET",
+				success: $.proxy(this.getSubjectCallback_, this)
+			}
+		);
+	}
+
+	this.updateCallback_ = function(data) {
+		var contentPane = this.app.reportsWidget.scrollApi.getContentPane();
+		var main = this.app.reportsWidget.elements["MAIN"].find("#reports-panel tbody");
+
+		main.html("");
+
+		var html = "<tr>";
+		$.each(data, function(key, value) {
+			if(!value.region_name && value.district_name) {
+				value.region_name = value.district_name;	
+			}
+			if(!value.region_name && value.short_name) {
+				value.region_name = value.short_name;	
+			}
+			if(!value.region_name && value.group_name) {
+				value.region_name = value.group_name;	
+			}
+
+			if(!value.id && value.region_id) {
+				value.id = value.region_id;
+			}
+			if(!value.id && value.district_id) {
+				value.id = value.district_id;
+			}
+
+			html += '<td><a data-id="'+value.id+'">'+value.name+'</a></td>';
+			if(value.region_name) {
+				html += '<td>'+value.region_name+"</td>";
+			}
+			html += "</tr>";
 		});
+
+		main.append(html);
+		$(main).find("a").on("click", $.proxy(this.subjectCallback_, this));
+		app.reportsWidget.scrollApi.reinitialise();
+	}
+
+	this.update = function(id) {
+		this.app.dictionaryManager.getById(id, $.proxy(this.updateCallback_, this));
 	}
 
 	this.initScroll_ = function() {
