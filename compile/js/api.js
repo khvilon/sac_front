@@ -2549,49 +2549,27 @@ var GraphWidget = function(app) {
 	}
 
 	var self = this;
+	this.ustav = false;
 
-	/*
-	this.ageSelectorGraphStartWidget = new YearSelectWidget(this, {
-		years: [2008, 2009, 2010, 2011, 2012, 2013, 2014],
-		selectedYear: 2008,
-		container: "#graph-datas-begin",
-		onAfterYearSelected: function() {
-			self.app.graphManager.getGraph(
-				self.app.graphRegionsSelectorWidget.getCurrentIds(),
-				self.app.graphParamsSelector.getCurrentIds(),
-				self.app.graphWidget.getBeginData(),
-				self.app.graphWidget.getEndData(),
-				function(data) {
-					$(self.app.graphWidget.CSS["LOAD"]).removeClass("onShow");
-					self.app.graphWidget.showGraph();
-					self.app.graphWidget.updateContent(data);
-				}
-			);
-		}
+	$("#check-chech").on("click", function() {
+		$(this).toggleClass("current");
+		self.ustav = !self.ustav;
+
+		$(self.app.graphWidget.CSS["LOAD"]).addClass("onShow");
+
+		self.app.graphManager.getGraph(
+			self.app.graphRegionsSelectorWidget.getCurrentIds(),
+			self.app.graphParamsSelector.getCurrentIds(),
+			self.app.graphWidget.getBeginData(),
+			self.app.graphWidget.getEndData(),
+			function(data) {
+				$(self.app.graphWidget.CSS["LOAD"]).removeClass("onShow");
+				self.app.graphWidget.showGraph();
+				self.app.graphWidget.updateContent(data);
+				$(self.app.graphWidget.CSS["LOAD"]).removeClass("onShow");
+			}
+		);
 	});
-
-	this.ageSelectorGraphEndWidget = new YearSelectWidget(this, {
-		years: [2008, 2009, 2010, 2011, 2012, 2013, 2014],
-		selectedYear: 2012,
-		container: "#graph-datas-end",
-		onAfterYearSelected: function() {
-			self.app.graphManager.getGraph(
-				self.app.graphRegionsSelectorWidget.getCurrentIds(),
-				self.app.graphParamsSelector.getCurrentIds(),
-				self.app.graphWidget.getBeginData(),
-				self.app.graphWidget.getEndData(),
-				function(data) {
-					$(self.app.graphWidget.CSS["LOAD"]).removeClass("onShow");
-					self.app.graphWidget.showGraph();
-					self.app.graphWidget.updateContent(data);
-				}
-			);
-		}
-	});
-
-	this.ageSelectorGraphStartWidget.draw();
-	this.ageSelectorGraphEndWidget.draw();
-	*/
 
 	this.elements["DATA-BEGIN"].on("keyup", function() {
 		$(self.app.graphWidget.CSS["LOAD"]).addClass("onShow");
@@ -2752,109 +2730,111 @@ var GraphWidget = function(app) {
 					lines.push(dataLine);
 				});
 			} else {
-				var dataLine1 = {};
-				var line1 = [];
+				if(self.ustav) {
+					var dataLine1 = {};
+					var line1 = [];
 
-				var d = new Date("01/12/"+self.getBeginData());
-				var point = [d.getTime(), value["#7fff7f_down_level"]];
-				line1.push(point);
+					var d = new Date("01/12/"+self.getBeginData());
+					var point = [d.getTime(), value["#7fff7f_down_level"]];
+					line1.push(point);
 
-				var d = new Date("01/12/"+self.getEndData());
-				var point = [d.getTime(), value["#7fff7f_down_level"]];
-				line1.push(point);
-				
-				dataLine1["label"] = "";
-				dataLine1["data"] = line1;
-				dataLine1["color"] = "rgba(127, 255, 127, 0.5)";
+					var d = new Date("01/12/"+self.getEndData());
+					var point = [d.getTime(), value["#7fff7f_down_level"]];
+					line1.push(point);
+					
+					dataLine1["label"] = "";
+					dataLine1["data"] = line1;
+					dataLine1["color"] = "rgba(127, 255, 127, 0.5)";
 
-				lines.push(dataLine1);
+					lines.push(dataLine1);
 
-				var dataLine2 = {};
-				var line2 = [];
+					var dataLine2 = {};
+					var line2 = [];
 
-				var d = new Date("01/12/"+self.getBeginData());
-				var point = [d.getTime(), value["#7fff7f_up_level"]];
-				line2.push(point);
+					var d = new Date("01/12/"+self.getBeginData());
+					var point = [d.getTime(), value["#7fff7f_up_level"]];
+					line2.push(point);
 
-				var d = new Date("01/12/"+self.getEndData());
-				var point = [d.getTime(), value["#7fff7f_up_level"]];
-				line2.push(point);
-				
-				dataLine2["label"] = "";
-				dataLine2["data"] = line2;
-				dataLine2["color"] = "rgba(127, 255, 127, 0.5)";
+					var d = new Date("01/12/"+self.getEndData());
+					var point = [d.getTime(), value["#7fff7f_up_level"]];
+					line2.push(point);
+					
+					dataLine2["label"] = "";
+					dataLine2["data"] = line2;
+					dataLine2["color"] = "rgba(127, 255, 127, 0.5)";
 
-				console.log(dataLine2);
+					console.log(dataLine2);
 
-				lines.push(dataLine2);
+					lines.push(dataLine2);
 
-				var dataLine3 = {};
-				var line3 = [];
+					var dataLine3 = {};
+					var line3 = [];
 
-				var d = new Date("01/12/"+self.getBeginData());
-				var point = [d.getTime(), value["#ff7f7f_down_level"]];
-				line3.push(point);
+					var d = new Date("01/12/"+self.getBeginData());
+					var point = [d.getTime(), value["#ff7f7f_down_level"]];
+					line3.push(point);
 
-				var d = new Date("01/12/"+self.getEndData());
-				var point = [d.getTime(), value["#ff7f7f_down_level"]];
-				line3.push(point);
-				
-				dataLine3["label"] = "";
-				dataLine3["data"] = line3;
-				dataLine3["color"] = "rgba(255, 127, 127, 0.5)";
+					var d = new Date("01/12/"+self.getEndData());
+					var point = [d.getTime(), value["#ff7f7f_down_level"]];
+					line3.push(point);
+					
+					dataLine3["label"] = "";
+					dataLine3["data"] = line3;
+					dataLine3["color"] = "rgba(255, 127, 127, 0.5)";
 
-				lines.push(dataLine3);
+					lines.push(dataLine3);
 
-				var dataLine4 = {};
-				var line4 = [];
+					var dataLine4 = {};
+					var line4 = [];
 
-				var d = new Date("01/12/"+self.getBeginData());
-				var point = [d.getTime(), value["#ff7f7f_up_level"]];
-				line4.push(point);
+					var d = new Date("01/12/"+self.getBeginData());
+					var point = [d.getTime(), value["#ff7f7f_up_level"]];
+					line4.push(point);
 
-				var d = new Date("01/12/"+self.getEndData());
-				var point = [d.getTime(), value["#ff7f7f_up_level"]];
-				line4.push(point);
-				
-				dataLine4["label"] = "";
-				dataLine4["data"] = line4;
-				dataLine4["color"] = "rgba(255, 127, 127, 0.5)";
+					var d = new Date("01/12/"+self.getEndData());
+					var point = [d.getTime(), value["#ff7f7f_up_level"]];
+					line4.push(point);
+					
+					dataLine4["label"] = "";
+					dataLine4["data"] = line4;
+					dataLine4["color"] = "rgba(255, 127, 127, 0.5)";
 
-				lines.push(dataLine4);
+					lines.push(dataLine4);
 
-				var dataLine5 = {};
-				var line5 = [];
+					var dataLine5 = {};
+					var line5 = [];
 
-				var d = new Date("01/12/"+self.getBeginData());
-				var point = [d.getTime(), value["#ffff7f_down_level"]];
-				line5.push(point);
+					var d = new Date("01/12/"+self.getBeginData());
+					var point = [d.getTime(), value["#ffff7f_down_level"]];
+					line5.push(point);
 
-				var d = new Date("01/12/"+self.getEndData());
-				var point = [d.getTime(), value["#ffff7f_down_level"]];
-				line5.push(point);
-				
-				dataLine5["label"] = "";
-				dataLine5["data"] = line5;
-				dataLine5["color"] = "rgba(255, 255, 127, 0.5)";
+					var d = new Date("01/12/"+self.getEndData());
+					var point = [d.getTime(), value["#ffff7f_down_level"]];
+					line5.push(point);
+					
+					dataLine5["label"] = "";
+					dataLine5["data"] = line5;
+					dataLine5["color"] = "rgba(255, 255, 127, 0.5)";
 
-				lines.push(dataLine5);
+					lines.push(dataLine5);
 
-				var dataLine6 = {};
-				var line6 = [];
+					var dataLine6 = {};
+					var line6 = [];
 
-				var d = new Date("01/12/"+self.getBeginData());
-				var point = [d.getTime(), value["#ffff7f_up_level"]];
-				line6.push(point);
+					var d = new Date("01/12/"+self.getBeginData());
+					var point = [d.getTime(), value["#ffff7f_up_level"]];
+					line6.push(point);
 
-				var d = new Date("01/12/"+self.getEndData());
-				var point = [d.getTime(), value["#ffff7f_up_level"]];
-				line6.push(point);
-				
-				dataLine6["label"] = "";
-				dataLine6["data"] = line6;
-				dataLine6["color"] = "rgba(255, 255, 127, 0.5)";
+					var d = new Date("01/12/"+self.getEndData());
+					var point = [d.getTime(), value["#ffff7f_up_level"]];
+					line6.push(point);
+					
+					dataLine6["label"] = "";
+					dataLine6["data"] = line6;
+					dataLine6["color"] = "rgba(255, 255, 127, 0.5)";
 
-				lines.push(dataLine6);
+					lines.push(dataLine6);
+				}
 			}
 		});
 

@@ -796,7 +796,10 @@ header h1
   margin:0 0 35px -30px;
 }
 
-#content .data.f section ul a, #content .data.region section ul a, #content .data.g section ul a
+#content .data.f section ul a, 
+#content .data.region section ul a, 
+#content .data.g section ul a,
+.check
 {
   background:url(/static/images/formats/yah.png) center center no-repeat;
   height:30px;
@@ -807,7 +810,10 @@ header h1
   top: 10px;
 }
 
-#content .data.f section ul a.current ,#content .data.region section ul a.current, #content .data.g section ul a.current
+#content .data.f section ul a.current,
+#content .data.region section ul a.current, 
+#content .data.g section ul a.current,
+.check.current
 {
   background:url(/static/images/formats/ya.png) center center no-repeat;
 }
@@ -1513,4 +1519,15 @@ label {
   font-family: 'Open Sans', sans-serif;
   text-align: center;
   color: #ffffff;
+}
+
+.fl {
+  float: left;
+  position: relative;
+}
+.fl.check {
+  left: 0px;
+  top: 0px;
+  cursor: pointer;
+  margin-left: 30px;
 }
