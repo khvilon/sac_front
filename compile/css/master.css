@@ -1447,21 +1447,57 @@ label {
 #reports-disc-selector h2,
 #reports-params-selector h2 {
   position: absolute;
-  right: 20px;
+  right: 55px;
   top: -20px;
   color: #ffffff;
-  font-size: 24px;
+  font-size: 23px;
   font-family: 'Open Sans', sans-serif;
 }
 
+#params-selector h2,
+#graph-selector h2,
+#reports-params-selector h2 {
+  right: 20px;
+}
+
 #regions-selector h2,
-#reports-disc-selector h2 {
+#reports-disc-selector h2,
+#graph-regions-selector h2 {
   left: 40px;
   top: 10px;
   right: auto; 
+}
+#reports-params-selector h2 {
+  right: 40px !important;
 }
 #params-data h2,
 #graph-selector h2,
 #reports-params-selector h2 {
   top: -25px;
+}
+
+#content .table table tr td a {
+  cursor: pointer;
+}
+#content .table table tr td a:hover {
+  text-decoration: underline;
+}
+
+#reports-close {
+}
+
+#reports-data {
+  position: relative;
+  display: none;
+}
+
+#report-pdf h2,
+#reports-panel h2 {
+  margin-bottom: 20px;
+  padding-right: 10px;
+  padding-left: 10px;
+  font-size: 21px;
+  font-family: 'Open Sans', sans-serif;
+  text-align: center;
+  color: #ffffff;
 }

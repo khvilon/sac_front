@@ -1628,12 +1628,14 @@ var FormatWidget = function(app) {
 		var main = this.elements["MAIN"].find("tbody");
 
 		main.html("");
+		var html = "<tr>";
 		$.each(data, function(key, value) {
-			var html = "<tr>";
 			html += '<td>'+value.parameter_name+'</td><td>'+value.subject_name+'</td><td>'+value.val_numeric+'</td><td>'+value.year+'</td>';
 			html += "</tr>";
-			main.append(html);
 		});
+		main.append(html);
+
+		
 		self.scrollApi.reinitialise();
 	}
 
@@ -2019,7 +2021,8 @@ var ReportsParamsSelector = function(app) {
 				$(self.CSS["LOAD"]).removeClass("onShow");
 				self.app.reportsWidget.show();
 
-				$("#report-pdf").html('<object width="100%" type="application/pdf" height="670px" src="'+$(self2).attr("link")+'""></object>');
+				$("#report-pdf h2").html($(self2).html());
+				$("#report-pdf-in").html('<object width="100%" type="application/pdf" height="670px" src="'+$(self2).attr("link")+'""></object>');
 				$("#reports-panel").hide();
 				
 				$("#report-pdf").show();
@@ -2297,6 +2300,7 @@ var ReportsDiscSelector = function(app) {
 
 		$("#reports-panel").show();
 		$("#report-pdf").hide();
+		$("#reports-panel h2").html($(evt.target).html());
 
 		this.app.reportsWidget.show();
 		this.app.reportsWidget.update(id);
@@ -2927,6 +2931,8 @@ var ReportsWidget = function(app) {
 			var main = app.reportsWidget.elements["MAIN"].find("tbody");
 
 			main.html("");
+
+			var html = "<tr>";
 			$.each(data, function(key, value) {
 				if(!value.region_name && value.district_name) {
 					value.region_name = value.district_name;	
@@ -2938,13 +2944,28 @@ var ReportsWidget = function(app) {
 					value.region_name = value.group_name;	
 				}
 				
-				var html = "<tr>";
-				html += '<td>'+value.name+'</td>';
+				html += '<td><a data-id="'+value.id+'">'+value.name+'</a></td>';
 				if(value.region_name) {
 					html += '<td>'+value.region_name+"</td>";
 				}
 				html += "</tr>";
-				main.append(html);
+			});
+
+			main.append(html);
+
+			$(main).find("a").on("click", function() {
+				var id = $(this).attr("data-id");
+				$("#reports-data").show();
+				console.log(self);
+				$.ajax(
+					{
+						url: self.app.apiHost + "/get_subject_info/"+id,
+						type: "GET",
+						success: function(data) {
+							console.log(data);
+						}
+					}
+				);
 			});
 			app.reportsWidget.scrollApi.reinitialise();
 		});
