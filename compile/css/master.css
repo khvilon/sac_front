@@ -271,7 +271,7 @@ header h1
   min-height: 57px;
   padding:3px 40px 3px 220px;
   float: left;
-  line-height:54px;
+  line-height:140%;
   font-weight: bold;
   width: 145px;
 }
@@ -477,7 +477,7 @@ header h1
   width: 500px;
   right:0;
   top:150px;
-  overflow:hidden;
+  o/verflow:hidden;
   display:none;
   z-index:130;
 }
@@ -555,7 +555,7 @@ header h1
 
 #content .data ul i
 {
-  width:70px;
+  width:90px;
   float:right;
 }
 
@@ -978,14 +978,6 @@ header h1
   transition:all 1s linear;
 }
 
-#regions-selector h2 {
-  position: absolute;
-  left: 40px;
-  top: 15px;
-  color: #ffffff;
-  font-family: NeoSansPro-Light;
-  font-size: 21px;
-}
 
 #region-data .jspVerticalBar, 
 #graph-region-data .jspVerticalBar
@@ -1443,4 +1435,33 @@ label {
 
   z-index: 20;
    -webkit-filter: invert(100%);  
+}
+
+#map-params h2,
+#events-params h2,
+#regions-params h2,
+#regions-selector h2,
+#params-data h2,
+#graph-regions-selector h2,
+#graph-selector h2,
+#reports-disc-selector h2,
+#reports-params-selector h2 {
+  position: absolute;
+  right: 20px;
+  top: -20px;
+  color: #ffffff;
+  font-size: 24px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+#regions-selector h2,
+#reports-disc-selector h2 {
+  left: 40px;
+  top: 10px;
+  right: auto; 
+}
+#params-data h2,
+#graph-selector h2,
+#reports-params-selector h2 {
+  top: -25px;
 }
