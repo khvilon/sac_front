@@ -356,6 +356,8 @@ var DistrictsPanel = function(app) {
 		if(this.app.parametrsWidgets.currentParametr && this.app.parametrsWidgets.currentParametr.id) {
 			this.app.legendWidget.show();
 		}
+
+		this.app.setAppTitle(this.app.mapStateManager.currentRegionData.name);
 	}
 
 	this.hidden = function() {
@@ -382,6 +384,8 @@ var FormatPanel = function(app) {
 		this.app.formatWidget.show();
 		this.app.regionsSelectorWidget.show();
 		this.app.paramsSelectorWidget.show();
+
+		this.app.setAppTitle("Форматы");
 	}
 
 	this.hidden = function() {
@@ -403,6 +407,8 @@ var GraphPanel = function(app) {
 		this.app.graphParamsSelector.show();
 		this.app.graphRegionsSelectorWidget.show();
 		this.app.graphWidget.show();
+
+		this.app.setAppTitle("Графики");
 	}
 
 	this.hidden = function() {
@@ -419,6 +425,8 @@ var ReportsPanel = function(app) {
 		console.log("gf");
 		this.app.reportsParamsSelector.show();
 		this.app.reportsDiscSelector.show();
+
+		this.app.setAppTitle("Отчеты");
 		//this.app.graphRegionsSelectorWidget.show();
 		//this.app.graphWidget.show();
 	}
@@ -506,6 +514,8 @@ var RegionPanel = function(app) {
 		this.app.regionsMapColorWidget.updateParams();
 
 		this.app.regionsLegendWidget.show();
+
+		this.app.setAppTitle("Россия");
 	}
 
 	this.hidden = function() {
@@ -634,6 +644,8 @@ var MapEventsPanel = function(app) {
 		this.app.eventRightWidgets.fullShow();
 		this.app.eventLegendWidgets.fullShow();
 		this.app.eventsLegendWidget.show();
+
+		this.app.setAppTitle("События");
 	}
 
 	this.hidden = function() {

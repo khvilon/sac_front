@@ -2899,6 +2899,8 @@ var ReportsWidget = function(app) {
 		"DATES": "#reports-datas"
 	}
 
+	this.selectedId = null;
+
 	this.elements = {
 		"MAIN": $(this.CSS["MAIN"]),
 		"DATA-BEGIN": $(this.CSS["DATA-BEGIN"]),
@@ -2964,12 +2966,16 @@ var ReportsWidget = function(app) {
 	}
 
 	this.updateCallback_ = function(data) {
+		$("#reports-data").hide();
+		$("#reports-panel").show();
+
 		var contentPane = this.app.reportsWidget.scrollApi.getContentPane();
 		var main = this.app.reportsWidget.elements["MAIN"].find("#reports-panel tbody");
 
 		main.html("");
 
 		var html = "<tr>";
+		var self = this;
 		$.each(data, function(key, value) {
 			if(!value.region_name && value.district_name) {
 				value.region_name = value.district_name;	
@@ -2984,11 +2990,13 @@ var ReportsWidget = function(app) {
 			if(!value.id && value.region_id) {
 				value.id = value.region_id;
 			}
-			if(!value.id && value.district_id) {
-				value.id = value.district_id;
-			}
 
-			html += '<td><a data-id="'+value.id+'">'+value.name+'</a></td>';
+			if(self.selectedId == 3) {
+				html += '<td><a data-id="'+value.id+'">'+value.name+'</a></td>';
+			} else {
+				html += '<td>'+value.name+'</td>';
+			}
+			
 			if(value.region_name) {
 				html += '<td>'+value.region_name+"</td>";
 			}
@@ -3001,6 +3009,7 @@ var ReportsWidget = function(app) {
 	}
 
 	this.update = function(id) {
+		this.selectedId = id;
 		this.app.dictionaryManager.getById(id, $.proxy(this.updateCallback_, this));
 	}
 
