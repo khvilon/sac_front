@@ -62,8 +62,43 @@ var SVGLoader = function(app, config) {
 	this.onLoadSvg_ = function() {
 		var svg = this.elements["SVG"][0].getSVGDocument();
 		var self = this;
-		console.log(svg);
 		this.appendCSS_(svg);
+
+		$(svg).on("mouseover", function(event) {
+			if(event.target.nodeName == "svg" && self.app.parametrsWidgets.currentParametr && self.app.parametrsWidgets.currentParametr.id) {
+				self.app.legendParamsManager.getLegendByParamAndSubject(
+					self.app.parametrsWidgets.currentParametr.id, 
+					self.app.currentRegion,
+					self.app.ageSelectorWidget.selectedYear,
+					function(data) {
+						var newData = {};
+						newData["green"] = [0];
+						newData["yellow"] = [0];
+						newData["red"] = [0];
+						newData["blue"] = [0];
+
+						$.each(data, function(value, key){
+							if(key == "#7fff7f") {
+								newData["green"][0] += 1; 
+							}
+							if(key == "#ff7f7f") {
+								newData["red"][0] += 1; 
+							}
+							if(key == "#ffff7f") {
+								newData["yellow"][0] += 1; 
+							}
+							if(!key) {
+								newData["blue"][0] += 1; 
+							}
+						});
+						self.app.legendWidget.setLevelText(newData);
+						self.app.legendWidget.show();
+					}
+				);
+			}
+			console.log(event);
+			event.stopPropagation();
+		});
 		
 		$.each($(svg).find("path"), function(key, value) {
 			$(value).attr("fill", "#ffffff");
@@ -99,39 +134,8 @@ var SVGLoader = function(app, config) {
 			paths.attr({
 				"fill-opacity": self.minOpacity
 			});
-			
-			if(self.app.parametrsWidgets.currentParametr.id) {
-				self.app.legendParamsManager.getLegendByParamAndSubject(
-					self.app.parametrsWidgets.currentParametr.id, 
-					self.app.currentRegion,
-					self.app.ageSelectorWidget.selectedYear,
-					function(data) {
-						var newData = {};
-						newData["green"] = [0];
-						newData["yellow"] = [0];
-						newData["red"] = [0];
-						newData["blue"] = [0];
-
-						$.each(data, function(value, key){
-							if(key == "#7fff7f") {
-								newData["green"][0] += 1; 
-							}
-							if(key == "#ff7f7f") {
-								newData["red"][0] += 1; 
-							}
-							if(key == "#ffff7f") {
-								newData["yellow"][0] += 1; 
-							}
-							if(!key) {
-								newData["blue"][0] += 1; 
-							}
-						});
-						self.app.legendWidget.setLevelText(newData);
-						self.app.legendWidget.show();
-					}
-				);
-			}
 		});
+			
 
 		if(this.onGroupClick) {
 			groups.on("click", this.onGroupClick);	

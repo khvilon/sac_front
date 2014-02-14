@@ -265,7 +265,7 @@ header h1
 #content .legend p
 {
   font-family: 'Open Sans', sans-serif;
-  font-size:21px;
+  font-size:20px;
   color:#fff;
   display:block;
   min-height: 57px;
@@ -273,6 +273,7 @@ header h1
   float: left;
   line-height:57px;
   font-weight: bold;
+  width: 145px;
 }
 
 #content .legend p.hidden {
