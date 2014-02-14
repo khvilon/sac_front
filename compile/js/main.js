@@ -96,7 +96,6 @@ var SVGLoader = function(app, config) {
 					}
 				);
 			}
-			console.log(event);
 			event.stopPropagation();
 		});
 		

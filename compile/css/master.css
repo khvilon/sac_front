@@ -271,9 +271,13 @@ header h1
   min-height: 57px;
   padding:3px 40px 3px 220px;
   float: left;
-  line-height:57px;
+  line-height:54px;
   font-weight: bold;
   width: 145px;
+}
+
+#content .legend p.big {
+  width: 290px;
 }
 
 #content .legend p.hidden {

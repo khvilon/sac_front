@@ -1291,6 +1291,7 @@ var RegionsSelectorWidget = function(app) {
 	}
 
 	this.onResponseRegions_ = function(data) {
+		console.log(data);
 		this.regions = data;
 		this.elements["DATA-PLACE"].html(this.findRegionsByParent_(data, this.app.russianId, "", ""));
 		this.addChilds(data);
