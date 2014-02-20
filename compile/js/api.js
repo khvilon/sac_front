@@ -533,7 +533,6 @@ var ParametrsWidgets = function(app) {
 			this.animateSpeed/4,
 			$.proxy(this.onMainHiddened_, this) 
 		);
-		this.legendWidget.hide();
 		return false;
 	}
 
@@ -2001,6 +2000,51 @@ var ReportsParamsSelector = function(app) {
 				id: "2",
 				name: "Сведения о параметрах реализации приоритетного национального проекта 'Здоровье' Министерство здравоохранения и социального развития Российской Федерации на 1 апреля 2012 г.",
 				link: "/static/pdf/2.pdf"
+			},
+			{
+				id: "3",
+				name: "Демографическая ситуация",
+				link: "/static/pdf/3.pdf"
+			},
+			{
+				id: "4",
+				name: "Занятость и оплата труда в здравоохранении, подготовка кадров",
+				link: "/static/pdf/4.pdf"
+			},
+			{
+				id: "5",
+				name: "Инвалидность населения",
+				link: "/static/pdf/5.pdf"
+			},
+			{
+				id: "6",
+				name: "Основные экономические показатели здравоохранения",
+				link: "/static/pdf/6.pdf"
+			},
+			{
+				id: "7",
+				name: "Отдых, физическая культура и спорт",
+				link: "/static/pdf/7.pdf"
+			},
+			{
+				id: "8",
+				name: "Ресурсы и деятельность организаций здравоохранения",
+				link: "/static/pdf/8.pdf"
+			},
+			{
+				id: "9",
+				name: "Состояние здоровья населения",
+				link: "/static/pdf/9.pdf"
+			},
+			{
+				id: "10",
+				name: "Состояние здоровья городского и сельского населения",
+				link: "/static/pdf/10.pdf"
+			},
+			{
+				id: "11",
+				name: "Условия жизни населения",
+				link: "/static/pdf/11.pdf"
 			}
 		]
 
@@ -2914,33 +2958,72 @@ var ReportsWidget = function(app) {
 		$("#reports-data").show();
 		$("#reports-panel").hide();
 
-		var contentPane = this.app.reportsWidget.scrollApi.getContentPane();
-		var main = this.app.reportsWidget.elements["MAIN"].find("#reports-data tbody");
+		var contentPane = $("#reports-data").data('jsp').getContentPane();
+		var main = this.app.reportsWidget.elements["MAIN"].find("#reports-data .cont tbody");
 
 		main.html("");
 
 		var html = "<tr>";
-		html += '<td>'+data.capital_name+'</td>';
-		html += '<td>'+data.deputy_head_name+'</td>';
-		html += '<td>'+data.deputy_head_phone+'</td>';
-		html += '<td>'+data.head_name+'</td>';
-		html += '<td>'+data.head_phone+'</td>';
-		html += '<td>'+data.population+'</td>';
+		html += '<td><strong>Административный центр</strong></td><td>'+data.capital_name+'</td>';
+		html += '</tr><tr>';
+		html += '<td><strong>Руководитель МЗ региона</strong></td><td>'+data.head_name+'</td>';
+		html += '</tr><tr>';
+		html += '<td><strong>Телефон руководителя</strong></td><td>'+data.head_phone+'</td>';
+		html += '</tr><tr>';
+		html += '<td><strong>Заместитель руководителя МЗ региона</strong></td><td>'+data.deputy_head_name+'</td>';
+		html += '</tr><tr>';
+		html += '<td><strong>Телефон заместителя</strong></td><td>'+data.deputy_head_phone+'</td>';
+		html += '</tr><tr>';
+		html += '<td><strong>Население</strong></td><td>'+data.population+'</td>';
 		html += "</tr>";
 
 		main.append(html);
-		app.reportsWidget.scrollApi.reinitialise();
+		$("#reports-data").data('jsp').reinitialise();
+	}
+
+	this.getSubjectTableCallback_ = function(data) {
+		$("#reports-data").show();
+		$("#reports-panel").hide();
+
+		var contentPane = $("#reports-data").data('jsp').getContentPane();
+		var main = this.app.reportsWidget.elements["MAIN"].find("#reports-data .tt");
+
+		main.html("");
+
+		var html = "";
+		$.each(data, function(i, v) {
+			if(!v.param_val) {
+				v.param_val = 0;
+			}
+			html += "<tr>";
+			html += '<td><strong>'+v.param_name+'</strong></td><td>'+v.param_val+'</td>';
+			html += "</tr>";
+		});
+
+		main.append(html);
+		$("#reports-data").data('jsp').reinitialise();
 	}
 
 	this.subjectCallback_ = function(event) {
 		var id = $(event.target).attr("data-id");
 		$("#reports-data h2").html($(event.target).html());
 
+		var image = this.app.reportsWidget.elements["MAIN"].find("#reports-data .cont img");
+		image.attr("src", "/static/images/Photos/"+id+".jpg");
+
 		$.ajax(
 			{
 				url: this.app.apiHost + "/get_subject_info/"+id,
 				type: "GET",
 				success: $.proxy(this.getSubjectCallback_, this)
+			}
+		);
+
+		$.ajax(
+			{
+				url: this.app.apiHost + "/groups/"+id+"/2012",
+				type: "GET",
+				success: $.proxy(this.getSubjectTableCallback_, this)
 			}
 		);
 	}
@@ -3005,7 +3088,21 @@ var ReportsWidget = function(app) {
 		this.scrollApi = this.elements["DATA-PLACE"].data('jsp');
 	}
 
+	this.initScroll2_ = function() {
+		$("#reports-data").jScrollPane(
+			{
+				showArrows: true,
+				verticalDragMinHeight: 60,
+	    		verticalDragMaxHeight: 60,
+	    		autoReinitialise: true,
+	    		contentWidth: '0px'
+			}
+		);
+		//this.scrollApi = $("#reports-data").data('jsp');
+	}
+
 	this.initScroll_();
+	this.initScroll2_();
 }
 
 /**

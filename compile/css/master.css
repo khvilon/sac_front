@@ -1042,7 +1042,8 @@ header h1
 
 }
 #table-format .jspVerticalBar,
-#reports-panel  .jspVerticalBar
+#reports-panel  .jspVerticalBar,
+#reports-data  .jspVerticalBar
 {
   background:url(/static/images/formats/s3.png) left top no-repeat;
 }
@@ -1495,12 +1496,17 @@ label {
 #reports-data {
   position: relative;
   display: none;
-  padding: 50px;
+  padding: 0px 0px 50px 50px;
+  height: 670px;
+  width: 1050px;
+  margin-top: 70px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 #reports-data .close {
-  top: 40px !important;
-  right: 40px !important;
+  top: 0px !important;
+  right: 0px !important;
   cursor: pointer;
   z-index: 50;
 }
@@ -1530,4 +1536,29 @@ label {
   top: 0px;
   cursor: pointer;
   margin-left: 30px;
+}
+
+.cont {
+  width: 100%;
+  overflow: hidden;
+}
+.cont img {
+  float: left !important;
+  width: 280px !important;
+}
+.cont table {
+  float: right !important;
+  width: 700px !important;
+  height: auto !important;
+}
+.cont strong {
+  font-weight: bold;
+}
+
+.tt {
+  margin-top: 20px;
+}
+
+.tt {
+  width: 100% !important;
 }
