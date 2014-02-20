@@ -986,23 +986,32 @@ header h1
 
 
 #region-data .jspVerticalBar, 
-#graph-region-data .jspVerticalBar
+#graph-region-data .jspVerticalBar,
+#reports-disc-selector .jspVerticalBar
 {
   left:0;
   right:auto;
   background:url(/static/images/formats/s1.png) center center no-repeat;
+  background-size: 100% 100%;
+}
+
+#reports-disc-selector .jspPane {
+  padding-left: 0px !important;
 }
 
 #panels #region-data .jspContainer .jspArrowUp,
 #panels #region-data .jspContainer .jspArrowDown,
 #panels #graph-region-data .jspContainer .jspArrowUp,
-#panels #graph-region-data .jspContainer .jspArrowDown
+#panels #graph-region-data .jspContainer .jspArrowDown,
+#graph-region-data .jspArrowUp,
+#graph-region-data .jspArrowDown
 {
   left:2px!important;
 }
 
 #panels #region-data .jspContainer .jspDrag,
-#panels #graph-region-data .jspContainer .jspDrag
+#panels #graph-region-data .jspContainer .jspDrag,
+#graph-region-data .jspContainer .jspDrag
 {
   right:3px!important;
 }
@@ -1011,6 +1020,15 @@ header h1
 #panels #content .data.g .jspVerticalBar
 {
   background:url(/static/images/formats/s2.png) center center no-repeat;
+}
+
+#reports-disc-selector .jspDrag {
+  left: 0px !important;
+  right: auto !important;
+}
+
+#reports-disc-selector .jspArrow {
+  left: 5px !important;
 }
 
 #format-data.hidden, 
