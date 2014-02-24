@@ -270,7 +270,7 @@ var EventsListWidget = Backbone.View.extend({
     selectEvent: function(e) {
     	var clickedEl = $(e.currentTarget);
 
-  		window.application.eventsContentWidget.show(clickedEl.parent().data("id"));
+  		window.application.eventsContentWidget.show(clickedEl.parent().data("id"), clickedEl.parent().data("status"));
     }
 });
 
@@ -283,12 +283,12 @@ var EventsContentWidget = Backbone.View.extend({
     initialize: function() {
       
     },
-    render: function (id) {
+    render: function (id, status) {
     	var self = this;
     	if(id) {
     		this.collection = new EventInfo({id: id});
 	    	this.collection.fetch().done(function() {
-	    		self.renderTemplate({ event: self.collection.toJSON() });
+	    		self.renderTemplate({ event: self.collection.toJSON(), id: id, status: status });
 	      	});	
     	} else {
     		self.renderTemplate({});
@@ -307,11 +307,27 @@ var EventsContentWidget = Backbone.View.extend({
     },
     bindTemplate_: function(content) {
 		$(this.el).html(_.template( this.template, content ));
+
+		$("#svg_mm").load("/static/svg/"+content.id+".svg", function(data) {
+			$("#svg_mm").html(data);
+
+			$.each($("#svg_mm").find("path"), function(key, value) {
+				console.log(content);
+				if(content.status == 2) {
+					$(value).attr("fill", "rgba(255, 215, 0, 0.5)");	
+				}
+				if(content.status == 3) {
+					$(value).attr("fill", "rgba(255, 0, 0, 0.5)");	
+				}
+				
+				$(value).attr("fill-opacity", "1");
+			});
+		});
     },
-    show: function(id) {
+    show: function(id, status) {
     	$(this.el).removeClass("hidden");
 
-    	this.render(id);
+    	this.render(id, status);
     },
     hide: function() {
     	$(this.el).addClass("hidden");

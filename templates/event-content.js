@@ -1,6 +1,7 @@
 <div class="inner">
     <span class="close"></span>
     <div class="cont_event table">
+        <div id="svg_mm"></div>
     	<table <% if(!event.descr) { %>class="full"<% } %>>
             <tbody>
                 <tr>

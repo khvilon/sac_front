@@ -1636,6 +1636,19 @@ label {
   background: none !important;
   height: auto !important;
 }
+#event-content .inner .cont_event #svg_mm {
+  overflow: hidden;
+  float: left;
+  width: 200px;
+  height: 200px;
+  position: relative;
+  transform: scale(2);
+  -webkit-transform: scale(2);
+}
+#event-content .inner .cont_event #svg_mm svg {
+  width: 200px;
+  height: 200px;
+}
 #event-content .inner .cont_event strong {
   font-weight: bold;
 }
@@ -1645,12 +1658,11 @@ label {
   height: auto !important;
 }
 #event-content .inner .cont_event table.full {
-  width: 100%;
-  float: none;
+  width: 790px;
 }
 #event-content .inner .cont_event .desc {
   float: right;
-  width: 590px;
+  width: 390px;
 
   font-size: 16px;
   line-height: 120%;
@@ -1681,3 +1693,4 @@ label {
 #content .jspVerticalBar {
   background-size: 100% 100%;
 }
+

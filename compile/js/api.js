@@ -3057,22 +3057,27 @@ var ReportsWidget = function(app) {
 		var id = $(event.target).attr("data-id");
 		var pTr = $(event.target).parent().parent();
 		var self = this;
-
-		$.ajax(
-			{
-				url: this.app.apiHost + "/mkb_dictionary_children/"+id,
-				type: "GET",
-				success: function(data) {
-					var html = '<tr><td colspan="2"><table style="height: auto !important">';
-					$.each(data, function(i, v) {
-						html += '<tr><td ><span data-id="'+v.id+'">'+v.name+'</span></td><td>'+v.code+'</td></tr>';
-					});
-					html += "</table></td></tr>";
-					pTr.after(html);
-					$("#reports-panel tbody span").on("click", $.proxy(self.subject2Callback_, self));
+		
+		if(!$(event.target).attr("open")) {
+			$(event.target).attr("open", "1");
+			$.ajax(
+				{
+					url: this.app.apiHost + "/mkb_dictionary_children/"+id,
+					type: "GET",
+					success: function(data) {
+						if(data.length > 0) {
+							var html = '<tr><td colspan="2"><table style="height: auto !important; width: auto !important;">';
+							$.each(data, function(i, v) {
+								html += '<tr><td ><span data-id="'+v.id+'">'+v.name+'</span></td><td>'+v.code+'</td></tr>';
+							});
+							html += "</table></td></tr>";
+							pTr.after(html);
+							$("#reports-panel tbody span").on("click", $.proxy(self.subject2Callback_, self));	
+						}
+					}
 				}
-			}
-		);
+			);	
+		}
 	}
 
 	this.updateCallback_ = function(data) {

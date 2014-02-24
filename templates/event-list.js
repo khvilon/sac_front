@@ -14,7 +14,7 @@
             </thead>
             <tbody>
                 <% _.each(events, function(evt) { %>
-                    <tr data-id="<%= evt.id %>" class="status_<%= evt.event_status_id %>">
+                    <tr data-id="<%= evt.id %>" data-status="<%= evt.event_status_id %>" class="status_<%= evt.event_status_id %>">
                         <td><%= evt.date_time.replace("T00:00:00Z", "") %></td>
                         <td><%= evt.name %></td>
                         <td><%= evt.subject_name %></td>
