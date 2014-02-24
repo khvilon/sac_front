@@ -274,6 +274,7 @@ header h1
   line-height:140%;
   font-weight: bold;
   width: 145px;
+  line-height: 47px;
 }
 
 #content .legend p.big {
@@ -294,6 +295,7 @@ header h1
   background: url("/static/images/red.png") left top no-repeat;
 }
 #content .legend p.blue {
+  -webkit-filter: grayscale(100%);  
   background: url("/static/images/blue.png") left top no-repeat;
 }
 
@@ -386,7 +388,7 @@ header h1
   transform:translatez(0);
 }
 #bg-event-image {
-  background: url("../../images/events.jpg");
+  background: url("http://192.168.1.110:3000/static/images/map/colored/cache/events_map.jpg");
 }
 #bg-regions-image
 {
@@ -925,7 +927,7 @@ header h1
   background:url(/static/images/formats/table.png) center center no-repeat;
   height:830px;
   width:1130px;
-  left:260px;
+  left:100px;
   top:155px;
   z-index:200;
 }
@@ -952,6 +954,7 @@ header h1
   font-size:16px;
   color:#fff;
   padding:10px;
+  word-wrap: break-word;
 }
 
 #content .table table tr:nth-child(2n)
@@ -973,6 +976,9 @@ header h1
 }
 #map-params.hidden,#regions-params.hidden, #events-params.hidden {
   right: -500px;
+}
+#events-params.hidden {
+  right: -700px;
 }
 #regions-selector
 {
@@ -1390,7 +1396,6 @@ label {
 #map-params .sbHolder {
   top: 65px !important;
 }
-#regions-parametrs-widget.data .hidden,
 #parametrs-widget.data .hidden {
   top: 439px !important;
   left: 43px !important;
@@ -1452,14 +1457,15 @@ label {
   background: url("../../images/cancel_32.png") left top no-repeat;
   cursor: pointer;
   display: block;
-  width: 32px;
-  height: 32px;
+  width: 22px;
+  height: 22px;
   position: absolute;
   right: 25px;
   top: -25px;
 
   z-index: 20;
    -webkit-filter: invert(100%);  
+   background-size: 100% 100%;
 }
 
 #map-params h2,
@@ -1479,6 +1485,12 @@ label {
   font-family: 'Open Sans', sans-serif;
 }
 
+#events-params h2 {
+  right: 111px !important;
+}
+#map-params h2 {
+  right: 64px !important;
+}
 #params-selector h2,
 #graph-selector h2,
 #reports-params-selector h2 {
@@ -1501,10 +1513,10 @@ label {
   top: -25px;
 }
 
-#content .table table tr td a {
+#content .table table tr td a, #content .table table tr td span {
   cursor: pointer;
 }
-#content .table table tr td a:hover {
+#content .table table tr td a:hover, #content .table table tr td span:hover {
   text-decoration: underline;
 }
 
@@ -1579,4 +1591,93 @@ label {
 
 .tt {
   width: 100% !important;
+}
+
+#events-list-table {
+  height: 570px !important;
+  overflow-y: auto;
+  overflow-x: visible;
+  margin-left: 100px !important;
+  margin-top: 60px;
+}
+
+
+
+#events-list-table td {
+  padding: 10px;
+  background: #070552;
+}
+
+#events-list-table * {
+  font-size: 14px;
+}
+
+#events-params .data {
+  width: 650px;
+  background-size: 100% 100%;
+}
+
+#event-content .close {
+  top: 35px;
+  right: 35px;
+}
+
+#event-content .inner {
+  padding: 50px;
+  padding-top: 90px;
+  color: #ffffff;
+  font-family: 'Open Sans', sans-serif;
+}
+
+#event-content .inner .cont_event {
+  width: 100%;
+  overflow: hidden;
+  position: static !important;
+  background: none !important;
+  height: auto !important;
+}
+#event-content .inner .cont_event strong {
+  font-weight: bold;
+}
+#event-content .inner .cont_event table {
+  float: left;
+  width: 400px;
+  height: auto !important;
+}
+#event-content .inner .cont_event table.full {
+  width: 100%;
+  float: none;
+}
+#event-content .inner .cont_event .desc {
+  float: right;
+  width: 590px;
+
+  font-size: 16px;
+  line-height: 120%;
+}
+
+#event-content .inner .info {
+   padding-top: 20px;
+   font-size: 16px;
+   line-height: 120%;
+}
+
+#events-list-table .status_2 td {
+  background: rgba(255, 215, 0, 0.5);
+  color: #000000;
+}
+
+#events-list-table .status_3 td {
+  background: rgba(255, 0, 0, 0.5);
+  color: #000000;
+}
+#events-list-table .jspPane {
+  background: rgba(255, 255, 255, 0.7);
+}
+
+#content #events-list-table .jspContainer {
+  height: 570px !important;
+}
+#content .jspVerticalBar {
+  background-size: 100% 100%;
 }

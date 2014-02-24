@@ -967,6 +967,7 @@ var Application = function() {
 		
 		this.regionsParametrsWidgets = new RegionsParametrsWidgets(this);
 		this.regionsLegendWidget = new RegionsLegendWidget(this);
+		this.eventsListWidget = new EventsListWidget();
 
 		this.regionPanel = new RegionPanel(this);
 		this.districtsPanel = new DistrictsPanel(this);
@@ -974,12 +975,16 @@ var Application = function() {
 		this.formatPanel = new FormatPanel(this);
 		this.reportsPanel = new ReportsPanel(this);
 		this.mapEventsPanel = new MapEventsPanel(this);
+		this.eventsContentWidget = new EventsContentWidget();
 
 		this.regionsMapColorWidget.enable();
 		this.mapColorWidget.enable();
 
 		this.loadingState.stop();
 		this.onPanelsShow();
+
+		this.eventsListWidget.render();
+		this.eventsContentWidget.render();
 	}
 
 	this.setAppTitle = function(title) {
@@ -990,7 +995,6 @@ var Application = function() {
 }
 
 $(document).ready(function() {
-	var application = new Application();
+	window.application = new Application();
 	application.run();
-	
 })

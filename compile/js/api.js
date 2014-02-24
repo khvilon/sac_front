@@ -102,6 +102,30 @@ var RegionsParametrsWidgets = function(app) {
 			);
 			this.app.regionsMapColorWidget.updateParams();
 			this.elements["UOM"].html(parentLi.attr("data-uom"));
+
+			$.ajax(
+				{
+					url: this.app.apiHost + "/param_values/colors_for_legend_list/"+this.currentParametr.id+"/"+this.app.ageSelectorRegionsWidget.selectedYear,
+					type: "GET",
+					success: function(data) {
+						if(data.green) {
+							$("#regions-legend-widget .green").html(data.green);
+						} else {
+							$("#regions-legend-widget .green").html(0);
+						}
+						if(data.yellow) {
+							$("#regions-legend-widget .yellow").html(data.yellow);
+						} else {
+							$("#regions-legend-widget .yellow").html(0);
+						}
+						if(data.red) {
+							$("#regions-legend-widget .red").html(data.red);
+						} else {
+							$("#regions-legend-widget .red").html(0);
+						}
+					}
+				}
+			);
 		} else {
 			/*$(this.CSS["PARAMETRS-LIST"]).find(".active").removeClass("active");
 			this.setTitle("");
@@ -199,7 +223,6 @@ var RegionsParametrsWidgets = function(app) {
 			this.animateSpeed/4,
 			$.proxy(this.onMainHiddened_, this) 
 		);
-		this.legendWidget.hide();
 		return false;
 	}
 
@@ -663,6 +686,7 @@ var EventRightWidgets = function(app) {
 
 	this.fullShow = function() {
 		this.elements["MAP-PARAMS"].removeClass("hidden");
+		$("#events-parametrs-widget").show();
 	}
 
 
@@ -2067,8 +2091,9 @@ var ReportsParamsSelector = function(app) {
 
 				$("#report-pdf h2").html($(self2).html());
 				$("#report-pdf-in").html('<object width="100%" type="application/pdf" height="670px" src="'+$(self2).attr("link")+'""></object>');
-				$("#reports-panel").hide();
 				
+				$("#reports-data").hide();
+				$("#reports-panel").hide();
 				$("#report-pdf").show();
 			}, 3000);
 		});
@@ -2788,7 +2813,7 @@ var GraphWidget = function(app) {
 					
 					dataLine1["label"] = "";
 					dataLine1["data"] = line1;
-					dataLine1["color"] = "rgba(127, 255, 127, 0.5)";
+					dataLine1["color"] = "rgba(0, 255, 0, 0.7)";
 
 					lines.push(dataLine1);
 
@@ -2805,7 +2830,7 @@ var GraphWidget = function(app) {
 					
 					dataLine2["label"] = "";
 					dataLine2["data"] = line2;
-					dataLine2["color"] = "rgba(127, 255, 127, 0.5)";
+					dataLine2["color"] = "rgba(0, 255, 0, 0.7)";
 
 					console.log(dataLine2);
 
@@ -2824,7 +2849,7 @@ var GraphWidget = function(app) {
 					
 					dataLine3["label"] = "";
 					dataLine3["data"] = line3;
-					dataLine3["color"] = "rgba(255, 127, 127, 0.5)";
+					dataLine3["color"] = "rgba(255, 0, 0, 0.7)";
 
 					lines.push(dataLine3);
 
@@ -2841,7 +2866,7 @@ var GraphWidget = function(app) {
 					
 					dataLine4["label"] = "";
 					dataLine4["data"] = line4;
-					dataLine4["color"] = "rgba(255, 127, 127, 0.5)";
+					dataLine4["color"] = "rgba(255, 0, 0, 0.7)";
 
 					lines.push(dataLine4);
 
@@ -2858,7 +2883,7 @@ var GraphWidget = function(app) {
 					
 					dataLine5["label"] = "";
 					dataLine5["data"] = line5;
-					dataLine5["color"] = "rgba(255, 255, 127, 0.5)";
+					dataLine5["color"] = "rgba(255, 255, 0, 0.7)";
 
 					lines.push(dataLine5);
 
@@ -2875,7 +2900,7 @@ var GraphWidget = function(app) {
 					
 					dataLine6["label"] = "";
 					dataLine6["data"] = line6;
-					dataLine6["color"] = "rgba(255, 255, 127, 0.5)";
+					dataLine6["color"] = "rgba(255, 255, 0, 0.7)";
 
 					lines.push(dataLine6);
 				}
@@ -3028,6 +3053,28 @@ var ReportsWidget = function(app) {
 		);
 	}
 
+	this.subject2Callback_ = function(event) {
+		var id = $(event.target).attr("data-id");
+		var pTr = $(event.target).parent().parent();
+		var self = this;
+
+		$.ajax(
+			{
+				url: this.app.apiHost + "/mkb_dictionary_children/"+id,
+				type: "GET",
+				success: function(data) {
+					var html = '<tr><td colspan="2"><table style="height: auto !important">';
+					$.each(data, function(i, v) {
+						html += '<tr><td ><span data-id="'+v.id+'">'+v.name+'</span></td><td>'+v.code+'</td></tr>';
+					});
+					html += "</table></td></tr>";
+					pTr.after(html);
+					$("#reports-panel tbody span").on("click", $.proxy(self.subject2Callback_, self));
+				}
+			}
+		);
+	}
+
 	this.updateCallback_ = function(data) {
 		$("#reports-data").hide();
 		$("#reports-panel").show();
@@ -3050,6 +3097,54 @@ var ReportsWidget = function(app) {
 				value.region_name = value.group_name;	
 			}
 
+			if(!value.region_name && value.name_org) {
+				value.name = value.name_org;	
+			}
+
+			if(value.code) {
+				value.attr1 = value.code;	
+			}
+
+			if(value.addr_street) {
+				value.attr2 = value.addr_street;	
+			}
+
+			if(value.addr_street) {
+				value.attr1 = value.addr_region;	
+			}
+
+			if(value.code1) {
+				value.attr1 = value.code1;	
+			}
+
+			if(value.code2) {
+				value.attr2 = value.code2;	
+			}
+
+			if(value.koef1) {
+				value.attr3 = value.koef1;	
+			}
+
+			if(value.koef2) {
+				value.attr4 = value.koef2;	
+			}
+
+			if(value.address) {
+				value.attr1 = value.address;	
+			}
+
+			if(value.fio_rucovod) {
+				value.attr2 = value.fio_rucovod;	
+			}
+
+			if(value.phone_rucovod) {
+				value.attr3 = value.phone_rucovod;	
+			}
+
+			if(value.www) {
+				value.attr4 = value.www;	
+			}
+
 			if(!value.id && value.region_id) {
 				value.id = value.region_id;
 			}
@@ -3057,17 +3152,39 @@ var ReportsWidget = function(app) {
 			if(self.selectedId == 3) {
 				html += '<td><a data-id="'+value.id+'">'+value.name+'</a></td>';
 			} else {
-				html += '<td>'+value.name+'</td>';
+				if(self.selectedId == 5) {
+					html += '<td><span data-id="'+value.id+'">'+value.name+'</span></td>';
+				} else {
+					html += '<td>'+value.name+'</td>';	
+				}
 			}
 			
 			if(value.region_name) {
 				html += '<td>'+value.region_name+"</td>";
 			}
+
+			if(value.attr1) {
+				html += '<td>'+value.attr1+"</td>";
+			}
+
+			if(value.attr2) {
+				html += '<td>'+value.attr2+"</td>";
+			}
+
+			if(value.attr3) {
+				html += '<td>'+value.attr3+"</td>";
+			}
+
+			if(value.attr4) {
+				html += '<td>'+value.attr4+"</td>";
+			}
+
 			html += "</tr>";
 		});
 
 		main.append(html);
 		$(main).find("a").on("click", $.proxy(this.subjectCallback_, this));
+		$(main).find("span").on("click", $.proxy(this.subject2Callback_, this));
 		app.reportsWidget.scrollApi.reinitialise();
 	}
 

@@ -238,3 +238,82 @@ var AppTimer = function(app) {
 		this.elements["age"].html(date.getUTCFullYear());
 	}
 }
+
+
+var EventsListWidget = Backbone.View.extend({
+    el: $("#events-params"),
+    events: {
+        "click td": "selectEvent"
+    },
+    initialize: function() {
+      this.collection = new EventCollection();
+    },
+    render: function () {
+    	var self = this;
+
+    	this.collection.fetch().done(function() {
+			$.get('/static/templates/event-list.js', function (data) {
+				var template = _.template( data, { events: self.collection.toJSON() } );
+				$(self.el).html(template);
+
+				$("#events-list-table").jScrollPane(
+					{
+						showArrows: true,
+						verticalDragMinHeight: 60,
+			    		verticalDragMaxHeight: 60,
+			    		autoReinitialise: true
+					}
+				);
+			}, 'html');
+      	});
+    },
+    selectEvent: function(e) {
+    	var clickedEl = $(e.currentTarget);
+
+  		window.application.eventsContentWidget.show(clickedEl.parent().data("id"));
+    }
+});
+
+var EventsContentWidget = Backbone.View.extend({
+    el: $("#event-content"),
+    template: null,
+    events: {
+        "click .close": "hide"
+    },
+    initialize: function() {
+      
+    },
+    render: function (id) {
+    	var self = this;
+    	if(id) {
+    		this.collection = new EventInfo({id: id});
+	    	this.collection.fetch().done(function() {
+	    		self.renderTemplate({ event: self.collection.toJSON() });
+	      	});	
+    	} else {
+    		self.renderTemplate({});
+    	}
+    },
+    renderTemplate: function(content) {
+    	var self = this;
+    	if(!self.template) {
+    		$.get('/static/templates/event-content.js', function (data) {
+	    		self.template = data;
+				self.bindTemplate_(content);
+			}, 'html');	
+    	} else {
+    		this.bindTemplate_(content);
+    	}
+    },
+    bindTemplate_: function(content) {
+		$(this.el).html(_.template( this.template, content ));
+    },
+    show: function(id) {
+    	$(this.el).removeClass("hidden");
+
+    	this.render(id);
+    },
+    hide: function() {
+    	$(this.el).addClass("hidden");
+    }
+});
