@@ -850,7 +850,10 @@ var Application = function() {
 
         appCache.addEventListener('updateready', loaded, false);
         appCache.addEventListener('noupdate', loaded, false);
-        appCache.addEventListener('cached', loaded, false);
+        appCache.addEventListener('cached', function () {
+            // Reload page after all content is cached
+            window.location.reload();
+        }, false);
         appCache.addEventListener('downloading', $.proxy(function () {
             this.loadingState.run();
         }, this), false);
