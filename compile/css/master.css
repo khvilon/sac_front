@@ -388,7 +388,7 @@ header h1
   transform:translatez(0);
 }
 #bg-event-image {
-  background: url("http://192.168.1.110:3000/static/images/map/colored/cache/events_map.jpg");
+  background: url("/static/images/map/colored/cache/events_map.jpg");
 }
 #bg-regions-image
 {
