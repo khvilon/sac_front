@@ -808,10 +808,6 @@ var Application = function() {
 	this.onFormatUpdateContentEvent = new signals.Signal();
 	this.onFormatUpdateContentEvent.add(OnFormatUpdateContentEvent);
 
-	this.allCacheFile = $(ConfigApp["PRELOAD"]).size();
-	this.cachedFile = 0;
-	this.res = {};
-
 	var self = this;
 
 	this.getResByPath = function(path) {
@@ -842,49 +838,26 @@ var Application = function() {
 		this.footerNavWidget.draw();
 	}
 
-	// загружаем ресурсы
+	// Загружаем ресурсы, используя родной applicationCache
 	this.initResource_ = function() {
-		ImgCache.init(function(){
-			$.each(ConfigApp["PRELOAD"],function(key, value) {
-				ImgCache.isCached(value, function(e, state, file) {
-					if(state == false) {
-						ImgCache.cacheFile(value, function(file) {
-							self.loadingState.updateText(self.cachedFile, self.allCacheFile);
-							self.res[value] = file;
-							self.cachedFile = self.cachedFile + 1;
-							if(self.allCacheFile == self.cachedFile) {
-								self.onCacheLoaded_();
-							}
-						}, function() {
-							self.loadingState.updateText(self.cachedFile, self.allCacheFile);
-							self.res[value] = file;
-							self.cachedFile = self.cachedFile + 1;
-							if(self.allCacheFile == self.cachedFile) {
-								self.onCacheLoaded_();
-							}
-							//location.reload();
-						});
-					} else {
-						self.loadingState.updateText(self.cachedFile, self.allCacheFile);
-						self.res[e] = file;
-						self.cachedFile = self.cachedFile + 1;
-					}
-					
-					if(self.allCacheFile == self.cachedFile) {
-						self.onCacheLoaded_();
-					}
-				});
-			});
-		});
+        var appCache = window.applicationCache;
+        if (appCache.status == appCache.IDLE)
+            return this.onCacheLoaded_();
 
-		$(document).on("keydown", function(e) {
-	        if (e.keyCode == 82 && e.altKey) {
-	           ImgCache.clearCache(function() {
-	           	location.reload();
-	           });
-	        }
-	    });
-	}
+        var loaded = $.proxy(function () {
+            this.onCacheLoaded_();
+        }, this);
+
+        appCache.addEventListener('updateready', loaded, false);
+        appCache.addEventListener('noupdate', loaded, false);
+        appCache.addEventListener('cached', loaded, false);
+        appCache.addEventListener('downloading', $.proxy(function () {
+            this.loadingState.run();
+        }, this), false);
+        appCache.addEventListener('progress', $.proxy(function (e) {
+            this.loadingState.updateText(e.loaded, e.total);
+        }, this), false);
+	};
 
 	this.init = function() {
 		$(this.elements["APP"]).width(this.appSize[0]).height(this.appSize[1]);
