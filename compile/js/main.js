@@ -850,6 +850,7 @@ var Application = function() {
 
         appCache.addEventListener('updateready', loaded, false);
         appCache.addEventListener('noupdate', loaded, false);
+        appCache.addEventListener('error', loaded, false); // Если размер кэша недостаточен — продолжим без кэширования
         appCache.addEventListener('cached', function () {
             // Reload page after all content is cached
             window.location.reload();
