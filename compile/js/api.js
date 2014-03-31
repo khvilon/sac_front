@@ -1139,7 +1139,7 @@ var MapColorel = function(app) {
 	        		callback();
 				}
 	        }	
-		}
+		} else if (callback) callback();
 	}
 
 	this.show = function() {
