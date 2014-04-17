@@ -1,0 +1,345 @@
+@media (max-width: 1030px) {
+	#app {
+		width: 100% !important;
+		height: 97% !important;
+	}
+	#load img {
+		width: 100px;
+		height: 100px;
+		margin: 0px;
+		left: 450px;
+		top: 300px;
+	}
+	header {
+		width: 1024px;
+	}
+	header h1 {
+		height: 40px;
+		width: 450px;
+		font-size: 17px;
+		line-height: 40px;
+		left: 280px;
+		top: 40px;
+		background-size: 100% 100%;
+	}
+	#content .time {
+		height: 120px;
+		width: 350px;
+		background-size: 100% 100%;
+	}
+	#content .time b {
+		font-size: 18px;
+		padding: 5px 0 0 250px;
+	}
+	#content .time p {
+		font-size: 10px;
+		padding-left: 250px;
+	}
+	#content .nav {
+		width: 880px;
+		height: 40px;
+		left: 55px;
+		background-size: 100% 100%;
+	}
+	#content .nav a {
+		width: 70px;
+		height: 30px;
+		font-size: 13px;
+		margin: 15px 20px 0 0px;
+	}
+	#content .legend {
+		bottom: 50px;
+		left: 115px;
+	}
+	#content .legend p {
+		font-size: 15px;
+		min-height: 15px;
+		padding: 3px 50px 3px 90px;
+		width: 50px;
+		line-height: 30px;
+		background-size: 100% 100% !important;
+	}
+	#content .show {
+		background-size: 70px 670px;
+		height: 400px;
+		width: 30px;
+		top: 110px;
+		background-size: 100% 100%;
+	}
+	#content .data {
+		background-size: 100% 100%;
+		height: 400px;
+		width: 300px;
+		top: 100px;
+	}
+	#map-params h2, #events-params h2, #regions-params h2, #regions-selector h2, #params-data h2, #graph-regions-selector h2, #graph-selector h2, #reports-disc-selector h2, #reports-params-selector h2 {
+		right: 120px !important;
+		top: 10px;
+		font-size: 15px;
+	}
+	#content .data .hidden {
+		height: 37px;
+		width: 15px;
+		background-size: 100% 100%;
+		left: 23px !important;
+		top: 246px !important;
+	}
+	#content .data h3 {
+		font-size: 12px;
+		padding-right: 15px;
+		height: 25px;
+		margin: 18px 0 0px 65px !important;
+	}
+	#param-info {
+	height: 20px;
+	padding-left: 70px;
+	font-size: 12px;
+	}
+	#parametrs-widget.data #param-info {
+		top: 52px !important;
+	}
+	#content .data .search {
+		width: 130px;
+		height: 20px;
+		padding-left: 65px;
+		font-size: 15px;
+		margin-bottom: 0px;
+		margin-top: 30px !important;
+	}
+	#map-params .sbHolder {
+		top: 27px !important;
+		right: -15px;
+	}
+	.sbToggle {
+		height: 15px;
+		right: 25px;
+		top: 7px;
+		width: 15px;
+	}
+	.sbSelector:link, .sbSelector:visited, .sbSelector:hover {
+		font-size: 14px;
+	}
+	.sbOptions {
+		left: -15px;
+	}
+	#bg-image, #bg-regions-image, #bg-events, #bg-event-image {
+		width: 1080px;
+		height: 672px;
+		background-size: 100% 100%;
+		left: -50px;
+	}
+	#miniMap {
+		height: 120px;
+		width: 200px;
+		left: -10px;
+		top: 100px;
+		background-size: 100% 100%;
+	}
+	#miniMap a {
+		background-size: 100% 100%;
+		font-size: 15px;
+		height: 20px;
+		width: 180px;
+		left: 15px;
+		top: 5px;
+		padding-top: 90px;
+	}
+	#content .data .jspContainer {
+		height: 280px!important;
+	}
+	#content .data ul.first {
+		margin-left: 50px;
+		margin-top: 5px;
+	}
+	#content .data .scroll li {
+		font-size: 12px;
+	}
+	#content .data .scroll .group {
+		padding-bottom: 5px;
+		padding-top: 5px;
+	}
+	#content .data ul span {
+		width: 150px;
+	}
+	#content .data ul i {
+		width: 50px;
+	}
+	#regions-left-camera {
+		left: 50px;
+		bottom: 20px;
+		width: 80px;
+		height: 40px;
+		background-size: 100% 100% !important;
+	}
+	#regions-right-camera {
+		position: absolute;
+		right: 50px;
+		bottom: 20px;
+		width: 80px;
+		height: 40px;
+		background-size: 100% 100% !important;
+	}
+	#regions-parametrs-widget h3 {
+		height: 35px !important;
+	}
+	#regions-parametrs-widget.data .search {
+		margin-top: 40px !important;
+	}
+	#regions-param-info {
+		margin-top: 60px;
+		padding-left: 70px;
+		font-size: 12px;
+	}
+	#content .data.region .search {
+		margin: 40px 0 10px 15px !important;
+		width: 170px !important;
+	}
+	#region-data-place.scroll.jspScrollable {
+		width: 235px !important;
+		max-height: 300px !important;
+	}
+	#regions-params .sbHolder {
+		top: 37px;
+		right: -15px;
+	}
+	#regions-params .data .jspContainer, #params-data .jspContainer {
+		height: 250px!important;
+	}
+	#regions-selector .data.region, #graph-regions-selector .data.region {
+		width: 250px;
+		left: -25px;
+	}
+	#content #region-data .jspPane, #content #graph-region-data .jspPane {
+		padding-left: 35px !important;
+	}
+	#regions-selector .data.region ul, #graph-regions-selector .data.region ul {
+		width: 200px;
+	}
+	#content .data.region .scroll li {
+		width: 200px!important;
+	}
+	#content .data.region section ul span {
+		width: 170px;
+	}
+	#content .data.region section li ul li span {
+		width: 160px!important;
+	}
+	#content .data.region .scroll li ul li {
+		width: 190px!important;
+	}
+	#content .data.f section ul a, #content .data.region section ul a, #content .data.g section ul a, .check {
+		height: 22px;
+		width: 30px;
+		top: 5px;
+		background-size: 100% 100% !important;
+	}
+	#content .data.f, #content .data.g {
+		background-size: 100% 100%;
+		height: 400px;
+		width: 235px;
+		top: 120px;
+	}
+	#content .data.f .search, #content .data.g .search {
+		width: 120px;
+		margin-left: -30px;
+		margin-top: -5px !important
+	}
+	#params-data .sbHolder {
+		top: -60px !important;
+		right: -20px;
+	}
+	#params-data-place.scroll {
+		width: 235px;
+		position: relative;
+		top: -70px;
+	}
+	#params-data .jspPane, #graph-selector .jspPane {
+		padding: 0px 0px 0px 15px !important;
+		width: 210px;
+	}
+	#panels #content .data.f .jspContainer, #panels #content .data.g .jspContainer {
+		height: 310px!important;
+	}
+	#content .data.f ul.first, #content .data.g ul.first {
+		padding-left: 0px !important;
+		width: 210px;
+	}
+	#content .data.f .scroll li, #content .data.g.scroll li {
+		width: 210px!important;
+	}
+	#content .data.f section ul span, #content .data.g section ul span {
+		width: 180px!important;
+	}
+	#content .data.f .scroll li ul li, #content .data.g .scroll li ul li {
+		width: 200px!important;
+	}
+	#content .data.f section li ul li span, #content .data.g section li ul li span {
+		width: 170px!important;
+	}
+	#content .table, #content #graph-content {
+		background-size: 100% 100%;
+		height: 530px;
+		width: 550px;
+		left: 220px;
+		top: 80px;
+	}
+	#table-format, #reports-panel {
+		height: 480px;
+		margin: 20px 10px 20px 15px;
+	}
+	#content .table table {
+		width: 500px;
+		height: 480px;
+	}
+	#content .jspVerticalBar {
+	display: none;
+	}
+	#table-format th, #reports-panel th {
+		font-size: 12px;
+		padding: 3px;
+	}
+	#content .table table td {
+		height: 15px;
+		font-size: 12px;
+		padding: 3px;
+	}
+	#graph-panel {
+		height: 430px;
+		margin: 25px 20px 10px 20px;
+	}
+	.flot-text {
+		font-size: 10px !important;
+	}
+	#graph-datas {
+		margin-left: 20px;
+	}
+	#graph-datas label {
+		font-size: 12px;
+		line-height: 30px;
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+	.navss.left {
+		border-width: 15px 10px 15px 0px;
+	}
+	.navss.right {
+		border-width: 15px 0px 15px 10px;
+	}
+	.year {
+		font-size: 14px;
+		padding: 2px 5px;
+	}
+	.fl.check {
+		top: 3px;
+		margin-left: 20px;
+	}
+	.buttoms {
+		margin-right: 35px;
+	}
+	.buttoms li {
+		font-size: 14px;
+	}
+	#graph-panel .legend {
+		height: 430px !important;
+	}
+}

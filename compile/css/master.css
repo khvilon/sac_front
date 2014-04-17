@@ -479,7 +479,7 @@ header h1
   width: 500px;
   right:0;
   top:150px;
-  o/verflow:hidden;
+  overflow:hidden;
   display:none;
   z-index:130;
 }
