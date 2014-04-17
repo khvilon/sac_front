@@ -1,3 +1,6 @@
+
+
+
 /**
  * [SVGLoader description]
  * @param {[type]} app [description]
@@ -62,42 +65,8 @@ var SVGLoader = function(app, config) {
 	this.onLoadSvg_ = function() {
 		var svg = this.elements["SVG"][0].getSVGDocument();
 		var self = this;
+		console.log(svg);
 		this.appendCSS_(svg);
-
-		$(svg).on("mouseover", function(event) {
-			if(event.target.nodeName == "svg" && self.app.parametrsWidgets.currentParametr && self.app.parametrsWidgets.currentParametr.id) {
-				self.app.legendParamsManager.getLegendByParamAndSubject(
-					self.app.parametrsWidgets.currentParametr.id, 
-					self.app.currentRegion,
-					self.app.ageSelectorWidget.selectedYear,
-					function(data) {
-						var newData = {};
-						newData["green"] = [0];
-						newData["yellow"] = [0];
-						newData["red"] = [0];
-						newData["blue"] = [0];
-
-						$.each(data, function(value, key){
-							if(key == "#7fff7f") {
-								newData["green"][0] += 1; 
-							}
-							if(key == "#ff7f7f") {
-								newData["red"][0] += 1; 
-							}
-							if(key == "#ffff7f") {
-								newData["yellow"][0] += 1; 
-							}
-							if(!key) {
-								newData["blue"][0] += 1; 
-							}
-						});
-						self.app.legendWidget.setLevelText(newData);
-						self.app.legendWidget.show();
-					}
-				);
-			}
-			event.stopPropagation();
-		});
 		
 		$.each($(svg).find("path"), function(key, value) {
 			$(value).attr("fill", "#ffffff");
@@ -116,17 +85,6 @@ var SVGLoader = function(app, config) {
 			paths.attr({
 				"fill-opacity": self.maxOpacity
 			});
-
-			if(self.app.parametrsWidgets.currentParametr && self.app.parametrsWidgets.currentParametr.id) {
-				self.app.legendManager.getLegendByParamAndSubject(
-					self.app.parametrsWidgets.currentParametr.id, 
-					$(this).attr("target"),
-					function(data) {
-						self.app.legendWidget.setLevelText(data);
-						self.app.legendWidget.show();
-					}
-				);	
-			}
 		});
 		groups.on("mouseout", function() {
 			var paths = $(this).stop().find("path");
@@ -134,7 +92,6 @@ var SVGLoader = function(app, config) {
 				"fill-opacity": self.minOpacity
 			});
 		});
-			
 
 		if(this.onGroupClick) {
 			groups.on("click", this.onGroupClick);	
@@ -146,7 +103,7 @@ var SVGLoader = function(app, config) {
 
 		var svg = $(this.CSS["SVG"])[0].getSVGDocument();
 		var self = this;
-
+		
 		$.each($(svg).find("g"), function(key, value) {
 			var id = $(value).attr("target");
 			if(id && data[id] != 0) {
@@ -167,8 +124,8 @@ var SVGLoader = function(app, config) {
 				}
 
 				var classes = "zoom"+self.app.currentZoom+" "+CSSclasses;
-				var val = decorateValues(data[id], 2);
-				$(newElement).html(Number(val));
+				var val = parseFloat(data[id]);
+				$(newElement).html(val);
 				$(newElement).attr({
 					x: x,
 					y: y,
@@ -212,15 +169,12 @@ var VideoPlayer = function() {
 	}
 
 	this.video = $("#video");
-	this.endedCallback = null;
+	this.endedCallback = {};
 
 	this.onTimeupdate_ = function(e) {
 		if(e.currentTarget.duration - e.currentTarget.currentTime < 0.2) {
 			e.currentTarget.pause();
-			console.log(this.endedCallback);
-			if(this.endedCallback) {
-				this.endedCallback();	
-			}
+			this.endedCallback();
 		}
 	}
 
@@ -344,9 +298,6 @@ var DistrictsPanel = function(app) {
 	this.app = app;
 
 	this.show = function() {
-		$("#legend-widget").show();
-		$("#bg-colored-image").show();
-
 		this.app.mapStateManager.removeBlur();
 		if(this.app.currentZoom != 1) {
 			this.app.mapStateManager.miniMapWriter.opacityShow();	
@@ -358,12 +309,6 @@ var DistrictsPanel = function(app) {
 		this.app.mapColorWidget.updateParams();
 		this.app.mapColorel.show();
 		this.app.pageTitleWidget.show();
-
-		if(this.app.parametrsWidgets.currentParametr && this.app.parametrsWidgets.currentParametr.id) {
-			this.app.legendWidget.show();
-		}
-
-		this.app.setAppTitle(this.app.mapStateManager.currentRegionData.name);
 	}
 
 	this.hidden = function() {
@@ -372,20 +317,6 @@ var DistrictsPanel = function(app) {
 		this.app.mapStateManager.SVGWriter.hide();
 
 		this.app.parametrsWidgets.fullHidden();
-		this.app.legendWidget.hide();
-		this.app.paramsSelectorWidget.hidden();
-		this.app.mapColorel.hidden();
-
-		$("#bg-colored-image").hide();
-	}
-
-	this.hiddenWidgets = function() {
-		//this.app.mapStateManager.addBlur();
-		//this.app.mapStateManager.miniMapWriter.opacityHidden();
-		//this.app.mapStateManager.SVGWriter.hide();
-
-		this.app.parametrsWidgets.fullHidden();
-		this.app.legendWidget.hide();
 		this.app.paramsSelectorWidget.hidden();
 		this.app.mapColorel.hidden();
 	}
@@ -403,8 +334,6 @@ var FormatPanel = function(app) {
 		this.app.formatWidget.show();
 		this.app.regionsSelectorWidget.show();
 		this.app.paramsSelectorWidget.show();
-
-		this.app.setAppTitle("Форматы");
 	}
 
 	this.hidden = function() {
@@ -426,36 +355,12 @@ var GraphPanel = function(app) {
 		this.app.graphParamsSelector.show();
 		this.app.graphRegionsSelectorWidget.show();
 		this.app.graphWidget.show();
-
-		this.app.setAppTitle("Графики");
 	}
 
 	this.hidden = function() {
 		this.app.graphParamsSelector.hidden();
 		this.app.graphRegionsSelectorWidget.hidden();
 		this.app.graphWidget.hidden();
-	}
-}
-
-var ReportsPanel = function(app) {
-	this.app = app;
-
-	this.show = function() {
-		console.log("gf");
-		this.app.reportsParamsSelector.show();
-		this.app.reportsDiscSelector.show();
-
-		this.app.setAppTitle("Отчеты");
-		//this.app.graphRegionsSelectorWidget.show();
-		//this.app.graphWidget.show();
-	}
-
-	this.hidden = function() {
-		this.app.reportsParamsSelector.hidden();
-		this.app.reportsDiscSelector.hidden();
-		this.app.reportsWidget.hidden();
-		//this.app.graphRegionsSelectorWidget.hidden();
-		//this.app.graphWidget.hidden();
 	}
 }
 
@@ -483,7 +388,7 @@ var RegionPanel = function(app) {
 	this.svgWriter = new SVGLoader(this);
 
 	this.getBgCurrentCamera = function() {
-		return this.app.getResByPath(ConfigApp["REGIONS"][this.currentCamera]["MAP"]) ;
+		return this.app.getResByPath(ConfigApp["REGIONS"][this.currentCamera]["MAP"]);
 	}
 
 	this.getSVGCurrentCamera = function() {
@@ -531,10 +436,6 @@ var RegionPanel = function(app) {
 
 		this.app.regionsParametrsWidgets.fullShow();
 		this.app.regionsMapColorWidget.updateParams();
-
-		this.app.regionsLegendWidget.show();
-
-		this.app.setAppTitle("Россия");
 	}
 
 	this.hidden = function() {
@@ -544,8 +445,6 @@ var RegionPanel = function(app) {
 
 		this.app.regionsParametrsWidgets.fullHidden();
 		this.app.regionsSelectorWidget.hidden();
-
-		this.app.regionsLegendWidget.hide();
 	}
 
 	this.addBlur = function() {
@@ -555,8 +454,6 @@ var RegionPanel = function(app) {
 	this.removeBlur = function() {
 		this.elements["BG-IMAGE"].removeClass("blur");
 	}
-
-
 
 	this.onCameraLeftClick_ = function() {
 		var startState = "";
@@ -576,17 +473,15 @@ var RegionPanel = function(app) {
 			startState = "RIGHT";
 			endState = "CENTER";
 		}
-		if(!this.app.mobile) {
-			this.app.videoPlayer.play(
-				this.app.getResByPath(this.getVideoName(startState, endState)) ,
-				{
-					onEndedCallback: $.proxy(this.onVideoPlayEnd_, this),
-					poster: this.bgImage	
-				}
-			);	
-		} else {
-			this.onVideoPlayEnd_();
-		}
+
+		this.app.videoPlayer.play(
+			this.app.getResByPath(this.getVideoName(startState, endState)).toURL(),
+			{
+				onEndedCallback: $.proxy(this.onVideoPlayEnd_, this),
+				poster: this.bgImage	
+			}
+		);
+		
 	}
 
 	this.onVideoPlayEnd_ = function() {
@@ -627,17 +522,13 @@ var RegionPanel = function(app) {
 			endState = "CENTER";
 		}
 
-		if(!this.app.mobile) {
-			this.app.videoPlayer.play(
-				this.app.getResByPath(this.getVideoName(startState, endState)) ,
-				{
-					onEndedCallback: $.proxy(this.onVideoPlayEnd_, this),
-					poster: this.bgImage	
-				}
-			)
-		} else {
-			this.onVideoPlayEnd_();
-		}
+		this.app.videoPlayer.play(
+			this.app.getResByPath(this.getVideoName(startState, endState)).toURL(),
+			{
+				onEndedCallback: $.proxy(this.onVideoPlayEnd_, this),
+				poster: this.bgImage	
+			}
+		);
 	}
 
 	this.bindEvents_ = function() {
@@ -651,89 +542,48 @@ var RegionPanel = function(app) {
 
 var MapEventsPanel = function(app) {
 	this.app = app;
+	this.events = [{
+		"latitude": 55.7517,
+		"longitude": 37.6178
+	}];
 
 	this.OnEvensMapChangeState = new signals.Signal();
 	this.OnEvensMapChangeState.add(OnEvensMapChangeState);
-
 	this.eventsFactory = new EventsFactory(this.app);
 
 	this.CSS = {
-		"CONTAINER": "#bg-event-image"
+		"CONTAINER": "#bg-events"
 	}
 
 	this.elements = {
 		"CONTAINER": $(this.CSS["CONTAINER"])
 	}
 
-	this.getCountCallback_ = function(data) {
-		this.app.mapStateManager.SVGWriter.removeParamValues();
-
-		var svg = $(this.app.mapStateManager.SVGWriter.CSS["SVG"])[0].getSVGDocument();
+	this.onAfterStop_ = function() {
 		var self = this;
-		console.log(svg);
-		$.each($(svg).find("g"), function(key, value) {
-			var id = $(value).attr("target");
-
-			if(id && data[id] != 0) {
-				var newElement = document.createElementNS("http://www.w3.org/2000/svg", "text");
-				var path = $(value).find("path")[0];
-
-				var x = parseInt(($(path).offset().left + path.getBoundingClientRect().width/2));
-				var y = parseInt(($(path).offset().top + path.getBoundingClientRect().height/2));
-
-				var correctPath = "DISTRICT";
-
-				if(ConfigApp["TARGETS"][correctPath][id]) {
-					x = x + parseInt(ConfigApp["TARGETS"][correctPath][id]["x"]);
-					y = y + parseInt(ConfigApp["TARGETS"][correctPath][id]["y"]);
-				}
-
-				var classes = "zoom"+self.app.currentZoom+" ";
-				var val = data[id];
-				$(newElement).html(Number(val));
-				$(newElement).attr({
-					x: x,
-					y: y,
-					"fill": "#ffffff",
-					"class": classes,
-					"fill-opacity": "0"
-				});
-
-				$(svg).find("svg")[0].appendChild(newElement);	
-			}
-
-			$(svg).find("text").attr({
-				"fill-opacity": "1"
-			});
-		});
-	}
-
-	this.drawNumbers = function() {
-		$.get(this.app.apiHost + "/events/get_event_count_list/by_subject_id/"+this.app.currentRegion, $.proxy(this.getCountCallback_, this));
+		if(this.app.currentRegion == 101) {
+			$.each(this.events, function(key, value) {
+				var pos = self.eventsFactory.getPosition(
+					self.app.currentRegion, 
+					value.latitude, 
+					value.longitude
+				);
+				self.elements['CONTAINER'].append('<div class="item" style="position: absolute; left:'+pos.x+'px; top: '+pos.y+'px; background: red; width: 10px; height: 10px; border-radius: 100%;"></div>');
+			})
+		}
 	}
 
 	this.show = function() {
-		this.app.mapStateManager.SVGWriter.show();
-		this.app.mapStateManager.SVGWriter.load(this.app.configManager.getSvgById(this.app.currentRegion));
-		this.drawNumbers();
-		
 		this.elements["CONTAINER"].removeClass("onHidden");
-		this.app.eventRightWidgets.fullShow();
-		this.app.eventLegendWidgets.fullShow();
-		this.app.eventsLegendWidget.show();
-		this.app.mapStateManager.removeBlur();
-
-		this.app.setAppTitle("События");
-
-		$("#legend-widget").hide();
+		this.app.mapStateManager.onAfterStateChange = $.proxy(this.onAfterStop_, this);
+	
+		//this.app.mapStateManager.OnDistrictChangeState.setOnAfterStop($.proxy(this.onAfterStop_, this));
+		
+		/**/
 	}
 
 	this.hidden = function() {
 		this.elements["CONTAINER"].addClass("onHidden");
-		this.app.eventRightWidgets.fullHidden();
-		this.app.eventLegendWidgets.fullHidden();
-		this.app.eventsDrawWidget.hidden();
-		this.app.eventsLegendWidget.hide();
 	}
 }
 
@@ -762,8 +612,6 @@ var MapStateManager = function(app) {
 	this.regions = {};
 	this.currentRegionData = {};
 	this.stateElements["BG-IMAGE"] = $(this.stateCSS["BG-IMAGE"]);
-	this.level = 0;
-	this.maxLevel = 2;
 
 	this.addBlur = function() {
 		this.stateElements["BG-IMAGE"].addClass("blur");
@@ -806,8 +654,6 @@ var MapStateManager = function(app) {
 		this.app.mapColorWidget.updateParams();
 		this.SVGWriter.load(this.app.configManager.getSvgById(this.app.currentRegion));
 		this.app.parametrsWidgets.getParamsByRegionAndYeage(this.app.currentRegion);
-
-		this.app.legendWidget.show();
 	}
 
 	this.setBgImage = function(bgImageLoaded) {
@@ -816,7 +662,6 @@ var MapStateManager = function(app) {
 	}
 
 	this.onBack_ = function() {
-		this.level -= 1;
 		this.onBeforeVideoPlay_();
 
 		var outVideo = this.app.configManager.getOutVideoById(this.app.currentRegion);
@@ -825,8 +670,6 @@ var MapStateManager = function(app) {
 		this.app.prevState();
 
 		this.OnDistrictChangeState.dispatch(this.app, this, outVideo);
-
-		this.app.legendWidget.hide();
 	}
 
 	this.clear = function() {
@@ -841,13 +684,8 @@ var MapStateManager = function(app) {
 
 	this.onSvgClick_ = function(evt) {
 		var newIdRegion = $(evt.target).parent().attr("target");
-
-		if(newIdRegion && this.level != this.maxLevel) {
-			this.app.legendWidget.hide();
-			this.level += 1;
-
+		if(newIdRegion) {
 			var inVideo = this.app.configManager.getInVideoById(newIdRegion);
-
 			if(inVideo) {
 				this.onBeforeVideoPlay_();
 
@@ -876,7 +714,6 @@ var Application = function() {
 	this.russianId = 100;
 
 	this.apiHost = ConfigApp["API-HOST"];
-	this.currentMenuSate = "MAP";
 
 	this.loadingState = new LoadingState(this);
 	this.configManager = new ConfigManager(this, ConfigApp);
@@ -889,12 +726,14 @@ var Application = function() {
 	this.onFormatUpdateContentEvent = new signals.Signal();
 	this.onFormatUpdateContentEvent.add(OnFormatUpdateContentEvent);
 
-	this.mobile = navigator.userAgent.match(/Android|BlackBerry|iPhone|iPad|iPod|Opera Mini|IEMobile/i);
+	this.allCacheFile = $(ConfigApp["PRELOAD"]).size();
+	this.cachedFile = 0;
+	this.res = {};
 
 	var self = this;
 
 	this.getResByPath = function(path) {
-		return path;
+		return this.res[path];
 	}
 	
 	this.CSS = {
@@ -921,31 +760,49 @@ var Application = function() {
 		this.footerNavWidget.draw();
 	}
 
-	// Загружаем ресурсы, используя родной applicationCache
+	// загружаем ресурсы
 	this.initResource_ = function() {
-		var appCache = window.applicationCache;
-        if (appCache.status == appCache.IDLE)
-            return this.onCacheLoaded_();
+		ImgCache.init(function(){
+			$.each(ConfigApp["PRELOAD"],function(key, value) {
+				ImgCache.isCached(value, function(e, state, file) {
+					if(state == false) {
+						ImgCache.cacheFile(value, function(file) {
+							self.loadingState.updateText(self.cachedFile, self.allCacheFile);
+							self.res[value] = file;
+							self.cachedFile = self.cachedFile + 1;
+							if(self.allCacheFile == self.cachedFile) {
+								self.onCacheLoaded_();
+							}
+						}, function() {
+							self.loadingState.updateText(self.cachedFile, self.allCacheFile);
+							self.res[value] = file;
+							self.cachedFile = self.cachedFile + 1;
+							if(self.allCacheFile == self.cachedFile) {
+								self.onCacheLoaded_();
+							}
+							//location.reload();
+						});
+					} else {
+						self.loadingState.updateText(self.cachedFile, self.allCacheFile);
+						self.res[e] = file;
+						self.cachedFile = self.cachedFile + 1;
+					}
+					
+					if(self.allCacheFile == self.cachedFile) {
+						self.onCacheLoaded_();
+					}
+				});
+			});
+		});
 
-        var loaded = $.proxy(function () {
-            this.onCacheLoaded_();
-        }, this);
-
-        appCache.addEventListener('updateready', loaded, false);
-        appCache.addEventListener('noupdate', loaded, false);
-        appCache.addEventListener('error', loaded, false); // Если размер кэша недостаточен — продолжим без кэширования
-        appCache.addEventListener('cached', function () {
-            // Reload page after all content is cached
-            window.location.reload();
-        }, false);
-        appCache.addEventListener('downloading', $.proxy(function () {
-            this.loadingState.run();
-        }, this), false);
-        appCache.addEventListener('progress', $.proxy(function (e) {
-            this.loadingState.updateText(e.loaded, e.total);
-        }, this), false);
-        
-	};
+		$(document).on("keydown", function(e) {
+	        if (e.keyCode == 82 && e.altKey) {
+	           ImgCache.clearCache(function() {
+	           	location.reload();
+	           });
+	        }
+	    });
+	}
 
 	this.init = function() {
 		$(this.elements["APP"]).width(this.appSize[0]).height(this.appSize[1]);
@@ -977,13 +834,13 @@ var Application = function() {
 		this.videoPlayer = new VideoPlayer();
 		
 		this.ageSelectorWidget = new YearSelectWidget(this, {
-			years: [2014, 2013, 2012, 2011, 2010, 2009, 2008],
+			years: [2012, 2011],
 			selectedYear: 2012,
 			container: "#age_select",
 			onAfterYearSelected: $.proxy(this.onDistrictUpdateMapEventBind_, this)
 		});
 		this.ageSelectorFormatWidget = new YearSelectWidget(this, {
-			years: [2014, 2013, 2012, 2011, 2010, 2009, 2008],
+			years: [2012, 2011, 2010, 2009, 2008],
 			selectedYear: 2012,
 			container: "#params-age-selected",
 			onAfterYearSelected: $.proxy(this.onFormatUpdateContentEventBind_, this)
@@ -993,25 +850,13 @@ var Application = function() {
 			selectedYear: 2012,
 			container: "#regions_age_select"
 		});
-		this.ageSelectorReportsWidget = new YearSelectWidget(this, {
-			years: [2014, 2013, 2012, 2011, 2010, 2009, 2008],
-			selectedYear: 2012,
-			container: "#reposrts-params-age-selected",
-			onAfterYearSelected: $.proxy(this.onFormatUpdateContentEventBind_, this)
-		});
 		this.parametrsWidgets = new ParametrsWidgets(this);
-		this.eventLegendWidgets = new EventLegendWidgets(this);
-		this.eventRightWidgets = new EventRightWidgets(this);
 		this.mapColorWidget = new MapColorWidget(this);
 		this.mapColorel = new MapColorel(this);
 		this.regionsMapColorel = new RegionsMapColorel(this);
 		this.legendWidget = new LegendWidget(this);
 		this.regionsLegendWidget = new RegionsLegendWidget(this);
-		this.eventsLegendWidget = new EventsLegendWidget(this);
 		this.pageTitleWidget = new PageTitleWidget(this);
-		this.eventsDrawWidget = new EventsDrawWidget(this);
-		this.dictionaryManager = new DictionaryManager(this);
-		this.legendParamsManager = new LegendParamsManager(this);
 		
 		this.regionsSelectorWidget = new RegionsSelectorWidget(this);
 		this.paramsSelectorWidget = new ParamsSelectorWidget(this);
@@ -1020,34 +865,23 @@ var Application = function() {
 		this.formatManager = new FormatManager(this);
 		this.graphParamsSelector = new GraphParamsSelector(this);
 		this.graphRegionsSelectorWidget = new GraphRegionsSelectorWidget(this);
-		this.reportsParamsSelector = new ReportsParamsSelector(this);
-		this.reportsDiscSelector = new ReportsDiscSelector(this);
-		this.reportsWidget = new ReportsWidget(this);
 
 		this.regionsMapColorWidget = new RegionsMapColorWidget(this);
 		
 		this.regionsParametrsWidgets = new RegionsParametrsWidgets(this);
 		this.regionsLegendWidget = new RegionsLegendWidget(this);
-		this.eventsListWidget = new EventsListWidget(this);
 
 		this.regionPanel = new RegionPanel(this);
 		this.districtsPanel = new DistrictsPanel(this);
 		this.graphPanel = new GraphPanel(this);
 		this.formatPanel = new FormatPanel(this);
-		this.reportsPanel = new ReportsPanel(this);
 		this.mapEventsPanel = new MapEventsPanel(this);
-		this.eventsContentWidget = new EventsContentWidget();
-		this.eventsLegendLeftWidget = new EventsLegendLeftWidget(this);
 
 		this.regionsMapColorWidget.enable();
 		this.mapColorWidget.enable();
 
 		this.loadingState.stop();
 		this.onPanelsShow();
-
-		this.eventsListWidget.render(this.currentRegion);
-		//this.eventsContentWidget.render();
-		this.eventsLegendLeftWidget.render({counts: null});
 	}
 
 	this.setAppTitle = function(title) {
@@ -1058,6 +892,7 @@ var Application = function() {
 }
 
 $(document).ready(function() {
-	window.application = new Application();
+	var application = new Application();
 	application.run();
-});
+	
+})
