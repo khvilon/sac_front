@@ -190,7 +190,7 @@
 	#regions-parametrs-widget h3 {
 		height: 35px !important;
 	}
-	#regions-parametrs-widget.data .hidden {
+	#regions-parametrs-widget.data .hidden, #events-parametrs-widget.data .hidden {
 		top: 215px !important;
 	}
 	#regions-parametrs-widget.data .search {
@@ -359,5 +359,68 @@
 	}
 	#events-legend-widget.legend p.big {
 		width: 220px;
+	}
+	#events-list-table {
+		height: 330px !important;
+		margin-left: 40px !important;
+		margin-top: 35px;
+	}
+	#events-params .inner_table {
+		margin-right: 10px;
+	}
+	#content #events-list-table .jspContainer {
+		height: 330px !important;
+	}
+	#events-list-table * {
+		font-size: 8px;
+	}
+	.inner_table th {
+		height: 20px;
+		line-height: 20px;
+	}
+	#events-list-table td {
+		padding: 3px;
+	}
+	#content #event-content {
+		background-size: 100% 100%;
+		height: 515px;
+		width: 700px;
+		left: 15px;
+		top: 100px;
+	}
+	#event-content .inner {
+		padding: 10px;
+		padding-top: 70px !important;
+	}
+	#event-content .close {
+		top: 20px;
+		right: 20px;
+	}
+	#event-content .inner {
+		height: 410px !important;
+		overflow: hidden;
+	}
+	#event-content .inner .cont_event #svg_mm {
+		width: 100px;
+		height: 100px;
+	}
+	#event-content .inner .cont_event #svg_mm svg {
+		width: 100px;
+		height: 100px;
+	}
+	#event-content .inner .cont_event table {
+		width: 550px;
+	}
+	#event-content .inner .cont_event table.full {
+		width: 550px;
+	}
+	#event-content .inner .info {
+		font-size: 14px;
+		padding: 30px 20px 20px 20px;
+	}
+	#event-content .inner .cont_event .desc {
+		width: 640px;
+		padding: 20px 20px 0px 20px;
+		font-size: 14px;
 	}
 }
