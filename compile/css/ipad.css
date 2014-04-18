@@ -542,8 +542,10 @@
 		background: rgba(0, 0, 0, 0.3);
 	}
 	#events-list-table td, #events-list-table th {
-	  width: 40px;
-	  height: 70px;
+	  width: 60px;
+	  height: 80px;
+	  display: block;
+	  float: left;
 	  overflow: hidden;
 	  text-overflow: ellipsis;
 	  padding: 3px;
