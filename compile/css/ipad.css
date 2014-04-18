@@ -456,8 +456,8 @@
 	#reports-params-selector .data.f .search {
 		margin-bottom: -5px !important;
 	}
-	#reports-params-selector .data.f .jspContainer {
-		height: 300px!important;
+	#panels #content #reports-params-selector .data.f .jspContainer {
+		height: 290px!important;
 	}
 	#reports-params-selector .sbHolder {
 		top: -20px !important;
