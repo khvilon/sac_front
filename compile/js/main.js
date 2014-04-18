@@ -704,11 +704,6 @@ var MapEventsPanel = function(app) {
 					y = y + parseInt(ConfigApp["TARGETS"][correctPath][id]["y"]);
 				}
 
-				if(window.devicePixelRatio && window.devicePixelRatio > 0) {
-					y = (y * window.devicePixelRatio) - (70 * window.devicePixelRatio);
-					x = (x * window.devicePixelRatio) - (70 * window.devicePixelRatio);
-				}
-
 				var classes = "zoom"+self.app.currentZoom+" ";
 				var val = data[id];
 				$(newElement).html(Number(val));
