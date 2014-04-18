@@ -8,9 +8,9 @@ set :user, 'scmz'
 set :application, 'sac_static'
 
 set :scm, 'git'
-set :repository, 'git@github.com:Envek/sac_static.git'
+set :repository, 'git@github.com:bucketofkittens/sac_static.git'
 set :branch, 'master'
-set :deploy_via, :remote_cache
+set :deploy_via, :copy
 
 set :use_sudo, false
 set :deploy_to, "/home/#{user}/#{application}"
