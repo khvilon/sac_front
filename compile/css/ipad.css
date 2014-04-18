@@ -538,17 +538,16 @@
 	#events-list-table .jspPane {
 		background: rgba(0, 0, 0, 0.3);
 	}
-
 	#events-list-table td, #events-list-table th {
-	  padding: 10px;
-	  background: #070552;
-	  float: left;
-	  width: 37px;
-	  height: 37px;
+	  width: 40px;
+	  height: 40px;
 	  overflow: hidden;
 	  text-overflow: ellipsis;
+	  padding: 3px;
 	}
-
+	#events-list-table td:first-child, #events-list-table th:first-child {
+		width: 25px;
+	}
 	#events-list-table tr {
 	  display: block;
 	  width: 100%;
