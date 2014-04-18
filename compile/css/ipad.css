@@ -155,12 +155,12 @@
 	}
 	#miniMap a {
 		background-size: 100% 100%;
-		font-size: 15px;
-		height: 20px;
+		font-size: 12px;
+		height: 30px;
 		width: 180px;
 		left: 15px;
 		top: 5px;
-		padding-top: 90px;
+		padding-top: 80px;
 	}
 	#content .data .jspContainer {
 		height: 280px!important;
@@ -387,12 +387,16 @@
 	#events-list-table * {
 		font-size: 8px;
 	}
-	.inner_table th {
+	#events-list-table th {
 		height: 20px;
 		line-height: 20px;
 	}
+	#events-list-table tr {
+		height: 30px;
+	}
 	#events-list-table td {
 		padding: 3px;
+		height: 30px;
 	}
 	#content #event-content {
 		background-size: 100% 100%;

@@ -16,10 +16,10 @@
                 <tbody>
                     <% _.each(events, function(evt) { %>
                         <tr data-id="<%= evt.id %>" data-status="<%= evt.event_status_id %>" class="status_<%= evt.event_status_id %>">
-                            <td><%= evt.date_time.replace("T00:00:00Z", "") %></td>
-                            <td><%= evt.name %></td>
-                            <td><%= evt.subject_name %></td>
-                            <td><%= evt.source %></td>
+                            <td height="30px"><%= evt.date_time.replace("T00:00:00Z", "") %></td>
+                            <td height="30px"><%= evt.name %></td>
+                            <td height="30px"><%= evt.subject_name %></td>
+                            <td height="30px"><%= evt.source %></span></td>
                         </tr>
                     <% }); %>
                 </tbody>
