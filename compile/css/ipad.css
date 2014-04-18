@@ -205,6 +205,9 @@
 		margin: 40px 0 10px 15px !important;
 		width: 170px !important;
 	}
+	#reports-disc-data .data.region .search {
+		margin: 2px 0 10px 20px !important;
+	}
 	#region-data-place.scroll.jspScrollable {
 		width: 235px !important;
 		max-height: 300px !important;
@@ -216,11 +219,11 @@
 	#regions-params .data .jspContainer, #params-data .jspContainer {
 		height: 250px!important;
 	}
-	#regions-selector .data.region, #graph-regions-selector .data.region {
+	#regions-selector .data.region, #graph-regions-selector .data.region, #reports-disc-data .data.region {
 		width: 250px;
 		left: -25px;
 	}
-	#content #region-data .jspPane, #content #graph-region-data .jspPane {
+	#content #region-data .jspPane, #content #graph-region-data .jspPane, #params-data .jspPane {
 		padding-left: 35px !important;
 	}
 	#regions-selector .data.region ul, #graph-regions-selector .data.region ul {
@@ -255,7 +258,7 @@
 		margin-left: -30px;
 		margin-top: -5px !important
 	}
-	#params-data .sbHolder {
+	#params-data .sbHolder, #reports-params-data .sbHolder {
 		top: -60px !important;
 		right: -20px;
 	}
@@ -422,5 +425,62 @@
 		width: 640px;
 		padding: 20px 20px 0px 20px;
 		font-size: 14px;
+	}
+	#reports-disc-selector {
+		left: -20px !important;
+	}
+	#reports-disc-selector .data ul.first {
+		margin-left: 30px !important;
+	}
+	#reports-disc-selector .data.region {
+		width: 270px !important;
+	}
+	#reports-disc-selector .data.region .search {
+		margin: 2px 0 10px 20px !important;
+		width: 180px !important;
+	}
+	#reports-params-selector .jspPane {
+		padding: 0px 0px 0px 20px !important;
+		width: 200px !important;
+	}
+	#reports-params-selector .data.f .search {
+		margin-bottom: -5px !important;
+	}
+	#reports-params-selector .data.f .jspContainer {
+		height: 300px!important;
+	}
+	#reports-params-selector .sbHolder {
+		top: -20px !important;
+	}
+	#content #reports-content {
+		position: absolute;
+		background-size: 100% 100%;
+		height: 500px;
+		width: 520px;
+		left: 250px;
+		top: 100px;
+	}
+	#reports-panel {
+		height: 450px !important;
+		width: 480px !important;
+	}
+	#reports-panel table {
+		width: 480px !important;
+		height: 450px !important;
+		padding-right: 5px !important;
+	}	
+	#reports-panel table td {
+		font-size: 10px !important;
+	}		
+	#reports-panel .jspContainer {
+		height: 450px !important;
+		width: 480px !important;
+	}
+	#report-pdf {
+		height: 670px;
+		margin: 20px 15px 20px 20px;
+	}
+	#report-pdf h2, #reports-panel h2, #reports-data h2 {
+		font-size: 12px;
 	}
 }
