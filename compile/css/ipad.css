@@ -392,7 +392,7 @@
 		line-height: 20px;
 	}
 	#events-list-table tr {
-		height: 30px;
+		height: 35px;
 	}
 	#events-list-table td {
 		padding: 3px;
@@ -561,4 +561,27 @@
 	#bg-svg object {
 		left: -50px;
 	}
+
+	* {
+		-webkit-touch-callout:none !important;                /* prevent callout to copy image, etc when tap to hold */
+	    -webkit-text-size-adjust:none  !important;             /* prevent webkit from resizing text to fit */
+	    -webkit-tap-highlight-color:rgba(0,0,0,0)  !important; /* prevent tap highlight color / shadow */
+	    -webkit-user-select:none  !important; 
+	}
+
+	g {
+        -webkit-touch-callout:none; 
+        -webkit-text-size-adjust:none; 
+        -webkit-tap-highlight-color:rgba(0,0,0,0); 
+        -webkit-user-select:none;
+        user-select: none;
+    }
+
+    path {
+        -webkit-touch-callout:none; 
+        -webkit-text-size-adjust:none; 
+        -webkit-tap-highlight-color:rgba(0,0,0,0); 
+        -webkit-user-select:none;
+        user-select: none;
+    }
 }
