@@ -526,14 +526,14 @@
 	}
 	#events-list-table .status_2 td span {
 	  background: rgba(230, 210, 90, 0.8);
-	  width: 25px;
+	  width: 27px;
 	  height: 5px;
 	  display: block;
 	  margin-top: 3px;
 	}
 	#events-list-table .status_3 td span {
 	  background: rgba(190, 90, 90, 0.8);
-	  width: 25px;
+	  width: 27px;
 	  height: 5px;
 	  display: block;
 	  margin-top: 3px;
@@ -542,7 +542,7 @@
 		background: rgba(0, 0, 0, 0.3);
 	}
 	#events-list-table td, #events-list-table th {
-	  width: 60px;
+	  width: 62px;
 	  height: 80px;
 	  display: block;
 	  float: left;
@@ -551,7 +551,7 @@
 	  padding: 3px;
 	}
 	#events-list-table td:first-child, #events-list-table th:first-child {
-		width: 25px;
+		width: 27px;
 	}
 	#events-list-table tr {
 	  display: block;
