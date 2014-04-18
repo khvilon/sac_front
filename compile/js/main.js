@@ -167,7 +167,7 @@ var SVGLoader = function(app, config) {
 				var x = parseInt(($(path).offset().left + path.getBoundingClientRect().width/2));
 				var y = parseInt(($(path).offset().top + path.getBoundingClientRect().height/2));
 
-				if(window.devicePixelRatio && window.devicePixelRatio > 0) {
+				if(isiPad && window.devicePixelRatio && window.devicePixelRatio > 0) {
 					y = (y * window.devicePixelRatio) - (70 * window.devicePixelRatio);
 					x = (x * window.devicePixelRatio) - (70 * window.devicePixelRatio);
 				}
