@@ -72,8 +72,8 @@
 	#content .legend p {
 		font-size: 15px;
 		min-height: 15px;
-		padding: 3px 50px 3px 90px;
-		width: 50px;
+		padding: 3px 20px 3px 30px;
+		width: 150px;
 		line-height: 30px;
 		background-size: 100% 100% !important;
 	}
@@ -542,7 +542,7 @@
 		background: rgba(0, 0, 0, 0.3);
 	}
 	#events-list-table td, #events-list-table th {
-	  width: 62px;
+	  width: 119px;
 	  height: 80px;
 	  display: block;
 	  float: left;
@@ -560,6 +560,21 @@
 	}
 	#bg-svg object {
 		left: -50px;
+	}
+	#events-parametrs-widget {
+		height: 450px !important;
+		width: 500px !important;
+	}
+	#content #events-parametrs-widget.data .hidden {
+		left: 40px !important;
+		top: 246px !important;
+	}
+	#events-list-table {
+		margin-left: 70px !important;
+		height: 380px !important;
+	}
+	#content #events-parametrs-widget .jspContainer {
+		height: 370px !important;
 	}
 
 	* {
