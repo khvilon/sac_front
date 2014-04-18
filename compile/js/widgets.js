@@ -245,7 +245,8 @@ var AppTimer = function(app) {
 var EventsListWidget = Backbone.View.extend({
     el: $("#events-params"),
     events: {
-        "click td": "selectEvent"
+        "click td": "selectEvent",
+        "click .hidden": "onHidden"
     },
     initialize: function(app) {
       this.app = app;
@@ -307,8 +308,19 @@ var EventsListWidget = Backbone.View.extend({
 
   		window.application.eventsContentWidget.show(clickedEl.parent().data("id"), clickedEl.parent().data("status"));
     },
+    onHidden: function(event) {
+    	$("#events-parametrs-widget").css("right", "-700px");
+    	$("#events-paramers-show").css("opacity", "1").show();
+    },
+    onShow: function(event) {
+    	console.log(event);
+    	$("#events-parametrs-widget").css("right", "0px");
+    	$("#events-paramers-show").css("opacity", "0").hide();
+    },
     show: function() {
     	$("#events-parametrs-widget").show();
+
+    	$("#events-paramers-show").on("click", this.onShow);
     }
 });
 

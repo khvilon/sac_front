@@ -114,7 +114,15 @@ header h1
   visibility:hidden;
 }
 
-#events-legend {
+
+#events-parametrs-widget {
+  -moz-transition:all .3s linear;
+  -o-transition:all .3s linear;
+  -webkit-transition:all .3s linear;
+  transition:all .3s linear;
+}
+
+#events-legend {  
   position:absolute;
   left:50px;
   top:348px;
@@ -1692,4 +1700,3 @@ label {
 #content .jspVerticalBar {
   background-size: 100% 100%;
 }
-
