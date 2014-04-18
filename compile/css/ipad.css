@@ -428,13 +428,13 @@
 		width: 550px;
 	}
 	#event-content .inner .info {
-		font-size: 14px;
-		padding: 30px 20px 20px 20px;
+		font-size: 12px;
+		padding: 20px 20px 0px 20px;
 	}
 	#event-content .inner .cont_event .desc {
 		width: 640px;
 		padding: 20px 20px 0px 20px;
-		font-size: 14px;
+		font-size: 12px;
 	}
 	#reports-disc-selector {
 		left: -20px !important;
@@ -503,5 +503,11 @@
 		height: 50px;
 		font-size: 15px;
 		line-height: 55px;
+	}
+	.legendLabel {
+		font-size: 12px;
+	}
+	#content .data.g .search {
+		margin: 0 0 0px -30px;
 	}
 }
