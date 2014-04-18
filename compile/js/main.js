@@ -686,7 +686,7 @@ var MapEventsPanel = function(app) {
 
 		var svg = $(this.app.mapStateManager.SVGWriter.CSS["SVG"])[0].getSVGDocument();
 		var self = this;
-		console.log(svg);
+		
 		$.each($(svg).find("g"), function(key, value) {
 			var id = $(value).attr("target");
 
@@ -766,13 +766,11 @@ var MapEventsPanel = function(app) {
 		this.app.setAppTitle("События");
 
 		$("#legend-widget").hide();
-
-		console.log(this.app.mapStateManager.currentRegionData.name);
 		$("#events-parametrs-widget h2").html(this.app.mapStateManager.currentRegionData.name);
 
-		//if(this.app.currentRegion == 100) {
-		//	this.drawMap();
-		//}
+		if(this.app.currentRegion == 100) {
+			this.drawMap();
+		}
 	}
 
 	this.hidden = function() {
