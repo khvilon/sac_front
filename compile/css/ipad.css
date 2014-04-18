@@ -385,7 +385,7 @@
 		height: 330px !important;
 	}
 	#events-list-table * {
-		font-size: 8px;
+		font-size: 10px;
 	}
 	#events-list-table th {
 		height: 20px;
@@ -529,19 +529,21 @@
 	  width: 25px;
 	  height: 5px;
 	  display: block;
+	  margin-top: 3px;
 	}
 	#events-list-table .status_3 td span {
 	  background: rgba(190, 90, 90, 0.8);
 	  width: 25px;
 	  height: 5px;
 	  display: block;
+	  margin-top: 3px;
 	}
 	#events-list-table .jspPane {
 		background: rgba(0, 0, 0, 0.3);
 	}
 	#events-list-table td, #events-list-table th {
 	  width: 40px;
-	  height: 40px;
+	  height: 70px;
 	  overflow: hidden;
 	  text-overflow: ellipsis;
 	  padding: 3px;
