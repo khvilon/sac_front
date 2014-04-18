@@ -233,7 +233,7 @@ var VideoPlayer = function() {
 	this.onTimeupdate_ = function(e) {
 		if(e.currentTarget.duration - e.currentTarget.currentTime < 0.2) {
 			e.currentTarget.pause();
-			console.log(this.endedCallback);
+
 			if(this.endedCallback) {
 				this.endedCallback();	
 			}
@@ -766,6 +766,9 @@ var MapEventsPanel = function(app) {
 		this.app.setAppTitle("События");
 
 		$("#legend-widget").hide();
+
+		console.log(this.app.mapStateManager.currentRegionData.name);
+		$("#events-parametrs-widget h2").html(this.app.mapStateManager.currentRegionData.name);
 
 		//if(this.app.currentRegion == 100) {
 		//	this.drawMap();

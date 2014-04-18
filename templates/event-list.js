@@ -1,7 +1,7 @@
 <% if(events) { %>
     <div class="show nav-elements" id="events-paramers-show"></div>
     <div class="data" id="events-parametrs-widget">
-        <h2>События</h2>
+        <h2><%= title %></h2>
         <a href="#" class="hidden"></a>
         <div class="inner_table" id="events-list-table">
             <table width="100%">

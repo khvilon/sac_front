@@ -267,7 +267,7 @@ var EventsListWidget = Backbone.View.extend({
 				}
 				
 
-				var template = _.template( data, { events: elements } );
+				var template = _.template( data, { events: elements, title: self.app.mapStateManager.currentRegionData.name } );
 				$(self.el).html(template);
 
 				self.show();
