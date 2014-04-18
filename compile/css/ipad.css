@@ -22,12 +22,14 @@
 		width: 1024px;
 	}
 	#bg-colored-image {
-		width: 1080px;
-		height: 672px;
+		width: 1080px !important;
+		height: 672px !important;
 		left: -50px;
 		background-size: 100% 100% !important;
 	}
-	#bg-svg object {
+	#bg-svg object, #bg-svg, #bg-svg svg {
+		width: 1080px !important; 
+		height: 672px !important;
 	}
 	header h1 {
 		height: 40px;

@@ -25,7 +25,6 @@ var SVGLoader = function(app, config) {
 
 	this.load = function(path) {
 		this.elements["BG"].hide();
-
 		var newObject = document.createElement("object");
 		newObject.setAttribute("id", "svg");
 		newObject.setAttribute("type", "image/svg+xml");
@@ -63,6 +62,16 @@ var SVGLoader = function(app, config) {
 		var svg = this.elements["SVG"][0].getSVGDocument();
 		var self = this;
 		this.appendCSS_(svg);
+
+		//$(svg).find("svg").attr("width", $(window).width()+"px");
+		//$(svg).find("svg").attr("height", $(window).height()+"px");
+
+
+		var isiPad = navigator.userAgent.match(/iPad/i) != null;
+
+		if(isiPad) {
+
+		}
 
 		$(svg).on("mouseover", function(event) {
 			if(event.target.nodeName == "svg" && self.app.parametrsWidgets.currentParametr && self.app.parametrsWidgets.currentParametr.id) {
@@ -153,9 +162,16 @@ var SVGLoader = function(app, config) {
 				var newElement = document.createElementNS("http://www.w3.org/2000/svg", "text");
 				var path = $(value).find("path")[0];
 
+				var isiPad = navigator.userAgent.match(/iPad/i) != null;
+
 				var x = parseInt(($(path).offset().left + path.getBoundingClientRect().width/2));
 				var y = parseInt(($(path).offset().top + path.getBoundingClientRect().height/2));
 
+				if(window.devicePixelRatio && window.devicePixelRatio > 0) {
+					y = (y * window.devicePixelRatio) - (70 * window.devicePixelRatio);
+					x = (x * window.devicePixelRatio) - (70 * window.devicePixelRatio);
+				}
+				
 				var correctPath = "DISTRICT";
 
 				if(CSSclasses == "regions") {
