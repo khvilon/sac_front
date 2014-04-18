@@ -152,7 +152,7 @@ var SVGLoader = function(app, config) {
 
 	this.drawParamValues = function(data, CSSclasses) {
 		this.removeParamValues();
-		console.log(data);
+
 		var svg = $(this.CSS["SVG"])[0].getSVGDocument();
 		var self = this;
 
@@ -728,6 +728,23 @@ var MapEventsPanel = function(app) {
 		$.get(this.app.apiHost + "/events/get_event_count_list/by_subject_id/"+this.app.currentRegion, $.proxy(this.getCountCallback_, this));
 	}
 
+
+
+	this.drawMap = function() {
+		$.ajax(
+			{
+				url: this.app.apiHost + "/events/show_map",
+				type: "GET",
+				dataType: 'TEXT',
+				success: function(data) {
+					console.log(data);
+					$("#bg-event-image").css("backgroundImage", "url('"+data+"')");
+					$("#bg-event-image").show();
+				}
+			}
+		);
+	}
+
 	this.show = function() {
 		this.app.mapStateManager.SVGWriter.show();
 		this.app.mapStateManager.SVGWriter.load(this.app.configManager.getSvgById(this.app.currentRegion));
@@ -742,6 +759,10 @@ var MapEventsPanel = function(app) {
 		this.app.setAppTitle("События");
 
 		$("#legend-widget").hide();
+
+		//if(this.app.currentRegion == 100) {
+		//	this.drawMap();
+		//}
 	}
 
 	this.hidden = function() {
