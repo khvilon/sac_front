@@ -143,7 +143,7 @@ var SVGLoader = function(app, config) {
 
 	this.drawParamValues = function(data, CSSclasses) {
 		this.removeParamValues();
-
+		console.log(data);
 		var svg = $(this.CSS["SVG"])[0].getSVGDocument();
 		var self = this;
 

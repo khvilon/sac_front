@@ -116,8 +116,8 @@ header h1
 
 #events-legend {
   position:absolute;
-  left:150px;
-  top:208px;
+  left:50px;
+  top:348px;
   z-index:160;
   display: block;
 }
@@ -388,7 +388,6 @@ header h1
   transform:translatez(0);
 }
 #bg-event-image {
-  background: url("/static/images/map/colored/cache/events_map.jpg");
 }
 #bg-regions-image
 {
