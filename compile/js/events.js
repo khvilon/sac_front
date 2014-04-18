@@ -104,6 +104,8 @@ var OnDistrictChangeState = function(app, mapStateManager, video_id, currentRegi
 		if(this.app.currentMenuSate == "EVENTS") {
 			this.app.mapEventsPanel.drawNumbers();
 			this.app.eventsListWidget.render(this.app.currentRegion);
+			this.app.mapEventsPanel.drawMap(this.app.currentRegion);
+			//$("#bg-event-image").hide();
 		}
 
 		this.app.regionsManagerLocal.getRegions(function(data) {

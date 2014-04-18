@@ -146,6 +146,7 @@ var SVGLoader = function(app, config) {
 			
 
 		if(this.onGroupClick) {
+			$("#bg-event-image").hide();
 			groups.on("click", this.onGroupClick);	
 		}
 	}
@@ -737,10 +738,10 @@ var MapEventsPanel = function(app) {
 
 
 
-	this.drawMap = function() {
+	this.drawMap = function(id) {
 		$.ajax(
 			{
-				url: this.app.apiHost + "/events/show_map",
+				url: this.app.apiHost + "/events/show_color_map/by_parent_subject_id/"+this.app.currentRegion,
 				type: "GET",
 				dataType: 'TEXT',
 				success: function(data) {
@@ -769,7 +770,7 @@ var MapEventsPanel = function(app) {
 		$("#events-parametrs-widget h2").html(this.app.mapStateManager.currentRegionData.name);
 
 		if(this.app.currentRegion == 100) {
-			this.drawMap();
+			this.drawMap(this.app.currentRegion);
 		}
 	}
 
