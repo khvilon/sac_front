@@ -21,6 +21,13 @@
 	header {
 		width: 1024px;
 	}
+	#bg-colored-image {
+		width: 1024px;
+		background-size: 100% 100%;
+	}
+	#bg-svg object {
+		width: 1024px;
+	}
 	header h1 {
 		height: 40px;
 		width: 450px;
