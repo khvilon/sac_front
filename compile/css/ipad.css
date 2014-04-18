@@ -514,6 +514,7 @@
 	#content .data.g .search {
 		margin: 0 0 0px -30px;
 	}
+	
 	#events-list-table .status_2 td {
 	  background: none;
 	  color: #ffffff;
@@ -536,5 +537,24 @@
 	}
 	#events-list-table .jspPane {
 		background: rgba(0, 0, 0, 0.3);
+	}
+
+	#events-list-table td, #events-list-table th {
+	  padding: 10px;
+	  background: #070552;
+	  float: left;
+	  width: 37px;
+	  height: 37px;
+	  overflow: hidden;
+	  text-overflow: ellipsis;
+	}
+
+	#events-list-table tr {
+	  display: block;
+	  width: 100%;
+	  overflow: hidden;
+	}
+	#bg-svg object {
+		left: -50px;
 	}
 }

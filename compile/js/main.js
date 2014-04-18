@@ -699,9 +699,16 @@ var MapEventsPanel = function(app) {
 
 				var correctPath = "DISTRICT";
 
+				var isiPad = navigator.userAgent.match(/iPad/i) != null;
+
 				if(ConfigApp["TARGETS"][correctPath][id]) {
 					x = x + parseInt(ConfigApp["TARGETS"][correctPath][id]["x"]);
 					y = y + parseInt(ConfigApp["TARGETS"][correctPath][id]["y"]);
+				}
+
+				if(isiPad && window.devicePixelRatio && window.devicePixelRatio > 0) {
+					y = (y * window.devicePixelRatio) - (50 * window.devicePixelRatio);
+					x = (x * window.devicePixelRatio) - (10 * window.devicePixelRatio);
 				}
 
 				var classes = "zoom"+self.app.currentZoom+" ";

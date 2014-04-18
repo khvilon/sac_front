@@ -5,6 +5,10 @@
         <a href="#" class="hidden"></a>
         <div class="inner_table" id="events-list-table">
             <table width="100%">
+                <col width="20%" />
+                <col width="20%" />
+                <col width="20%" />
+                <col width="20%" />
                 <thead>
                     <tr>
                         <th>Дата</th>

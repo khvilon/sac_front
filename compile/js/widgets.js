@@ -259,23 +259,28 @@ var EventsListWidget = Backbone.View.extend({
 				var elements = self.collection.toJSON();
 				delete elements.id;
 
-				if($("#events-list-table").data('jsp')) {
-					$("#events-list-table").data('jsp').destroy();
+				if(!self.app.mobile) {
+					if($("#events-list-table").data('jsp')) {
+						$("#events-list-table").data('jsp').destroy();
+					}	
 				}
+				
 
 				var template = _.template( data, { events: elements } );
 				$(self.el).html(template);
 
 				self.show();
 
-				$("#events-list-table").jScrollPane(
-					{
-						showArrows: true,
-						verticalDragMinHeight: 60,
-			    		verticalDragMaxHeight: 60,
-			    		autoReinitialise: true
-					}
-				);
+				if(!self.app.mobile) {
+					$("#events-list-table").jScrollPane(
+						{
+							showArrows: true,
+							verticalDragMinHeight: 60,
+				    		verticalDragMaxHeight: 60,
+				    		autoReinitialise: true
+						}
+					);
+				}
 
 				self.app.eventsLegendLeftWidget.render({ counts :self.countCollections(elements) });
 			}, 'html');
