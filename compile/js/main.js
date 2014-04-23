@@ -970,6 +970,7 @@ var Application = function() {
 	// Загружаем ресурсы, используя родной applicationCache
 	this.initResource_ = function() {
 		var appCache = window.applicationCache;
+		var self = this;
 		//appCache.update();
 
         if (appCache.status == appCache.IDLE)
@@ -979,7 +980,15 @@ var Application = function() {
             this.onCacheLoaded_();
         }, this);
 
-        appCache.addEventListener('updateready', loaded, false);
+        var onUpdateReady = function() {
+			if(window.applicationCache.status === window.applicationCache.UPDATEREADY) {
+                window.applicationCache.swapCache();
+                self.onCacheLoaded_();
+                //location.reload();
+			}
+		}
+
+        appCache.addEventListener('updateready', onUpdateReady, false);
         appCache.addEventListener('noupdate', loaded, false);
         appCache.addEventListener('error', loaded, false); // Если размер кэша недостаточен — продолжим без кэширования
         appCache.addEventListener('cached', function () {

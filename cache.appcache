@@ -1,6 +1,6 @@
 CACHE MANIFEST
       
-# This is a comment
+# This is a comment 3
 
 CACHE:
 
@@ -508,7 +508,7 @@ CACHE:
 /static/images/mini/108.gif
 
 FALLBACK:
-
+ 
 NETWORK:
 index.html
 *
