@@ -970,6 +970,8 @@ var Application = function() {
 	// Загружаем ресурсы, используя родной applicationCache
 	this.initResource_ = function() {
 		var appCache = window.applicationCache;
+		//appCache.update();
+
         if (appCache.status == appCache.IDLE)
             return this.onCacheLoaded_();
 

@@ -1883,6 +1883,7 @@ var GraphParamsSelector = function(app) {
 	}
 
 	this.onResponseRegions_ = function(regions) {
+		console.log(regions);
 		var ids = [];
 		$.each(regions, function(key, value) {
 			ids.push(value.id);

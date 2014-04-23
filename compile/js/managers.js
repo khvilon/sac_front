@@ -203,6 +203,7 @@ var RegionsManagerLocal = function(app) {
 	this.onRegionsRequest_ = function(data) {
 		localStorage.setItem('regions', JSON.stringify({data: data}));
 		this.setLocalData_();
+		console.log(this.regions);
 		this.callback(data);
 	}
 
