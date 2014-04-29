@@ -1731,3 +1731,17 @@ label {
   width: 100%;
   overflow: hidden;
 }
+
+#app a.close {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  z-index: 19999;
+  color: #000000 !important;
+  font-size: 28px;
+  background: #ffffff !important;
+  padding: 10px;
+  -webkit-filter: none !important;
+  text-decoration: none;
+  width: 90px !important;
+}
