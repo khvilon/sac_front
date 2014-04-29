@@ -110,7 +110,9 @@ var OnDistrictChangeState = function(app, mapStateManager, video_id, currentRegi
 
 		this.app.regionsManagerLocal.getRegions(function(data) {
 			var region = self.app.regionsManagerLocal.getRegionById(self.app.currentRegion, data);
-			$("#events-parametrs-widget h2").html(region.name);
+			if(region) {
+				$("#events-parametrs-widget h2").html(region.name);	
+			} 
 		});
 
 		//

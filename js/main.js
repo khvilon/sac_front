@@ -786,17 +786,20 @@ var MapStateManager = function(app) {
 		this.regions = this.app.regionsManagerLocal.getRegionsByParent(this.app.currentRegion, data);
 		this.currentRegionData = this.app.regionsManagerLocal.getRegionById(this.app.currentRegion, data);
 
-		this.app.setAppTitle(this.currentRegionData.name);
-		if(this.app.currentZoom != 1) {
-			if(this.currentRegionData.parent_id) {
-				this.setPrevRegion(
-					this.app.regionsManagerLocal.getRegionById(
-						this.currentRegionData.parent_id, 
-						data
-					)
-				);
-			}
+		if(this.currentRegionData) {
+			this.app.setAppTitle(this.currentRegionData.name);
+			if(this.app.currentZoom != 1) {
+				if(this.currentRegionData.parent_id) {
+					this.setPrevRegion(
+						this.app.regionsManagerLocal.getRegionById(
+							this.currentRegionData.parent_id, 
+							data
+						)
+					);
+				}
+			}	
 		}
+		
 	}
 
 	this.show = function() {

@@ -1,6 +1,6 @@
 CACHE MANIFEST
       
-# This is a comment 3
+# This is a comment 11111
 
 CACHE:
 
@@ -191,12 +191,13 @@ CACHE:
 /static/video/107-out.mp4
 /static/video/108-in.mp4
 /static/video/108-out.mp4
+/static/video/110-in.mp4
+/static/video/110-out.mp4
 
 # Prerendered maps
 /static/images/map/all-regions-center.jpg
 /static/images/map/all-regions-left.jpg
 /static/images/map/all-regions-right.jpg
-/static/images/map/all_regions.jpg
 /static/images/map/1.jpg
 /static/images/map/2.jpg
 /static/images/map/3.jpg
@@ -299,23 +300,15 @@ CACHE:
 /static/images/map/82.jpg
 /static/images/map/83.jpg
 /static/images/map/100.jpg
-/static/images/map/100.png
 /static/images/map/101.jpg
-/static/images/map/101.png
 /static/images/map/102.jpg
-/static/images/map/102.png
 /static/images/map/103.jpg
-/static/images/map/103.png
 /static/images/map/104.jpg
-/static/images/map/104.png
 /static/images/map/105.jpg
-/static/images/map/105.png
 /static/images/map/106.jpg
-/static/images/map/106.png
 /static/images/map/107.jpg
-/static/images/map/107.png
 /static/images/map/108.jpg
-/static/images/map/108.png
+/static/images/map/110.jpg
 
 # SVGs
 /static/svg/all_regions_borders_center.svg
@@ -413,6 +406,7 @@ CACHE:
 /static/svg/106.svg
 /static/svg/107.svg
 /static/svg/108.svg
+/static/svg/110.svg
 
 # Minimaps
 /static/images/mini/1.gif
