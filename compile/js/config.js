@@ -1,4 +1,5 @@
 var ConfigApp = {
+	"SAC_TYPE" : "lpu",
 	"PATHES": {
 		"VIDEO": "/static/video/",
 		"SVG": "/static/svg/",

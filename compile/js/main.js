@@ -1,4 +1,4 @@
-/**
+/** 
  * [SVGLoader description]
  * @param {[type]} app [description]
  */
@@ -890,7 +890,9 @@ var MapStateManager = function(app) {
 	this.onSvgClick_ = function(evt) {
 		var newIdRegion = $(evt.target).parent().attr("target");
 
-		if(newIdRegion && this.level != this.maxLevel) {
+		if(newIdRegion && this.level == this.maxLevel) showGis(newIdRegion);
+ 		else if(this.level == this.maxLevel) showGis(newIdRegion);
+		else if(this.level != this.maxLevel) {
 			this.app.legendWidget.hide();
 			this.level += 1;
 

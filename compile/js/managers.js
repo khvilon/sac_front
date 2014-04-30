@@ -235,5 +235,46 @@ var RegionsManagerLocal = function(app) {
 		return ret;
 	}
 
+	
+	this.getMarkers = function(id)
+	{
+		var url = this.app.apiHost + "/subjects/get_markers/"+id;
+
+		$.get(url,function(data)
+		{
+              olmap.addLpus(data);
+		});
+
+	}
+ 
+	this.geRegionLatLonById = function(id)
+	{
+	   var url = this.app.apiHost + "/subjects/get_subject_lat_lon/"+id;
+
+		$.get(url,function(data)
+		{
+			if(data == "err1")
+			{
+                olmap.centerMos();
+			} 
+			else
+			{
+			     olmap.centerSubj(data);
+			}
+
+
+		});
+	}
+    
+    	this.getRequisitions = function(id)
+	{
+		var url = this.app.apiHost + "/subjects/get_requisitions/"+id;
+
+		$.get(url,function(data)
+		{
+          olmap.addRequisitions(data, function(data){alert(data);});
+		});
+	}
+
 	this.setLocalData_();
 }
