@@ -1119,6 +1119,18 @@ var Application = function() {
 }
 
 $(document).ready(function() {
-	window.application = new Application();
-	application.run();
-});
+	navigator.webkitPersistentStorage.queryUsageAndQuota(function(usage, quota) {
+	    console.log(quota);
+	    console.log(usage);
+
+	    navigator.webkitPersistentStorage.requestQuota(3111111111, function(grantedQuota) {
+	        console.log(arguments);
+
+	        window.webkitRequestFileSystem(window.PERSISTENT, 3111111111, function(fs) {
+	            window.application = new Application();
+				application.run();	
+	        });
+	    });
+	});
+	
+}); 

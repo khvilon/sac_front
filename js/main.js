@@ -1061,6 +1061,14 @@ var Application = function() {
 }
 
 $(document).ready(function() {
-	window.application = new Application();
-	application.run();
-});
+	window.webkitStorageInfo.requestQuota(PERSISTENT, 3111111111, function(grantedBytes) {
+  		window.webkitRequestFileSystem(PERSISTENT, grantedBytes, function() {
+  			window.application = new Application();
+			application.run();	
+  		}, function() {
+
+  		});
+	}, function(e) {
+	});
+	
+}); 
