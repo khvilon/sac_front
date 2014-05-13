@@ -1,4 +1,4 @@
-OLMap.prototype.addMarker =  function(layer, lat, lon, options)
+﻿OLMap.prototype.addMarker =  function(layer, lat, lon, options)
 {
     var pnt = this.newPnt(lat, lon);
     var feature = new OpenLayers.Feature.Vector(pnt, options );
@@ -9,10 +9,12 @@ OLMap.prototype.addMarker =  function(layer, lat, lon, options)
 
 OLMap.prototype.addLpus =  function(lpus) 
 {
+
     if(lpus == null) return false;
+var path = this.hostIP + '/static/compile/js/olmap/images/lpu.png';
 	for(var i = 0; i < lpus.length; i++)
     {
-        var options = {poppedup: false, label: lpus[i].name};
+        var options = {poppedup: false, label: lpus[i].name, path: path};
         this.addMarker(this.lpuLayer, lpus[i].lat, lpus[i].lon, options );
     }
     return true;   

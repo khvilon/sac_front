@@ -28,7 +28,7 @@ function showGis(id)
 	gisDiv.style.height = "80%";
 	gisDiv.style.position = "absolute"; 
 	gisDiv.style.left = "5%"; 
-	gisDiv.style.top = "15%"; 
+	gisDiv.style.top = "13%"; 
 	gisDiv.style.background = "#77a4d4"; 
 	gisDiv.style.borderStyle = "solid";
 	gisDiv.style.borderWidth = "2px";
@@ -43,6 +43,8 @@ function showGis(id)
 	document.getElementById('bg-colored-image').style.display='none';
 	document.getElementById('miniMap').className = 'temp';
 	document.getElementById('miniMap').style.display='none';
+	document.getElementById('legend-widget').style.display='none';
+
 
     olmap = new OLMap();
     olmap.init("gis_div", this.app.apiHost, ConfigApp["SAC_TYPE"]);
@@ -62,6 +64,7 @@ function removeGis()
 	document.getElementById('bg-colored-image').style.display='';
 	document.getElementById('miniMap').className = 'onShow';
 	document.getElementById('miniMap').style.display='';
+document.getElementById('legend-widget').style.display='block';
 
     var gisDiv = document.getElementById("gis_div");
     gisDiv.parentNode.removeChild(gisDiv);

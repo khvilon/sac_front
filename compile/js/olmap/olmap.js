@@ -30,18 +30,18 @@ OLMap.prototype.init = function(divName, ip, type)
 {
 	OpenLayers.Lang.setCode("ru");
     
-    this.hostIP = ip;
+	this.hostIP = ip;
 
 
 	this.createMap(divName);
+	this.addCustomControls();
     
-
-    this.addOSMLayer();
-    this.addMapserverLayer();
+	this.addMapserverLayer();
+	this.addOSMLayer();
+	
     
     
-    this.addVectorLayers(type); 
-
+	this.addVectorLayers(type); 
 
 	return true;
 };

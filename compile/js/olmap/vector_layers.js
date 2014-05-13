@@ -1,18 +1,17 @@
-OLVectorStyle =
+﻿OLVectorStyle =
 {
 	mask: new OpenLayers.StyleMap(
 	{
-        pointRadius: 0,
-        strokeWidth: 0,
-        fillOpacity: 0.8,
-        strokeOpacity: 0,
+        pointRadius: 10,
+        strokeWidth: 2,
+        fillOpacity: 0.5,
+        strokeOpacity: 1,
         strokeLinecap: "round",
-        strokeColor: "black",
-        fillColor: "black"
+        strokeColor: "#ffffff",
+        fillColor: "#000033" 
 	}),
 
-
-	lpu: new OpenLayers.StyleMap(
+	/*lpu: new OpenLayers.StyleMap(
    	{
         graphicName: "circle",
 	  	pointRadius: 13,
@@ -30,6 +29,15 @@ OLVectorStyle =
         labelYOffset: -30,     
         fontOpacity: 1 ,
         cursor: 'pointer'
+	}),*/
+
+
+	lpu: new OpenLayers.StyleMap(
+   	{
+         externalGraphic: "${path}",
+	  	graphicWidth: 36,
+	  	graphicHeight: 36,
+	  	pointRadius: 100
 	}),
     
     requisitions: new OpenLayers.StyleMap(
