@@ -789,6 +789,7 @@ var MapStateManager = function(app) {
 		if(this.currentRegionData) {
 			this.app.setAppTitle(this.currentRegionData.name);
 			if(this.app.currentZoom != 1) {
+				console.log(this.currentRegionData);
 				if(this.currentRegionData.parent_id) {
 					this.setPrevRegion(
 						this.app.regionsManagerLocal.getRegionById(
