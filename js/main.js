@@ -785,11 +785,11 @@ var MapStateManager = function(app) {
 	this.setRootRegions = function(data) {
 		this.regions = this.app.regionsManagerLocal.getRegionsByParent(this.app.currentRegion, data);
 		this.currentRegionData = this.app.regionsManagerLocal.getRegionById(this.app.currentRegion, data);
-
+		
+				console.log(this.currentRegionData);
 		if(this.currentRegionData) {
 			this.app.setAppTitle(this.currentRegionData.name);
 			if(this.app.currentZoom != 1) {
-				console.log(this.currentRegionData);
 				if(this.currentRegionData.parent_id) {
 					this.setPrevRegion(
 						this.app.regionsManagerLocal.getRegionById(
