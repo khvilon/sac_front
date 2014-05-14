@@ -14,7 +14,7 @@
 		if(this.maxZoom > zoom) removeGis(); 
 	});    	
 
-    this.map.addControl(new OpenLayers.Control.LayerSwitcher());
+   // this.map.addControl(new OpenLayers.Control.LayerSwitcher());
     this.map.addControl(new OpenLayers.Control.Navigation());
 }
 
@@ -25,7 +25,7 @@ OLMap.prototype.addMapserverLayer =  function()
         "http://sac.khvi.ru:82/mapcache/tms/", {layername: 'osm@g', type:'png', opacity: 1} );
 this.map.addLayer(this.msLayer);
 
-    this.waterLayer = new OpenLayers.Layer.TMS( "Вода",
+    this.waterLayer = new OpenLayers.Layer.TMS( "Реки и озера",
         "http://sac.khvi.ru:82/mapcache/tms/", {layername: 'water@g', type:'png', opacity: 1, isBaseLayer: false} );
 	this.map.addLayer(this.waterLayer);
 
@@ -33,7 +33,7 @@ this.roadLayer = new OpenLayers.Layer.TMS( "Дороги",
         "http://sac.khvi.ru:82/mapcache/tms/", {layername: 'road@g', type:'png', opacity: 1, isBaseLayer: false} );
 	this.map.addLayer(this.roadLayer);
 
-this.railwayLayer = new OpenLayers.Layer.TMS( "ЖД пути",
+this.railwayLayer = new OpenLayers.Layer.TMS( "Железные дороги",
         "http://sac.khvi.ru:82/mapcache/tms/", {layername: 'railway@g', type:'png', opacity: 1, isBaseLayer: false} );
 	this.map.addLayer(this.railwayLayer);
 

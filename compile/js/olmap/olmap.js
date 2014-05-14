@@ -39,9 +39,9 @@ OLMap.prototype.init = function(divName, ip, type)
 	this.addMapserverLayer();
 	this.addOSMLayer();
 	
-    
-    
 	this.addVectorLayers(type); 
+	
+	this.addLayersMenu();
 
 	return true;
 };

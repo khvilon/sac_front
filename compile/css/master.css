@@ -1745,3 +1745,9 @@ label {
   text-decoration: none;
   width: 90px !important;
 }
+
+#gis_layers_menu div{
+  font-size: 24px;
+  color: white;
+  font-family: Open Sans;
+}
