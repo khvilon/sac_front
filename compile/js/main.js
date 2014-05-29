@@ -1,3 +1,4 @@
+var isCrimea = false;
 /** 
  * [SVGLoader description]
  * @param {[type]} app [description]
@@ -890,9 +891,12 @@ var MapStateManager = function(app) {
 	this.onSvgClick_ = function(evt) {
 		var newIdRegion = $(evt.target).parent().attr("target");
 
-		if(newIdRegion && this.level == this.maxLevel) showGis(newIdRegion);
- 		else if(this.level == this.maxLevel) showGis(newIdRegion);
-		else if(this.level != this.maxLevel) {
+		
+if(this.level == 0) isCrimea = (newIdRegion == 110); 
+//alert(isCrimea);
+if(isCrimea && this.level == 1) showGis(newIdRegion);
+else if(newIdRegion && this.level == this.maxLevel) showGis(newIdRegion);
+ 			else if(this.level != this.maxLevel /*&& (!isCrimea || newIdRegion == 110)*/) {
 			this.app.legendWidget.hide();
 			this.level += 1;
 

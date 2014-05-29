@@ -33,14 +33,17 @@ function showGis(id)
 	gisDiv.style.borderStyle = "solid";
 	gisDiv.style.borderWidth = "2px";
 	gisDiv.style.borderColor = "#79a7d9";
+	gisDiv.style.zIndex = 500;
 	gisDiv.id = "gis_div";
-	document.getElementById('bg-image').appendChild(gisDiv);
+	
+	document.getElementById('app').appendChild(gisDiv);
 
 	document.getElementById('bg-events').style.display='none';
 	document.getElementById('bg-event-image').style.display='none';
 	document.getElementById('bg-svg').style.display='none';
 	document.getElementById('bg-regions-image').style.display='none';
-	document.getElementById('bg-colored-image').style.display='none';
+//	document.getElementById('bg-colored-image').style.display='none';
+//	document.getElementById('bg-colored-image').className = 'temp';
 	document.getElementById('miniMap').className = 'temp';
 	document.getElementById('miniMap').style.display='none';
 	document.getElementById('legend-widget').style.display='none';
@@ -61,7 +64,8 @@ function removeGis()
     document.getElementById('bg-svg').style.display='block';
 	document.getElementById('bg-video').style.display='';
 	document.getElementById('bg-regions-image').style.display='';
-	document.getElementById('bg-colored-image').style.display='';
+//	document.getElementById('bg-colored-image').style.display='';
+//	document.getElementById('bg-colored-image').className = 'onShow';
 	document.getElementById('miniMap').className = 'onShow';
 	document.getElementById('miniMap').style.display='';
 document.getElementById('legend-widget').style.display='block';
