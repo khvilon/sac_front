@@ -1,18 +1,18 @@
-<!DOCTYPE HTML> 
+<!DOCTYPE HTML>
 <html manifest="/static/cache.appcache">
-    <head> 
-        <title>Автоматизированная подсистема мониторинга. Национальная система химической и биологической безопасности Российской Федерации</title>
+    <head>
+        <title> Ситуационный центр</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        
+
         <link href="/static/compile/css/master.css" rel="stylesheet" type="text/css" />
         <link href="/static/compile/css/ipad.css" rel="stylesheet" type="text/css" />
     </head>
     <body>
         <style type="text/css" id="in-svg-css">
-            path { -webkit-transition: all 0.3s linear; } 
-            text { -webkit-transition: all 1.3s linear; font-family: Verdana, Times, serif; font-weight: normal; font-size: 30px; text-shadow: 0px 0px 20px #000000; } 
-            .zoom2 { font-size: 32px; } 
-            .zoom3 { font-size: 25px;} 
+            path { -webkit-transition: all 0.3s linear; }
+            text { -webkit-transition: all 1.3s linear; font-family: Verdana, Times, serif; font-weight: normal; font-size: 30px; text-shadow: 0px 0px 20px #000000; }
+            .zoom2 { font-size: 32px; }
+            .zoom3 { font-size: 25px;}
             .regions { font-size: 20px !important; }
         </style>
         <div id="app">
@@ -21,13 +21,16 @@
                 <a>Центральный <br />федеральный округ</a>
             </div>
             <div id="panels">
-            <a class="close" href="/users/sign_out">Выйти</a>
+
                 <header class="nav-elements">
                     <a href="#"></a>
-                    <p>Автоматизированная подсистема мониторинга <br />Национальная система химической и биологической безопасности Российской Федерации</p>
+                    <p>Ситуационный центр</p>
                     <h1>Российская Федерация</h1>
                 </header>
                 <div id="content">
+                	<div class="exit">
+                		<a href="/users/sign_out">Выйти</a>
+                	</div>
                     <div class="time nav-elements">
                         <b><span id="hour">16</span>:<span id="minute">40</span></b>
                         <p><span id="day">04</span> <span id="month">апреля</span> <span id="age">2013</span></p>
@@ -61,11 +64,11 @@
                             <select class="year" id="age_select"></select>
                             <section class="scroll" id="parametrs-list"></section>
                         </div>
-                    </div> 
+                    </div>
                     <div id="events-params" class="hidden"></div>
 
                     <div id="events-legend" class="hidden">
-                        
+
                     </div>
                     <div id="regions-params" class="hidden">
                         <div class="show nav-elements" id="regions-paramers-show"></div>
@@ -138,7 +141,7 @@
                                 <img src="" alt="" />
                                 <table>
                                     <tbody></tbody>
-                                </table>    
+                                </table>
                             </div>
                             <table class="tt">
                                 <tbody></tbody>
@@ -157,7 +160,7 @@
                         </div>
                     </div>
                     <div class="hidden" id="event-content">
-                        
+
                     </div>
                     <div id="params-selector" class="hidden">
                         <div class="data f" id="params-data">
@@ -206,7 +209,7 @@
                 </div>
             </div>
             <!-- Панель управления конец -->
-            
+
             <div id="bg-colored-image"></div>
             <div id="bg-image"></div>
             <div id="bg-events" class="onHidden"></div>
@@ -232,15 +235,13 @@
         <script type="text/javascript" src="/static/compile/js/underscore-min.js"></script>
         <script type="text/javascript" src="/static/compile/js/backbone-min.js"></script>
 
-	<script type="text/javascript" src="/static/compile/js/OpenLayers/OpenLayers.js"></script>
-	  <script type="text/javascript" src="/static/compile/js/olmap/olmap.js"></script>
-	  <script type="text/javascript" src="/static/compile/js/olmap/tools.js"></script>
-	  <script type="text/javascript" src="/static/compile/js/olmap/create_map.js"></script>
-	  <script type="text/javascript" src="/static/compile/js/olmap/vector_layers.js"></script>
-	  <script type="text/javascript" src="/static/compile/js/olmap/subj.js"></script>
-	  <script type="text/javascript" src="/static/compile/js/olmap/markers.js"></script>
-      <script type="text/javascript" src="/static/compile/js/gis.js"></script>
-        
+        <script type="text/javascript" src="/static/compile/js/jcarousellite.js"></script>
+
+	    <script type="text/javascript" src="/static/compile/js/OpenLayers/OpenLayers.js"></script>
+	    <script type="text/javascript" src="/static/compile/js/KScriptLoader.js"></script>
+	    <script type="text/javascript" src="/static/compile/js/olmap/olmap.js"></script>
+
+
         <script type="text/javascript" src="/static/compile/js/signals.min.js"></script>
         <script type="text/javascript" src="/static/compile/js/events.factory.js"></script>
         <script type="text/javascript" src="/static/compile/js/events.js"></script>

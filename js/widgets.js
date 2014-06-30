@@ -10,7 +10,7 @@ var YearSelectWidget = function(app, configs) {
 	this.years = configs.years;
 	this.selectedYear = configs.selectedYear;
 	this.onAfterYearSelected = configs.onAfterYearSelected;
-	
+
 	this.CSS = {
 		"SELECTOR": configs.container
 	}
@@ -42,7 +42,7 @@ var YearSelectWidget = function(app, configs) {
 
 		newOption.appendChild(newOptionContent);
 		newOption.setAttribute("value", value);
-		
+
 		if(value == this.selectedYear) {
 			newOption.setAttribute("selected", "selected");
 		}
@@ -128,7 +128,7 @@ var FooterNavWidget = function(app) {
 
 				this.app.graphPanel.show();
 			}
-			
+
 			if(itemId == "FORMAT") {
 				this.app.districtsPanel.hidden();
 				this.app.regionPanel.hidden();
@@ -163,7 +163,7 @@ var FooterNavWidget = function(app) {
 				this.app.formatPanel.hidden();
 				this.app.districtsPanel.hiddenWidgets();
 				this.app.reportsPanel.hidden();
-				
+
 				this.app.mapEventsPanel.show();
 			}
 
@@ -179,18 +179,18 @@ var FooterNavWidget = function(app) {
 
 			this.app.currentMenuSate = itemId;
 		}
-		
+
 		if(!curElement.hasClass("cooming")) {
 			if(!curElement.hasClass("active")) {
 				$(this.CSS["MAIN"]).find("a").removeClass("active");
-				curElement.toggleClass("active");		
+				curElement.toggleClass("active");
 			}
 		}
 	}
 
 	this.draw = function() {
 		this.draw_();
-		this.addEvents_();	
+		this.addEvents_();
 	}
 
 	this.hidden = function() {
@@ -245,7 +245,8 @@ var AppTimer = function(app) {
 var EventsListWidget = Backbone.View.extend({
     el: $("#events-params"),
     events: {
-        "click td": "selectEvent"
+        "click td": "selectEvent",
+        "click .hidden": "onHidden"
     },
     initialize: function(app) {
       this.app = app;
@@ -259,23 +260,28 @@ var EventsListWidget = Backbone.View.extend({
 				var elements = self.collection.toJSON();
 				delete elements.id;
 
-				if($("#events-list-table").data('jsp')) {
-					$("#events-list-table").data('jsp').destroy();
+				if(!self.app.mobile) {
+					if($("#events-list-table").data('jsp')) {
+						$("#events-list-table").data('jsp').destroy();
+					}
 				}
 
-				var template = _.template( data, { events: elements } );
+
+				var template = _.template( data, { events: elements, title: self.app.mapStateManager.currentRegionData.name } );
 				$(self.el).html(template);
 
 				self.show();
 
-				$("#events-list-table").jScrollPane(
-					{
-						showArrows: true,
-						verticalDragMinHeight: 60,
-			    		verticalDragMaxHeight: 60,
-			    		autoReinitialise: true
-					}
-				);
+				if(!self.app.mobile) {
+					$("#events-list-table").jScrollPane(
+						{
+							showArrows: true,
+							verticalDragMinHeight: 60,
+				    		verticalDragMaxHeight: 60,
+				    		autoReinitialise: true
+						}
+					);
+				}
 
 				self.app.eventsLegendLeftWidget.render({ counts :self.countCollections(elements) });
 			}, 'html');
@@ -302,8 +308,19 @@ var EventsListWidget = Backbone.View.extend({
 
   		window.application.eventsContentWidget.show(clickedEl.parent().data("id"), clickedEl.parent().data("status"));
     },
+    onHidden: function(event) {
+    	$("#events-parametrs-widget").css("right", "-700px");
+    	$("#events-paramers-show").css("opacity", "1").show();
+    },
+    onShow: function(event) {
+    	console.log(event);
+    	$("#events-parametrs-widget").css("right", "0px");
+    	$("#events-paramers-show").css("opacity", "0").hide();
+    },
     show: function() {
     	$("#events-parametrs-widget").show();
+
+    	$("#events-paramers-show").on("click", this.onShow);
     }
 });
 
@@ -313,7 +330,7 @@ var EventsLegendLeftWidget = Backbone.View.extend({
     el: $("#events-legend"),
     template: null,
     initialize: function() {
-      
+
     },
     render: function (data) {
     	this.renderTemplate(data);
@@ -324,7 +341,7 @@ var EventsLegendLeftWidget = Backbone.View.extend({
     		$.get('/static/templates/event-legend.js', function (data) {
 	    		self.template = data;
 				self.bindTemplate_(content);
-			}, 'html');	
+			}, 'html');
     	} else {
     		this.bindTemplate_(content);
     	}
@@ -350,7 +367,7 @@ var EventsContentWidget = Backbone.View.extend({
         "click .close": "hide"
     },
     initialize: function() {
-      
+
     },
     render: function (id, status) {
     	var self = this;
@@ -358,7 +375,7 @@ var EventsContentWidget = Backbone.View.extend({
     		this.collection = new EventInfo({id: id});
 	    	this.collection.fetch().done(function() {
 	    		self.renderTemplate({ event: self.collection.toJSON(), id: id, status: status });
-	      	});	
+	      	});
     	} else {
     		self.renderTemplate({});
     	}
@@ -369,28 +386,28 @@ var EventsContentWidget = Backbone.View.extend({
     		$.get('/static/templates/event-content.js', function (data) {
 	    		self.template = data;
 				self.bindTemplate_(content);
-			}, 'html');	
+			}, 'html');
     	} else {
     		this.bindTemplate_(content);
     	}
     },
     bindTemplate_: function(content) {
 		$(this.el).html(_.template( this.template, content ));
-
-		$("#svg_mm").load("/static/svg/"+content.id+".svg", function(data) {
+               window.application.eventManager.getEventMedia(content.event.id, function(data){alert(data); alert(data[0]);});
+	/*	$("#svg_mm").load("/static/svg/"+content.id+".svg", function(data) {
 			$("#svg_mm").html(data);
 
 			$.each($("#svg_mm").find("path"), function(key, value) {
 				if(content.status == 2) {
-					$(value).attr("fill", "rgba(255, 215, 0, 0.5)");	
+					$(value).attr("fill", "rgba(255, 215, 0, 0.5)");
 				}
 				if(content.status == 3) {
-					$(value).attr("fill", "rgba(255, 0, 0, 0.5)");	
+					$(value).attr("fill", "rgba(255, 0, 0, 0.5)");
 				}
-				
+
 				$(value).attr("fill-opacity", "1");
 			});
-		});
+		});  */
     },
     show: function(id, status) {
     	$(this.el).removeClass("hidden");
