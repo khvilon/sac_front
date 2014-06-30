@@ -4,19 +4,13 @@
  * @param  {[type]} configs [description]
  * @return {[type]}         [description]
  */
-String.prototype.SQLDatetimeToDate = function()
-{	var date = this.substring(0, 10);
-    var date_time_parts = date.split('-');
-    return date_time_parts[2] + '/' + date_time_parts[1] + '/' + date_time_parts[0];};
-
-
 var YearSelectWidget = function(app, configs) {
 	this.app = app;
 	this.configs = configs;
 	this.years = configs.years;
 	this.selectedYear = configs.selectedYear;
 	this.onAfterYearSelected = configs.onAfterYearSelected;
-
+	
 	this.CSS = {
 		"SELECTOR": configs.container
 	}
@@ -48,7 +42,7 @@ var YearSelectWidget = function(app, configs) {
 
 		newOption.appendChild(newOptionContent);
 		newOption.setAttribute("value", value);
-
+		
 		if(value == this.selectedYear) {
 			newOption.setAttribute("selected", "selected");
 		}
@@ -84,25 +78,6 @@ var PageTitleWidget = function(app) {
 		this.elements["CONTAINER"].removeClass("onHidden");
 	}
 }
-
-
-var ExitWidget = function(app) {
-	this.CSS = {
-		"EXIT": "header h1"
-	};
-	this.elements = {
-		"EXIT": $(this.CSS["EXIT"])
-	};
-
-/*	this.hidden = function() {
-		this.elements["CONTAINER"].addClass("onHidden");
-	}
-
-	this.show = function() {
-		this.elements["CONTAINER"].removeClass("onHidden");
-	}  */
-}
-
 
 /**
  * [FooterNavWidget description]
@@ -153,7 +128,7 @@ var FooterNavWidget = function(app) {
 
 				this.app.graphPanel.show();
 			}
-
+			
 			if(itemId == "FORMAT") {
 				this.app.districtsPanel.hidden();
 				this.app.regionPanel.hidden();
@@ -188,7 +163,7 @@ var FooterNavWidget = function(app) {
 				this.app.formatPanel.hidden();
 				this.app.districtsPanel.hiddenWidgets();
 				this.app.reportsPanel.hidden();
-
+				
 				this.app.mapEventsPanel.show();
 			}
 
@@ -204,18 +179,18 @@ var FooterNavWidget = function(app) {
 
 			this.app.currentMenuSate = itemId;
 		}
-
+		
 		if(!curElement.hasClass("cooming")) {
 			if(!curElement.hasClass("active")) {
 				$(this.CSS["MAIN"]).find("a").removeClass("active");
-				curElement.toggleClass("active");
+				curElement.toggleClass("active");		
 			}
 		}
 	}
 
 	this.draw = function() {
 		this.draw_();
-		this.addEvents_();
+		this.addEvents_();	
 	}
 
 	this.hidden = function() {
@@ -271,10 +246,7 @@ var EventsListWidget = Backbone.View.extend({
     el: $("#events-params"),
     events: {
         "click td": "selectEvent",
-        "click .hidden": "onHidden",
-//        "click img": "deleteEvent",
-//        "mouseenter td"   : "hoverOn",
-// 		"mouseleave td"   : "hoverOff"
+        "click .hidden": "onHidden"
     },
     initialize: function(app) {
       this.app = app;
@@ -291,11 +263,11 @@ var EventsListWidget = Backbone.View.extend({
 				if(!self.app.mobile) {
 					if($("#events-list-table").data('jsp')) {
 						$("#events-list-table").data('jsp').destroy();
-					}
+					}	
 				}
+				
 
-
-				var template = _.template( data, { events: elements, title: self.app.mapStateManager.currentRegionData.name, host: self.app.apiHost } );
+				var template = _.template( data, { events: elements, title: self.app.mapStateManager.currentRegionData.name } );
 				$(self.el).html(template);
 
 				self.show();
@@ -334,29 +306,10 @@ var EventsListWidget = Backbone.View.extend({
     selectEvent: function(e) {
     	var clickedEl = $(e.currentTarget);
 
-		var event_id = clickedEl.parent().data("id");
-
-    	if(document.getElementById("event_delete_" + event_id) != null)
-			window.application.eventsContentWidget.show(clickedEl.parent().data("id"), clickedEl.parent().data("status"));
-    },
-    deleteEvent: function(e) {
-    	var clickedEl = $(e.currentTarget);
-        var td = clickedEl.parent();
-        var tr = td.parent();
-  		tr.remove();
-    },
-    hoverOn: function(e) {
-    	var dEl = $(e.currentTarget);
-
-  		$("#event_delete_" + dEl.parent().data("id")).css("display", "inline");
-    },
-    hoverOff: function(e) {
-    	var dEl = $(e.currentTarget);
-
-  		$("#event_delete_" + dEl.parent().data("id")).css("display", "none");
+  		window.application.eventsContentWidget.show(clickedEl.parent().data("id"), clickedEl.parent().data("status"));
     },
     onHidden: function(event) {
-    	$("#events-parametrs-widget").css("right", "-820px");
+    	$("#events-parametrs-widget").css("right", "-700px");
     	$("#events-paramers-show").css("opacity", "1").show();
     },
     onShow: function(event) {
@@ -377,7 +330,7 @@ var EventsLegendLeftWidget = Backbone.View.extend({
     el: $("#events-legend"),
     template: null,
     initialize: function() {
-
+      
     },
     render: function (data) {
     	this.renderTemplate(data);
@@ -388,7 +341,7 @@ var EventsLegendLeftWidget = Backbone.View.extend({
     		$.get('/static/templates/event-legend.js', function (data) {
 	    		self.template = data;
 				self.bindTemplate_(content);
-			}, 'html');
+			}, 'html');	
     	} else {
     		this.bindTemplate_(content);
     	}
@@ -414,7 +367,7 @@ var EventsContentWidget = Backbone.View.extend({
         "click .close": "hide"
     },
     initialize: function() {
-
+      
     },
     render: function (id, status) {
     	var self = this;
@@ -422,94 +375,39 @@ var EventsContentWidget = Backbone.View.extend({
     		this.collection = new EventInfo({id: id});
 	    	this.collection.fetch().done(function() {
 	    		self.renderTemplate({ event: self.collection.toJSON(), id: id, status: status });
-	      	});
+	      	});	
     	} else {
     		self.renderTemplate({});
     	}
     },
     renderTemplate: function(content) {
-
-    	content.event.date_time = content.event.date_time.SQLDatetimeToDate();/* = content.event.date_time.substring(0, 10);
-    	var date_time_parts = content.event.date_time.split('-');
-    	content.event.date_time = date_time_parts[2] + '/' + date_time_parts[1] + '/' + date_time_parts[0];   */
     	var self = this;
     	if(!self.template) {
     		$.get('/static/templates/event-content.js', function (data) {
 	    		self.template = data;
 				self.bindTemplate_(content);
-			}, 'html');
+			}, 'html');	
     	} else {
     		this.bindTemplate_(content);
     	}
     },
-    showMedia: function(url)
-    {
-    	var media_div = document.createElement('div');
-
-		media_div.style.width = "60%";
-		media_div.style.height = "80%";
-		media_div.style.position = "absolute";
-		media_div.style.left = "20%";
-		media_div.style.top = "13%";
-		media_div.style.background = "#000000";
-		media_div.style.borderStyle = "solid";
-		media_div.style.borderWidth = "2px";
-		media_div.style.borderColor = "#79a7d9";
-		media_div.style.zIndex = 200;
-		media_div.id = 'event_media_div';
-
-		document.getElementById('app').appendChild(media_div);
-		var closeDivText = '<span class="close" onclick=window.application.eventsContentWidget.closeMedia() style="display:inline; position:absolute; z-index:203; right:30px; top:30px"></span>';
-		if (url.indexOf(".pdf") > 2) $('#event_media_div').append(closeDivText + '<object type="application/pdf"  width=100% height=100% src="'+ url +'" />' );
-     	if(url.indexOf(".mp4") > 2) $('#event_media_div').append('<div style="z-index:202; width:100%; height:100%"><video controls autoplay width=100% height=100% allowfullscreen="false" wmode="opaque" ><source src="'+ url +'" type="video/mp4"></video></div>' + closeDivText );
-    	else  $('#event_media_div').append(closeDivText + '<img width=100% height=100% src="'+ url +'" />' );    },
-    closeMedia: function()
-    {    	document.getElementById('app').removeChild(document.getElementById('event_media_div'));    },
     bindTemplate_: function(content) {
 		$(this.el).html(_.template( this.template, content ));
 
-		var me = this;
-
-  		window.application.eventManager.getEventMedia(content.event.id, function(data)
-  		{
-  			var playImg = '<img style="position:relative; top:50%; left:50%; margin-top:-21px; margin-left:-21px" src="/static/images/play_button.png">';
-  		     for(var i=0;i<data.length;i++)
-  		     {
-  		     	var slide = '<li onclick=window.application.eventsContentWidget.showMedia("' + data[i].file_path + '"); ' +
-  		     	'style="cursor:pointer; margin-left:4px; margin-right:4px; border:1px solid #8bd9d6; float:left; height:110px; width:140px" >'+
-  		     	'<img height=110px width=140px src="' + data[i].file_thumb_path + '" style="position:absolute"/>';
-  		     	if(data[i].file_type == "video/mp4") slide += playImg;
-                $('#cont_event_slider_ul').append(slide);
-             }
-
-
-			var slidesCount = 6;
-  			if($('#cont_event_slider_ul').children().length > slidesCount)
-  			{
-	  			$("#cont_event_slider_inner").jCarouselLite({
-					btnNext: $("#next_slide_button"),
-			        btnPrev: $("#prev_slide_button"),
-					speed: 500,
-
-					visible: slidesCount
-			    });
-		    }
-  		});
-
-	/*	$("#svg_mm").load("/static/svg/"+content.id+".svg", function(data) {
+		$("#svg_mm").load("/static/svg/"+content.id+".svg", function(data) {
 			$("#svg_mm").html(data);
 
 			$.each($("#svg_mm").find("path"), function(key, value) {
 				if(content.status == 2) {
-					$(value).attr("fill", "rgba(255, 215, 0, 0.5)");
+					$(value).attr("fill", "rgba(255, 215, 0, 0.5)");	
 				}
 				if(content.status == 3) {
-					$(value).attr("fill", "rgba(255, 0, 0, 0.5)");
+					$(value).attr("fill", "rgba(255, 0, 0, 0.5)");	
 				}
-
+				
 				$(value).attr("fill-opacity", "1");
 			});
-		});  */
+		});
     },
     show: function(id, status) {
     	$(this.el).removeClass("hidden");

@@ -93,11 +93,11 @@ var RegionsParametrsWidgets = function(app) {
 			var parentLi = $(evt.target).parent().parent();
 			$(this.CSS["SCROLL"]).find(".active").removeClass("active");
 			$(evt.target).toggleClass("active");
-
+			
 			this.setTitle($(evt.target).html());
 			this.currentParametr = this.getParametrById(parentLi.attr("data-id"));
 			this.app.regionsMapColorel.colored(
-				this.currentParametr.id,
+				this.currentParametr.id, 
 				this.app.ageSelectorRegionsWidget.selectedYear
 			);
 			this.app.regionsMapColorWidget.updateParams();
@@ -152,7 +152,7 @@ var RegionsParametrsWidgets = function(app) {
 					parameters: []
 				}
 			}
-
+			
 			ret[value.group_id].parameters.push({
 				id: value.param_id,
 				name: value.param_name,
@@ -172,15 +172,15 @@ var RegionsParametrsWidgets = function(app) {
 
 		if(this.currentParametr) {
 			this.app.legendManager.getLegendByParamAndSubject(
-				this.currentParametr.id,
+				this.currentParametr.id, 
 				this.app.currentRegion,
 				function(data) {
 					self.legendWidget.setLevelText(data);
 					self.legendWidget.show();
 				}
-			);
+			);	
 		}
-
+		
 	}
 
 	this.initScroll_ = function() {
@@ -215,13 +215,13 @@ var RegionsParametrsWidgets = function(app) {
 				right: this.animateStep
 			},
 			this.animateSpeed,
-			$.proxy(this.onMainHiddened_, this)
+			$.proxy(this.onMainHiddened_, this) 
 		);
 		this.elements["SHOW"].animate({
 				right: "0px"
 			},
 			this.animateSpeed/4,
-			$.proxy(this.onMainHiddened_, this)
+			$.proxy(this.onMainHiddened_, this) 
 		);
 		return false;
 	}
@@ -232,9 +232,9 @@ var RegionsParametrsWidgets = function(app) {
 				right: this.animateStep
 			},
 			this.animateSpeed/2,
-			$.proxy(this.onMainShowed_, this)
+			$.proxy(this.onMainShowed_, this) 
 		);
-
+		
 		return false;
 	}
 
@@ -243,7 +243,7 @@ var RegionsParametrsWidgets = function(app) {
 			right: this.animateStep,
 			display: "block"
 		});
-
+		
 		this.elements["MAIN"].animate({
 				right: "0px"
 			},
@@ -257,13 +257,13 @@ var RegionsParametrsWidgets = function(app) {
 	}
 
 	this.onMainHiddened_ = function() {
-
+		
 	}
 
 	this.onFilterClick_ = function(evt) {
 		var filterValue = $(evt.target).val();
 		if(filterValue.length > 0) {
-			this.filteringParametrs(filterValue);
+			this.filteringParametrs(filterValue);	
 		} else {
 			this.clearFilter_();
 		}
@@ -289,8 +289,8 @@ var RegionsParametrsWidgets = function(app) {
 
 	this.getParamsByRegionAndYeage = function(region_id) {
 		this.app.paramsManager.getParamsByRegionAndYeage(
-			region_id,
-			this.app.ageSelectorRegionsWidget.selectedYear,
+			region_id, 
+			this.app.ageSelectorRegionsWidget.selectedYear, 
 			$.proxy(this.getParametrs_, this)
 		);
 	}
@@ -389,10 +389,10 @@ var ParametrsWidgets = function(app) {
 
 			this.currentParametr = this.getParametrById(parentLi.attr("data-id"));
 			this.app.mapColorel.colored(
-				this.currentParametr.id,
-				this.app.currentRegion,
+				this.currentParametr.id, 
+				this.app.currentRegion, 
 				this.app.ageSelectorWidget.selectedYear,
-				$.proxy(this.coloredLoad_, this)
+				$.proxy(this.coloredLoad_, this) 
 			);
 			this.app.mapColorWidget.updateParams();
 			this.app.paramsManager.getParamUom(this.currentParametr.id, function(data) {
@@ -402,9 +402,9 @@ var ParametrsWidgets = function(app) {
 					self.elements["UOM"].html("");
 				}
 			});
-
+			
 			this.app.legendParamsManager.getLegendByParamAndSubject(
-				this.currentParametr.id,
+				this.currentParametr.id, 
 				this.app.currentRegion,
 				this.app.ageSelectorWidget.selectedYear,
 				function(data) {
@@ -416,23 +416,23 @@ var ParametrsWidgets = function(app) {
 
 					$.each(data, function(value, key){
 						if(key == "#7fff7f") {
-							newData["green"][0] += 1;
+							newData["green"][0] += 1; 
 						}
 						if(key == "#ff7f7f") {
-							newData["red"][0] += 1;
+							newData["red"][0] += 1; 
 						}
 						if(key == "#ffff7f") {
-							newData["yellow"][0] += 1;
+							newData["yellow"][0] += 1; 
 						}
 						if(!key) {
-							newData["blue"][0] += 1;
+							newData["blue"][0] += 1; 
 						}
 					});
 					self.legendWidget.setLevelText(newData);
 					self.legendWidget.show();
 				}
 			);
-
+				
 		} else {
 			/*$(this.CSS["PARAMETRS-LIST"]).find(".active").removeClass("active");
 			this.setTitle("");
@@ -464,7 +464,7 @@ var ParametrsWidgets = function(app) {
 					parameters: []
 				}
 			}
-
+						
 			ret[value.group_id].parameters.push({
 				id: value.param_id,
 				name: value.param_name,
@@ -482,15 +482,15 @@ var ParametrsWidgets = function(app) {
 
 		if(this.currentParametr) {
 			this.app.legendManager.getLegendByParamAndSubject(
-				this.currentParametr.id,
+				this.currentParametr.id, 
 				this.app.currentRegion,
 				function(data) {
 					self.legendWidget.setLevelText(data);
 					self.legendWidget.show();
 				}
-			);
+			);	
 		}
-
+		
 	}
 
 	this.initScroll_ = function() {
@@ -505,12 +505,11 @@ var ParametrsWidgets = function(app) {
 		this.scrollApi = this.elements["PARAMETRS-LIST"].data('jsp');
 	}
 
-
 	this.drawParamets_ = function(params) {
 		var html = "";
 		var self = this;
 		var contentPane = this.scrollApi.getContentPane();
-       contentPane.empty();
+
 		$.each(params, function(key, value) {
 
 			var elementCurrentGroup = $("ul[data-id='"+value.id+"']", self.CSS["PARAMETRS-LIST"]);
@@ -524,7 +523,6 @@ var ParametrsWidgets = function(app) {
 
 			var elementCurrentGroup = $("ul[data-id='"+value.id+"']", self.CSS["PARAMETRS-LIST"]);
 
-			var param_vals = new Object();
 			if(value.parameters.length > 0) {
 				$.each(value.parameters, function(key2, value2) {
 					value2.value = decorateValues(value2.value, 2);
@@ -532,22 +530,14 @@ var ParametrsWidgets = function(app) {
 					if(value2.value == null) {
 						value2.value = "";
 					}
-					if(param_vals[value2.id] == null) param_vals[value2.id] = 0;
-					if(value2.value != "") param_vals[value2.id] += parseInt(value2.value);
 					if(paramCurrent.size() == 0) {
-						var html = "<li data-name='"+value2.name+"' data-id='"+value2.id+"'><span  class='param'><em class='spr'>-</em> <em class='name' id='parameter_name_"+value2.id+"'>"+value2.name+"</em></span><i>"+value2.value+"</i></li>";
+						var html = "<li data-name='"+value2.name+"' data-id='"+value2.id+"'><span  class='param'><em class='spr'>-</em> <em class='name'>"+value2.name+"</em></span><i>"+value2.value+"</i></li>";
 
 						elementCurrentGroup.find("ul").append(html);
 					} else {
-						paramCurrent.find("i").html(param_vals[value2.id]);
-				 	}
-
-                    if(self.currentParametr != null && self.currentParametr.name == value2.name &&
-                    	self.currentParametr.id != value2.id)
-                    {
-                    	$("#parameter_name_" + value2.id).click();
-                    }
-				});
+						paramCurrent.find("i").html(value2.value);
+					}
+				});	
 			}
 		});
 		this.scrollApi.reinitialise();
@@ -558,13 +548,13 @@ var ParametrsWidgets = function(app) {
 				right: this.animateStep
 			},
 			this.animateSpeed,
-			$.proxy(this.onMainHiddened_, this)
+			$.proxy(this.onMainHiddened_, this) 
 		);
 		this.elements["SHOW"].animate({
 				right: "0px"
 			},
 			this.animateSpeed/4,
-			$.proxy(this.onMainHiddened_, this)
+			$.proxy(this.onMainHiddened_, this) 
 		);
 		return false;
 	}
@@ -575,9 +565,9 @@ var ParametrsWidgets = function(app) {
 				right: this.animateStep
 			},
 			this.animateSpeed/2,
-			$.proxy(this.onMainShowed_, this)
+			$.proxy(this.onMainShowed_, this) 
 		);
-
+		
 		return false;
 	}
 
@@ -586,7 +576,7 @@ var ParametrsWidgets = function(app) {
 			right: this.animateStep,
 			display: "block"
 		});
-
+		
 		this.elements["MAIN"].animate({
 				right: "0px"
 			},
@@ -600,13 +590,13 @@ var ParametrsWidgets = function(app) {
 	}
 
 	this.onMainHiddened_ = function() {
-
+		
 	}
 
 	this.onFilterClick_ = function(evt) {
 		var filterValue = $(evt.target).val();
 		if(filterValue.length > 0) {
-			this.filteringParametrs(filterValue);
+			this.filteringParametrs(filterValue);	
 		} else {
 			this.clearFilter_();
 		}
@@ -633,8 +623,8 @@ var ParametrsWidgets = function(app) {
 
 	this.getParamsByRegionAndYeage = function(region_id) {
 		this.app.paramsManager.getParamsByRegionAndYeage(
-			region_id,
-			this.app.ageSelectorWidget.selectedYear,
+			region_id, 
+			this.app.ageSelectorWidget.selectedYear, 
 			$.proxy(this.getParametrs_, this)
 		);
 	}
@@ -705,13 +695,13 @@ var EventRightWidgets = function(app) {
 				right: this.animateStep
 			},
 			this.animateSpeed,
-			$.proxy(this.onMainHiddened_, this)
+			$.proxy(this.onMainHiddened_, this) 
 		);
 		this.elements["SHOW"].animate({
 				right: "0px"
 			},
 			this.animateSpeed/4,
-			$.proxy(this.onMainHiddened_, this)
+			$.proxy(this.onMainHiddened_, this) 
 		);
 		this.legendWidget.hide();
 		return false;
@@ -723,9 +713,9 @@ var EventRightWidgets = function(app) {
 				right: this.animateStep
 			},
 			this.animateSpeed/2,
-			$.proxy(this.onMainShowed_, this)
+			$.proxy(this.onMainShowed_, this) 
 		);
-
+		
 		return false;
 	}
 
@@ -734,7 +724,7 @@ var EventRightWidgets = function(app) {
 			right: this.animateStep,
 			display: "block"
 		});
-
+		
 		this.elements["MAIN"].animate({
 				right: "0px"
 			},
@@ -747,14 +737,14 @@ var EventRightWidgets = function(app) {
 	}
 
 	this.onMainHiddened_ = function() {
-
+		
 	}
 
 
 	this.bindEvents_ = function() {
 		this.elements["SHOW"].on("click", $.proxy(this.onShow_, this));
 		this.elements["HIDDEN"].on("click", $.proxy(this.onHidden_, this));
-
+		
 		var self = this;
 		$(".inner_table td").on("click", function() {
 			self.app.eventsDrawWidget.show();
@@ -937,7 +927,7 @@ var MapColorWidget = function(app) {
 		var ret = {};
 		$.each(data, function(key, value) {
 			if(value.val_numeric != 0) {
-				ret[value.subject_id] = value.val_numeric;
+				ret[value.subject_id] = value.val_numeric;	
 			}
 		});
 		var self = this;
@@ -1063,7 +1053,7 @@ var RegionsMapColorWidget = function(app) {
 		var ret = {};
 		$.each(data, function(key, value) {
 			if(value.val_numeric != 0) {
-				ret[value.subject_id] = value.val_numeric;
+				ret[value.subject_id] = value.val_numeric;	
 			}
 		});
 		this.app.mapStateManager.SVGWriter.drawParamValues(ret, "regions");
@@ -1139,7 +1129,7 @@ var MapColorel = function(app) {
 		if(link != "add values or maps for region") {
 			var self = this;
 			var image = new Image();
-
+			
 	        image.src = self.app.apiHost+link;
 
 	        image.onload = function() {
@@ -1148,7 +1138,7 @@ var MapColorel = function(app) {
 	    		if(callback) {
 	        		callback();
 				}
-	        }
+	        }	
 		} else if (callback) callback();
 	}
 
@@ -1334,12 +1324,12 @@ var RegionsSelectorWidget = function(app) {
 		);
 
 		this.app.paramsSelectorWidget.updateParams(this.getCurrentIds(), this.app.ageSelectorFormatWidget.selectedYear);
-
+			
 		$(this.CSS["DATA-PLACE"]+ " li a").on("click", $.proxy(this.onRegionClick_, this));
 		$(this.CSS["DATA-PLACE"]+ " li span").on("click", $.proxy(this.onRegionNameClick_, this));
 
 		this.elements["FILTER"].on("keyup", $.proxy(this.onFilterClick_, this));
-
+		
 	}
 
 	this.findRegionsByParent_ = function(data, parent, html, sep) {
@@ -1378,7 +1368,7 @@ var RegionsSelectorWidget = function(app) {
 		var filterValue = $(evt.target).val();
 
 		if(filterValue.length > 0) {
-			this.filteringParametrs(filterValue);
+			this.filteringParametrs(filterValue);	
 		} else {
 			this.clearFilter_();
 		}
@@ -1479,7 +1469,6 @@ var ParamsSelectorWidget = function(app) {
 	}
 
 	this.onParamsGet_ = function(data) {
-
 		this.parametrs = this.prepareParamerts_(data);
 		this.drawParamets_(this.parametrs);
 
@@ -1524,7 +1513,7 @@ var ParamsSelectorWidget = function(app) {
 					} else {
 						paramCurrent.find("i").html(value2.value);
 					}
-				});
+				});	
 			}
 		});
 		this.scrollApi.reinitialise();
@@ -1586,7 +1575,7 @@ var ParamsSelectorWidget = function(app) {
 		var filterValue = $(evt.target).val();
 
 		if(filterValue.length > 0) {
-			this.filteringParametrs(filterValue);
+			this.filteringParametrs(filterValue);	
 		} else {
 			this.clearFilter_();
 		}
@@ -1614,7 +1603,7 @@ var ParamsSelectorWidget = function(app) {
 	this.initScroll_();
 	this.bindEvents_();
 	this.app.ageSelectorFormatWidget.draw();
-
+	
 }
 
 /**
@@ -1668,7 +1657,7 @@ var FormatWidget = function(app) {
 		});
 		main.append(html);
 
-
+		
 		self.scrollApi.reinitialise();
 	}
 
@@ -1806,7 +1795,7 @@ var GraphParamsSelector = function(app) {
 					} else {
 						paramCurrent.find("i").html(value2.value);
 					}
-				});
+				});	
 			}
 		});
 		this.scrollApi.reinitialise();
@@ -1868,7 +1857,7 @@ var GraphParamsSelector = function(app) {
 		var filterValue = $(evt.target).val();
 
 		if(filterValue.length > 0) {
-			this.filteringParametrs(filterValue);
+			this.filteringParametrs(filterValue);	
 		} else {
 			this.clearFilter_();
 		}
@@ -1898,7 +1887,7 @@ var GraphParamsSelector = function(app) {
 		$.each(regions, function(key, value) {
 			ids.push(value.id);
 		});
-		this.updateParams(ids, 2014);
+		this.updateParams(ids, 2012);
 	}
 
 	this.initScroll_();
@@ -1907,9 +1896,6 @@ var GraphParamsSelector = function(app) {
 	this.app.regionsManagerLocal.getRegions($.proxy(this.onResponseRegions_, this));
 	this.app.ageSelectorFormatWidget.draw();
 }
-
-
-var cubeReports = [];
 
 /**
  * [GraphParametrsWidgets description]
@@ -1972,10 +1958,6 @@ var ReportsParamsSelector = function(app) {
 
 		$(this.CSS["DATA-PLACE"]).on("click", ".graph-params-checkbox" , $.proxy(this.onParamClick_, this));
 		$(this.CSS["DATA-PLACE"]).on("click", ".graph-params-name", $.proxy(this.onParamNameClick_, this));
-
-
-  		this.app.ageSelectorReportsWidget.onAfterYearSelected = $.proxy(this.onYearChanged, this)
-
 
 		this.elements["FILTER"].keyup(function() {
 			var filterValue = self.elements["FILTER"].val();
@@ -2087,21 +2069,13 @@ var ReportsParamsSelector = function(app) {
 				name: "Условия жизни населения",
 				link: "/static/pdf/11.pdf"
 			}
-		];
-
-		for(var i = 0; i < cubeReports.length; i++)
-		{
-			params.push(cubeReports[i]);
-		}
-
-		params = cubeReports;
+		]
 
 		$.each(params, function(key, value) {
 			var elementCurrentGroup = $("ul[data-id='"+value.id+"']", self.CSS["DATA-PLACE"]);
 			if(elementCurrentGroup.size() == 0) {
-				if(value.is_arm) value.link = "/arm/cube_reports/" + value.id + ".pdf";
-				var html =  "<ul data-id='"+value.id+"' class='first'><li data-name='"+value.name+"' data-time='"+value.created_at+"'>";
-					html += "<span is_arm="+value.is_arm+" link="+value.link+" report_id=" + value.id + " class='link_click_pdf graph-params-name'>"+value.name+"</span>";
+				var html =  "<ul data-id='"+value.id+"' class='first'><li data-name='"+value.name+"'>";
+					html += "<span link="+value.link+" class='link_click_pdf graph-params-name'>"+value.name+"</span>";
 
 				contentPane.append(html);
 			}
@@ -2115,18 +2089,15 @@ var ReportsParamsSelector = function(app) {
 				self.app.reportsWidget.show();
 
 				$("#report-pdf h2").html($(self2).html());
-			//	alert(SETTINGS_CONFIG['cube_host']);
-				if($(self2).attr("is_arm") == "true") $("#report-pdf-in").html('<object width="100%" type="application/pdf" height="670px" src="'+$(self2).attr("link")+'""></object>');
-				else $("#report-pdf-in").html('<iframe src="http://54.203.57.58:3000/reports/'+$(self2).attr("report_id") +'" style="width:97%;height:650px; display:inline;"></iframe>');
-
+				$("#report-pdf-in").html('<object width="100%" type="application/pdf" height="670px" src="'+$(self2).attr("link")+'""></object>');
+				
 				$("#reports-data").hide();
 				$("#reports-panel").hide();
 				$("#report-pdf").show();
-			}, 500);
+			}, 3000);
 		});
 
 		this.scrollApi.reinitialise();
-		this.onYearChanged();
 	}
 
 	this.prepareParamerts_ = function(data) {
@@ -2185,7 +2156,7 @@ var ReportsParamsSelector = function(app) {
 		var filterValue = $(evt.target).val();
 
 		if(filterValue.length > 0) {
-			this.filteringParametrs(filterValue);
+			this.filteringParametrs(filterValue);	
 		} else {
 			this.clearFilter_();
 		}
@@ -2196,8 +2167,6 @@ var ReportsParamsSelector = function(app) {
 	}
 
 	this.filteringParametrs = function(filterValue) {
-
-
 		var elements = $(this.CSS["DATA-PLACE"]).find("ul li ul li");
 
 		$.each(elements, function(key, value) {
@@ -2211,23 +2180,6 @@ var ReportsParamsSelector = function(app) {
 
 		hiddenParentList($(this.CSS["PARAMETRS-LIST"]).find(".jspPane > ul > li"));
 	}
-
-
-	this.onYearChanged = function()
-	{
-		var year = this.app.ageSelectorReportsWidget.selectedYear;
-
-		var elements = $(this.elements["DATA-PLACE"]).find("li");
-
-		$.each(elements, function(key, value)
-		{
-			var elem = $(value).attr("data-time");
-			if(elem.substring(0, 4) != year)
-				$(value).addClass("hidde");
-			else $(value).removeClass("hidde");
-		});
-	}
-
 
 	this.onResponseRegions_ = function(regions) {
 		var ids = [];
@@ -2437,7 +2389,7 @@ var ReportsDiscSelector = function(app) {
 		var filterValue = $(evt.target).val();
 
 		if(filterValue.length > 0) {
-			this.filteringParametrs(filterValue);
+			this.filteringParametrs(filterValue);	
 		} else {
 			this.clearFilter_();
 		}
@@ -2564,7 +2516,7 @@ var GraphRegionsSelectorWidget = function(app) {
 		this.regions = data;
 		this.elements["DATA-PLACE"].html(this.findRegionsByParent_(data, this.app.russianId, "", ""));
 		this.addChilds(data);
-
+			
 		$(this.CSS["DATA-PLACE"]+ " li a").on("click", $.proxy(this.onRegionClick_, this));
 		$(this.CSS["DATA-PLACE"]+ " li span").on("click", $.proxy(this.onRegionNameClick_, this));
 
@@ -2607,7 +2559,7 @@ var GraphRegionsSelectorWidget = function(app) {
 		var filterValue = $(evt.target).val();
 
 		if(filterValue.length > 0) {
-			this.filteringParametrs(filterValue);
+			this.filteringParametrs(filterValue);	
 		} else {
 			this.clearFilter_();
 		}
@@ -2827,7 +2779,7 @@ var GraphWidget = function(app) {
 				tickColor: "rgba(255, 255, 255, 0.5)"
 			}
 		};
-
+		
 		$.each(data, function(key, value) {
 			if(key != "param_levels") {
 				$.each(value.subjects, function(key2, value2) {
@@ -2838,8 +2790,8 @@ var GraphWidget = function(app) {
 						var d = new Date("01/12/"+parseInt(key3.toString().slice(0, 4)));
 						var point = [d.getTime(), value3];
 						line.push(point);
-					});
-
+					});	
+					
 					dataLine["label"] = value.param_name+"<br/> <i>"+value2.subject_name+"</i>";
 					dataLine["data"] = line;
 
@@ -2857,7 +2809,7 @@ var GraphWidget = function(app) {
 					var d = new Date("01/12/"+self.getEndData());
 					var point = [d.getTime(), value["#7fff7f_down_level"]];
 					line1.push(point);
-
+					
 					dataLine1["label"] = "";
 					dataLine1["data"] = line1;
 					dataLine1["color"] = "rgba(0, 255, 0, 0.7)";
@@ -2874,7 +2826,7 @@ var GraphWidget = function(app) {
 					var d = new Date("01/12/"+self.getEndData());
 					var point = [d.getTime(), value["#7fff7f_up_level"]];
 					line2.push(point);
-
+					
 					dataLine2["label"] = "";
 					dataLine2["data"] = line2;
 					dataLine2["color"] = "rgba(0, 255, 0, 0.7)";
@@ -2893,7 +2845,7 @@ var GraphWidget = function(app) {
 					var d = new Date("01/12/"+self.getEndData());
 					var point = [d.getTime(), value["#ff7f7f_down_level"]];
 					line3.push(point);
-
+					
 					dataLine3["label"] = "";
 					dataLine3["data"] = line3;
 					dataLine3["color"] = "rgba(255, 0, 0, 0.7)";
@@ -2910,7 +2862,7 @@ var GraphWidget = function(app) {
 					var d = new Date("01/12/"+self.getEndData());
 					var point = [d.getTime(), value["#ff7f7f_up_level"]];
 					line4.push(point);
-
+					
 					dataLine4["label"] = "";
 					dataLine4["data"] = line4;
 					dataLine4["color"] = "rgba(255, 0, 0, 0.7)";
@@ -2927,7 +2879,7 @@ var GraphWidget = function(app) {
 					var d = new Date("01/12/"+self.getEndData());
 					var point = [d.getTime(), value["#ffff7f_down_level"]];
 					line5.push(point);
-
+					
 					dataLine5["label"] = "";
 					dataLine5["data"] = line5;
 					dataLine5["color"] = "rgba(255, 255, 0, 0.7)";
@@ -2944,7 +2896,7 @@ var GraphWidget = function(app) {
 					var d = new Date("01/12/"+self.getEndData());
 					var point = [d.getTime(), value["#ffff7f_up_level"]];
 					line6.push(point);
-
+					
 					dataLine6["label"] = "";
 					dataLine6["data"] = line6;
 					dataLine6["color"] = "rgba(255, 255, 0, 0.7)";
@@ -2956,7 +2908,7 @@ var GraphWidget = function(app) {
 
 		$.plot(this.elements["GRAPH"], lines, options);
 
-
+		
 		$("#graph-panel .legend").jScrollPane(
 			{
 				showArrows: true,
@@ -3104,7 +3056,7 @@ var ReportsWidget = function(app) {
 		var id = $(event.target).attr("data-id");
 		var pTr = $(event.target).parent().parent();
 		var self = this;
-
+		
 		if(!$(event.target).attr("open")) {
 			$(event.target).attr("open", "1");
 			$.ajax(
@@ -3119,11 +3071,11 @@ var ReportsWidget = function(app) {
 							});
 							html += "</table></td></tr>";
 							pTr.after(html);
-							$("#reports-panel tbody span").on("click", $.proxy(self.subject2Callback_, self));
+							$("#reports-panel tbody span").on("click", $.proxy(self.subject2Callback_, self));	
 						}
 					}
 				}
-			);
+			);	
 		}
 	}
 
@@ -3140,61 +3092,61 @@ var ReportsWidget = function(app) {
 		var self = this;
 		$.each(data, function(key, value) {
 			if(!value.region_name && value.district_name) {
-				value.region_name = value.district_name;
+				value.region_name = value.district_name;	
 			}
 			if(!value.region_name && value.short_name) {
-				value.region_name = value.short_name;
+				value.region_name = value.short_name;	
 			}
 			if(!value.region_name && value.group_name) {
-				value.region_name = value.group_name;
+				value.region_name = value.group_name;	
 			}
 
 			if(!value.region_name && value.name_org) {
-				value.name = value.name_org;
+				value.name = value.name_org;	
 			}
 
 			if(value.code) {
-				value.attr1 = value.code;
+				value.attr1 = value.code;	
 			}
 
 			if(value.addr_street) {
-				value.attr2 = value.addr_street;
+				value.attr2 = value.addr_street;	
 			}
 
 			if(value.addr_street) {
-				value.attr1 = value.addr_region;
+				value.attr1 = value.addr_region;	
 			}
 
 			if(value.code1) {
-				value.attr1 = value.code1;
+				value.attr1 = value.code1;	
 			}
 
 			if(value.code2) {
-				value.attr2 = value.code2;
+				value.attr2 = value.code2;	
 			}
 
 			if(value.koef1) {
-				value.attr3 = value.koef1;
+				value.attr3 = value.koef1;	
 			}
 
 			if(value.koef2) {
-				value.attr4 = value.koef2;
+				value.attr4 = value.koef2;	
 			}
 
 			if(value.address) {
-				value.attr1 = value.address;
+				value.attr1 = value.address;	
 			}
 
 			if(value.fio_rucovod) {
-				value.attr2 = value.fio_rucovod;
+				value.attr2 = value.fio_rucovod;	
 			}
 
 			if(value.phone_rucovod) {
-				value.attr3 = value.phone_rucovod;
+				value.attr3 = value.phone_rucovod;	
 			}
 
 			if(value.www) {
-				value.attr4 = value.www;
+				value.attr4 = value.www;	
 			}
 
 			if(!value.id && value.region_id) {
@@ -3207,10 +3159,10 @@ var ReportsWidget = function(app) {
 				if(self.selectedId == 5) {
 					html += '<td><span data-id="'+value.id+'">'+value.name+'</span></td>';
 				} else {
-					html += '<td>'+value.name+'</td>';
+					html += '<td>'+value.name+'</td>';	
 				}
 			}
-
+			
 			if(value.region_name) {
 				html += '<td>'+value.region_name+"</td>";
 			}
