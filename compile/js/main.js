@@ -346,7 +346,6 @@ var LoadingState = function(app) {
 
 	this.run = function() {
 		this.elements["BG-IMAGE"].addClass("blur");
-		//vitr
 		this.elements["BG-IMAGE"].css("backgroundImage", "url('/static/images/map/100.png')");
 		this.elements["LOADER"].addClass("onShow");
 	}
@@ -593,52 +592,10 @@ var RegionPanel = function(app) {
 		this.elements["BG-IMAGE"].removeClass("blur");
 	}
 
-	this.otherDirection = function(direction)
-	{
-		if(direction == "LEFT") return "RIGHT";
-		return "LEFT";
-	}
-
-	this.onCameraClick_ = function(direction) {
-		directionRev = otherDirection(direction);
-
-		var startState = "";
-		var endState = "";
-
-		if(this.currentCamera == "CENTER") {
-			this.currentCamera = direction;
-			this.elements["CAMERA-"+direction].removeClass("onShow");
-
-			startState = "CENTER";
-			endState = direction;
-		}
-		if(this.currentCamera == directionRev) {
-			this.currentCamera = "CENTER";
-			this.elements["CAMERA-"+directionRev].addClass("onShow");
-
-			startState = directionRev;
-			endState = "CENTER";
-		}
-		if(!this.app.mobile) {
-			this.app.videoPlayer.play(
-				this.app.getResByPath(this.getVideoName(startState, endState)) ,
-				{
-					onEndedCallback: $.proxy(this.onVideoPlayEnd_, this),
-					poster: this.bgImage
-				}
-			);
-		} else {
-			this.onVideoPlayEnd_();
-		}
-	}
-
 
 
 	this.onCameraLeftClick_ = function() {
-
-	this.onCameraClick_("LEFT");
-
-	/*	var startState = "";
+		var startState = "";
 		var endState = "";
 
 		if(this.currentCamera == "CENTER") {
@@ -665,12 +622,10 @@ var RegionPanel = function(app) {
 			);
 		} else {
 			this.onVideoPlayEnd_();
-		}  */
+		}
 	}
 
 	this.onVideoPlayEnd_ = function() {
-
-
 		var self = this;
 
 		this.setBg(this.getBgCurrentCamera());
@@ -690,9 +645,7 @@ var RegionPanel = function(app) {
 	}
 
 	this.onCameraRightClick_ = function() {
-		this.onCameraClick_("RIGHT");
-
-	/*	var startState = "";
+		var startState = "";
 		var endState = "";
 
 		if(this.currentCamera == "CENTER") {
@@ -720,7 +673,7 @@ var RegionPanel = function(app) {
 			)
 		} else {
 			this.onVideoPlayEnd_();
-		}        */
+		}
 	}
 
 	this.bindEvents_ = function() {
