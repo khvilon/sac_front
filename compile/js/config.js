@@ -1,4 +1,6 @@
 var ConfigApp = {
+	"GIS_SERVER" : "http://gis.rosminzdrav.ru",
+	"CUBES_SERVER" : "http://cubes.rosminzdrav.ru",
 	"SAC_TYPE" : "lpu",
 	"PATHES": {
 		"VIDEO": "/static/video/",
@@ -19,7 +21,7 @@ var ConfigApp = {
 		},
 		"GRAPH": {
 			"title": "Графики"
-		}, 
+		},
 		"EVENTS": {
 			"title": "События"
 		},

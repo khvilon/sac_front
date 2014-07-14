@@ -10,7 +10,7 @@ var OnGraphUpdateEvent = function(app) {
 		this.app.graphWidget.showGraph();
 		this.app.graphWidget.updateContent(data);
 	}
-	
+
 	this.app.graphManager.getGraph(
 		this.app.graphRegionsSelectorWidget.getCurrentIds(),
 		this.app.graphParamsSelector.getCurrentIds(),
@@ -29,19 +29,19 @@ var OnDistrictUpdateMapEvent = function(app) {
 	this.app = app;
 
 	this.app.paramsManager.getParamsByRegionAndYeage(
-		this.app.currentRegion, 
-		this.app.ageSelectorWidget.selectedYear, 
+		this.app.currentRegion,
+		this.app.ageSelectorWidget.selectedYear,
 		$.proxy(this.app.parametrsWidgets.getParametrs_, this.app.parametrsWidgets)
 	);
 	if(this.app.parametrsWidgets.currentParametr) {
 		this.app.mapColorel.colored(
-			this.app.parametrsWidgets.currentParametr.id, 
-			this.app.currentRegion, 
+			this.app.parametrsWidgets.currentParametr.id,
+			this.app.currentRegion,
 			this.app.ageSelectorWidget.selectedYear
 		);
 		this.app.mapColorWidget.updateParams();
 		this.app.legendManager.getLegendByParamAndSubject(
-			this.app.parametrsWidgets.currentParametr.id, 
+			this.app.parametrsWidgets.currentParametr.id,
 			this.app.currentRegion
 		);
 	}
@@ -102,8 +102,9 @@ var OnDistrictChangeState = function(app, mapStateManager, video_id, currentRegi
 		}
 
 		if(this.app.currentMenuSate == "EVENTS") {
-			this.app.mapEventsPanel.drawNumbers();
+			//this.app.mapEventsPanel.drawNumbers();
 			this.app.eventsListWidget.render(this.app.currentRegion);
+			this.app.mapStateManager.SVGWriter.waitingForMap = true;
 			this.app.mapEventsPanel.drawMap(this.app.currentRegion);
 			//$("#bg-event-image").hide();
 		}
@@ -111,8 +112,8 @@ var OnDistrictChangeState = function(app, mapStateManager, video_id, currentRegi
 		this.app.regionsManagerLocal.getRegions(function(data) {
 			var region = self.app.regionsManagerLocal.getRegionById(self.app.currentRegion, data);
 			if(region) {
-				$("#events-parametrs-widget h2").html(region.name);	
-			} 
+				$("#events-parametrs-widget h2").html(region.name);
+			}
 		});
 
 		//
@@ -122,13 +123,13 @@ var OnDistrictChangeState = function(app, mapStateManager, video_id, currentRegi
 
 	if(this.app.parametrsWidgets.currentParametr != null) {
 		this.app.mapColorel.colored(
-			this.app.parametrsWidgets.currentParametr.id, 
-			this.app.currentRegion, 
+			this.app.parametrsWidgets.currentParametr.id,
+			this.app.currentRegion,
 			this.app.ageSelectorWidget.selectedYear,
 			$.proxy(this.onAfterEvent_, this)
 		);
 		this.app.legendManager.getLegendByParamAndSubject(
-			this.app.parametrsWidgets.currentParametr.id, 
+			this.app.parametrsWidgets.currentParametr.id,
 			this.app.currentRegion,
 			function(data) {
 				self.app.legendWidget.setLevelText(data);
@@ -145,12 +146,12 @@ var OnDistrictChangeState = function(app, mapStateManager, video_id, currentRegi
 			video_id,
 			{
 				onEndedCallback: $.proxy(this.onAfterEvent_, this),
-				poster: this.mapStateManager.bgImage	
+				poster: this.mapStateManager.bgImage
 			}
 		);
 	} else {
 		this.onAfterEvent_();
 	}
 
-	
+
 }

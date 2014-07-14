@@ -40,6 +40,18 @@ var LegendManager = function(app) {
 	}
 }
 
+
+var EventManager = function(app) {
+	this.app = app;
+
+	this.getEventMedia = function(id, callback) {
+		var ajaxPath = this.app.apiHost + '/arm/events/'+id+'/media_files/records.json';
+		$.getJSON(ajaxPath, callback);
+	}
+}
+
+
+
 var LegendParamsManager = function(app) {
 	this.app = app;
 	this.ajaxPath = "/color_and_subject_list/";
@@ -56,7 +68,7 @@ var LegendParamsManager = function(app) {
  */
 var ParamsManager = function(app) {
 	this.app = app;
-	this.ajaxPath = "/groups/";
+	this.ajaxPath = "/groups2/";
 
 	this.getParamsByRegionAndYeage = function(region_id, yeage, callback) {
 		$.get(this.app.apiHost + this.ajaxPath + region_id+ "/" + yeage , callback);
@@ -100,7 +112,30 @@ var ParamsManager = function(app) {
 			}
 		);
 	}
+
+
 }
+
+
+var CubeManager = function(app)
+{
+	this.app = app;
+
+	var me = this;
+
+	this.getCubeReports = function()
+	{
+		$.getJSON(this.app.apiHost + '/arm/cube_reports.json',function(data)
+		{
+			cubeReports = data;
+			me.app.reportsParamsSelector.drawParamets_();
+		});
+	}
+
+
+}
+
+
 
 /**
  * [FormatManager description]
@@ -210,7 +245,7 @@ var RegionsManagerLocal = function(app) {
 	this.setLocalData_ = function() {
 		var regionsData = JSON.parse(localStorage.getItem('regions'));
 		if(regionsData && regionsData.data) {
-			this.regions = regionsData.data;	
+			this.regions = regionsData.data;
 		}
 	}
 
@@ -231,48 +266,60 @@ var RegionsManagerLocal = function(app) {
 				ret = value;
 			}
 		});
-		
+
 		return ret;
 	}
 
-	
-	this.getMarkers = function(id)
+
+/*	this.getLpus = function(id)
 	{
 		var url = this.app.apiHost + "/subjects/get_markers/"+id;
-
+         var me = this;
 		$.get(url,function(data)
 		{
-              olmap.addLpus(data);
+              me.app.olmap.addLpus(data);
+		});
+
+	} */
+
+	this.getLpus = function(min_lat, min_lon, max_lat, max_lon)
+	{
+		var url = this.app.apiHost + "/subjects/get_markers_by_coords?min_lat=" +
+			min_lat + "&min_lon="+min_lon+"&max_lat="+max_lat+"&max_lon="+max_lon;
+   		var me = this;
+		$.get(url,function(data)
+		{
+              me.app.olmap.addLpus(data);
 		});
 
 	}
- 
+
 	this.geRegionLatLonById = function(id)
 	{
 	   var url = this.app.apiHost + "/subjects/get_subject_lat_lon/"+id;
-
+        var me = this;
 		$.get(url,function(data)
 		{
 			if(data == "err1")
 			{
-                olmap.centerMos();
-			} 
+                me.app.olmap.centerMos();
+			}
 			else
 			{
-			     olmap.centerSubj(data);
+			     me.app.olmap.centerSubj(data);
 			}
 
 
 		});
 	}
-    
+
     	this.getRequisitions = function(id)
 	{
 		var url = this.app.apiHost + "/subjects/get_requisitions/"+id;
-
+		var me = this;
 		$.get(url,function(data)
 		{
-          olmap.addRequisitions(data, function(data){alert(data);});
+          me.app.olmap.addRequisitions(data, function(data){alert(data);});
 		});
 	}
 
