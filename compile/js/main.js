@@ -1165,6 +1165,10 @@ var Application = function() {
 			ConfigApp["GIS_SERVER"], divsToHide, this.regionsManagerLocal,
 			 function(){window.app.setAppTitle(window.app.mapStateManager.currentRegionData.name);});
 
+		  var a = $("#svg").find("g");
+          var b = $("svg").find("g");
+          alert(a);
+          alert(b);
 
 	}
 
