@@ -1165,8 +1165,9 @@ var Application = function() {
 			ConfigApp["GIS_SERVER"], divsToHide, this.regionsManagerLocal,
 			 function(){window.app.setAppTitle(window.app.mapStateManager.currentRegionData.name);});
 
-		  var a = $("#svg").find("g");
-          var b = $("svg").find("g");
+//this.elements["SVG"][0].getSVGDocument();
+		  var a = $("#svg").this.elements["SVG"][0].getSVGDocument();
+          var b = a.find("g");
           alert(a);
           alert(b);
 
