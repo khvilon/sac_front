@@ -136,6 +136,8 @@ var SVGLoader = function(app, config) {
 		var groups = $(svg).find("g");
 		groups.off();
 
+		aa = $(svg).find("g[target='101']");
+
 		groups.on("mouseover", function() {
 			var paths = $(this).find("path");
 			paths.attr({
@@ -1166,10 +1168,10 @@ var Application = function() {
 			 function(){window.app.setAppTitle(window.app.mapStateManager.currentRegionData.name);});
 
 //this.elements["SVG"][0].getSVGDocument();
-		  var a = this.mapStateManager.SVGWriter.elements["SVG"][0].getSVGDocument();
-          var b = a.find("g");
-          alert(a);
-          alert(b);
+	//	  var a = this.mapStateManager.SVGWriter.elements["SVG"][0].getSVGDocument();
+    //      var b = a.find("g");
+    //      alert(a);
+    //      alert(b);
 
 	}
 
