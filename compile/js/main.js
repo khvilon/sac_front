@@ -178,8 +178,7 @@ var SVGLoader = function(app, config) {
 		var svg = $(this.CSS["SVG"])[0].getSVGDocument();
 		var targSVG = $(svg).find("g[target='"+id+"']");
 		if(targSVG.length > 0) $(targSVG[0]).find("path").click();
-		this.app.parametrsWidgets.onShow_();
-		this.app.vitrLoaded = true;
+
 	}
 
 	this.drawParamValues = function(data, CSSclasses) {
@@ -268,6 +267,11 @@ var VideoPlayer = function() {
 
 			if(this.endedCallback) {
 				this.endedCallback();
+				if(!this.app.vitrLoaded)
+				{
+					this.app.parametrsWidgets.onShow_();
+					this.app.vitrLoaded = true;
+				}
 			}
 		}
 	}
