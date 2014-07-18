@@ -361,6 +361,12 @@ var ParametrsWidgets = function(app) {
 		$(evt.target).parent().find("ul").slideToggle("slow");
 	}
 
+	this.selectGroup = function(id)
+	{
+		$("#parametrs-list").find("ul[data-id!='"+id+"']").slideUp("slow");
+		 $("#parametrs-list").find("ul[data-id='"+id+"']").slideDown("slow");
+	}
+
 	this.getParametrById = function(id) {
 		var par = null;
 		$.each(this.parametrs, function(key, value) {

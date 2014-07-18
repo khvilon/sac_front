@@ -272,6 +272,7 @@ var VideoPlayer = function() {
 			if(!app.vitrLoaded)
 			{
 				app.parametrsWidgets.onShow_();
+				app.parametrsWidgets.selectGroup(261);
 				app.vitrLoaded = true;
 			}
 		}
