@@ -173,7 +173,7 @@ var SVGLoader = function(app, config) {
         this.clickSVG(101);
 	}
 
-	this.clickSVG(id)
+	this.clickSVG = function(id)
 	{
 		var svg = $(this.CSS["SVG"])[0].getSVGDocument();
 		var targSVG = $(svg).find("g[target='"+id+"']");
