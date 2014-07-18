@@ -268,10 +268,11 @@ var VideoPlayer = function() {
 			if(this.endedCallback) {
 				this.endedCallback();
 			}
-			if(!this.app.vitrLoaded)
+			var app = window.application;
+			if(!app.vitrLoaded)
 			{
-				this.app.parametrsWidgets.onShow_();
-				this.app.vitrLoaded = true;
+				app.parametrsWidgets.onShow_();
+				app.vitrLoaded = true;
 			}
 		}
 	}
