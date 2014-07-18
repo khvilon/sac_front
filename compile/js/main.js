@@ -267,11 +267,11 @@ var VideoPlayer = function() {
 
 			if(this.endedCallback) {
 				this.endedCallback();
-				if(!this.app.vitrLoaded)
-				{
-					this.app.parametrsWidgets.onShow_();
-					this.app.vitrLoaded = true;
-				}
+			}
+			if(!this.app.vitrLoaded)
+			{
+				this.app.parametrsWidgets.onShow_();
+				this.app.vitrLoaded = true;
 			}
 		}
 	}
