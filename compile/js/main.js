@@ -177,7 +177,7 @@ var SVGLoader = function(app, config) {
 	{
 		var svg = $(this.CSS["SVG"])[0].getSVGDocument();
 		var targSVG = $(svg).find("g[target='"+id+"']");
-		if(targSVG.length > 0) targSVG[0].Click();
+		if(targSVG.length > 0) $(targSVG[0]).click();
 	}
 
 	this.drawParamValues = function(data, CSSclasses) {
