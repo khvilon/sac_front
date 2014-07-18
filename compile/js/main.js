@@ -170,7 +170,7 @@ var SVGLoader = function(app, config) {
 
 		this.waitingForMap = false;
 
-        this.clickSVG(101);
+ //       this.clickSVG(101);
 	}
 
 	this.clickSVG = function(id)
