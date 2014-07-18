@@ -1166,7 +1166,7 @@ var Application = function() {
 			 function(){window.app.setAppTitle(window.app.mapStateManager.currentRegionData.name);});
 
 //this.elements["SVG"][0].getSVGDocument();
-		  var a = MapStateManager.SVGWriter.elements["SVG"][0].getSVGDocument();
+		  var a = this.mapStateManager.SVGWriter.elements["SVG"][0].getSVGDocument();
           var b = a.find("g");
           alert(a);
           alert(b);
