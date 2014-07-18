@@ -170,7 +170,7 @@ var SVGLoader = function(app, config) {
 
 		this.waitingForMap = false;
 
-     //   this.clickSVG(101);
+        this.clickSVG(101);
 	}
 
 	this.clickSVG = function(id)
@@ -926,11 +926,6 @@ var MapStateManager = function(app) {
 
 	this.onSvgClick_ = function(evt) {
 
-	var parent = $('#svg_inner');
-	var svg =  parent.find('svg');
-	var svg = parent.find('g');
-//var svg = parent.find('g[target="101"]');
-	//	alert(svg);
 
 		var newIdRegion = $(evt.target).parent().attr("target");
 
