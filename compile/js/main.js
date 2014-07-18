@@ -136,7 +136,7 @@ var SVGLoader = function(app, config) {
 		var groups = $(svg).find("g");
 		groups.off();
 
-		aa = $(svg).find("g[target='101']");
+
 
 		groups.on("mouseover", function() {
 			var paths = $(this).find("path");
@@ -169,6 +169,15 @@ var SVGLoader = function(app, config) {
 		}
 
 		this.waitingForMap = false;
+
+        this.clickSVG(101);
+	}
+
+	this.clickSVG(id)
+	{
+		var svg = $(this.CSS["SVG"])[0].getSVGDocument();
+		var targSVG = $(svg).find("g[target='"+id+"']");
+		if(targSVG.length > 0) targSVG[0].click();
 	}
 
 	this.drawParamValues = function(data, CSSclasses) {
