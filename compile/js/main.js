@@ -170,7 +170,7 @@ var SVGLoader = function(app, config) {
 
 		this.waitingForMap = false;
 
-        this.clickSVG(101);
+        if(!this.app.vitrLoaded) this.clickSVG(101);
 	}
 
 	this.clickSVG = function(id)
@@ -178,7 +178,8 @@ var SVGLoader = function(app, config) {
 		var svg = $(this.CSS["SVG"])[0].getSVGDocument();
 		var targSVG = $(svg).find("g[target='"+id+"']");
 		if(targSVG.length > 0) $(targSVG[0]).find("path").click();
-		this.app.parametrsWidgets.show();
+	//	this.app.parametrsWidgets.show();
+		this.app.vitrLoaded = true;
 	}
 
 	this.drawParamValues = function(data, CSSclasses) {
@@ -974,6 +975,7 @@ var Application = function() {
 	this.maxZoom = 3;
 	this.currentZoom = 1;
 	this.russianId = 100;
+	this.vitrLoaded = false;
 
 	this.apiHost = ConfigApp["API-HOST"];
 	this.currentMenuSate = "MAP";
