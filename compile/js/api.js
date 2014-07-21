@@ -73,9 +73,9 @@ var RegionsParametrsWidgets = function(app) {
 	}
 
 	this.parametrsClick_ = function(evt) {
-	//	$(evt.target).parent().find("ul").slideToggle("slow");
+		$(evt.target).parent().find("ul").slideToggle("slow");
 
-		$(evt.target).parent().find("ul").slideUp("slow");
+
 	}
 
 	this.getParametrById = function(id) {
@@ -361,7 +361,8 @@ var ParametrsWidgets = function(app) {
 	}
 
 	this.parametrsClick_ = function(evt) {
-		$(evt.target).parent().find("ul").slideToggle("slow");
+		//$(evt.target).parent().find("ul").slideToggle("slow");
+		$(evt.target).parent().find("ul").slideUp("slow");
 	}
 
 	this.selectGroup = function(id)
