@@ -172,9 +172,9 @@ var SVGLoader = function(app, config) {
 
         if(!this.app.vitrLoaded)
         {
-        	 var url = this.app.apiHost + "/subjects/get_subject_lat_lon/"+id;
+        	 var url = this.app.apiHost + "/arm/vitrinas/settings.json";
              var me = this;
-			$.getJSON("/arm/vitrinas/settings.json",function(data)
+			$.getJSON(url,function(data)
 			{
 				if(data.subject_id!=null)
 				{
