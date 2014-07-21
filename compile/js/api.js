@@ -624,7 +624,7 @@ var ParametrsWidgets = function(app) {
 
 		if(!this.app.vitrLoaded)
 		{
-			this.selectGroup(261);
+			this.selectGroup(this.app.group_id);
 			this.app.vitrLoaded = true;
 		}
 	}

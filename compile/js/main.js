@@ -172,7 +172,21 @@ var SVGLoader = function(app, config) {
 
         if(!this.app.vitrLoaded)
         {
-        	this.clickSVG(101);
+        	 var url = this.app.apiHost + "/subjects/get_subject_lat_lon/"+id;
+             var me = this;
+			$.getJSON("/arm/vitrinas/settings.json",function(data)
+			{
+				if(data.subject_id!=null)
+				{
+					this.app.group_id = data.group_id;
+	                me.clickSVG(data.subject_id);
+				}
+				else
+				{
+				    this.app.vitrLoaded = true;
+				}
+			});
+
 
         }
 	}
