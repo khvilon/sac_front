@@ -170,7 +170,11 @@ var SVGLoader = function(app, config) {
 
 		this.waitingForMap = false;
 
-        if(!this.app.vitrLoaded) this.clickSVG(101);
+        if(!this.app.vitrLoaded)
+        {
+        	this.clickSVG(101);
+
+        }
 	}
 
 	this.clickSVG = function(id)
@@ -272,8 +276,6 @@ var VideoPlayer = function() {
 			if(!app.vitrLoaded)
 			{
 				app.parametrsWidgets.onShow_();
-				app.parametrsWidgets.selectGroup(261);
-				app.vitrLoaded = true;
 			}
 		}
 	}

@@ -361,17 +361,13 @@ var ParametrsWidgets = function(app) {
 	}
 
 	this.parametrsClick_ = function(evt) {
-		//$(evt.target).parent().find("ul").slideToggle("slow");
-	//	$(evt.target).parent().find("ul").slideUp("slow");
-
-		this.selectGroup(261);
+		$(evt.target).parent().find("ul").slideToggle("slow");
 	}
 
 	this.selectGroup = function(id)
 	{
 		$("#parametrs-list .first-li").find("ul").slideUp("slow");
 		$("#parametrs-list").find("ul.first[data-id='"+id+"']").find("ul").slideDown("slow");
-	//	 this.getParametrById(id).slideDown("slow");
 	}
 
 	this.getParametrById = function(id)
@@ -625,6 +621,12 @@ var ParametrsWidgets = function(app) {
 			this.legendWidget.show();
 		}
 		this.initScroll_();
+
+		if(!this.app.vitrLoaded)
+		{
+			this.selectGroup(261);
+			this.app.vitrLoaded = true;
+		}
 	}
 
 	this.onMainHiddened_ = function() {
