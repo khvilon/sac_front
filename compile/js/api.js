@@ -73,7 +73,9 @@ var RegionsParametrsWidgets = function(app) {
 	}
 
 	this.parametrsClick_ = function(evt) {
-		$(evt.target).parent().find("ul").slideToggle("slow");
+	//	$(evt.target).parent().find("ul").slideToggle("slow");
+
+		$(evt.target).parent().find("ul").slideUp("slow");
 	}
 
 	this.getParametrById = function(id) {
@@ -365,15 +367,19 @@ var ParametrsWidgets = function(app) {
 	this.selectGroup = function(id)
 	{
 		$("#parametrs-list").find("ul[data-id!='"+id+"']").slideUp("slow");
-		 $("#parametrs-list").find("ul[data-id='"+id+"']").slideDown("slow");
+		$("#parametrs-list").find("ul[data-id='"+id+"']").slideDown("slow");
 	//	 this.getParametrById(id).slideDown("slow");
 	}
 
-	this.getParametrById = function(id) {
+	this.getParametrById = function(id)
+	{
 		var par = null;
-		$.each(this.parametrs, function(key, value) {
-			$.each(value.parameters, function(key2, value2) {
-				if(value2 && value2.id == id) {
+		$.each(this.parametrs, function(key, value)
+		{
+			$.each(value.parameters, function(key2, value2)
+			{
+				if(value2 && value2.id == id)
+				{
 					par = value2;
 				}
 			});
