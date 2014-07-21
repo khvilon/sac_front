@@ -369,8 +369,8 @@ var ParametrsWidgets = function(app) {
 
 	this.selectGroup = function(id)
 	{
-		$("#parametrs-list .first-li").slideUp("slow");
-		$("#parametrs-list").find("ul.first[data-id='"+id+"']").find("li").slideDown("slow");
+		$("#parametrs-list .first-li").find("ul").slideUp("slow");
+		$("#parametrs-list").find("ul.first[data-id='"+id+"']").find("ul").slideDown("slow");
 	//	 this.getParametrById(id).slideDown("slow");
 	}
 
