@@ -364,13 +364,13 @@ var ParametrsWidgets = function(app) {
 		//$(evt.target).parent().find("ul").slideToggle("slow");
 	//	$(evt.target).parent().find("ul").slideUp("slow");
 
-		$("#parametrs-list .first").find("ul[data-id!='261']").slideUp("slow");
+		this.selectGroup(261);
 	}
 
 	this.selectGroup = function(id)
 	{
-		$("#parametrs-list").find("ul[data-id!='"+id+"']").slideUp("slow");
-		$("#parametrs-list").find("ul[data-id='"+id+"']").slideDown("slow");
+		$("#parametrs-list .first").slideUp("slow");
+		$("#parametrs-list").find("ul.first[data-id='"+id+"']").slideDown("slow");
 	//	 this.getParametrById(id).slideDown("slow");
 	}
 
