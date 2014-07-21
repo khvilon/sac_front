@@ -369,7 +369,7 @@ var ParametrsWidgets = function(app) {
 
 	this.selectGroup = function(id)
 	{
-		$("#parametrs-list .first").slideUp("slow");
+		$("#parametrs-list .first-li").find("ul").slideUp("slow");
 		$("#parametrs-list").find("ul.first[data-id='"+id+"']").slideDown("slow");
 	//	 this.getParametrById(id).slideDown("slow");
 	}
