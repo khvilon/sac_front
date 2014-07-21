@@ -195,7 +195,8 @@ var RegionsParametrsWidgets = function(app) {
 		this.scrollApi = this.elements["PARAMETRS-LIST"].data('jsp');
 	}
 
-	this.drawRegionsParamets_ = function(params) {
+	this.drawRegionsParamets_ = function(params)
+	{
 		var html = "";
 		var self = this;
 		var contentPane = this.scrollApi.getContentPane();
@@ -365,6 +366,7 @@ var ParametrsWidgets = function(app) {
 	{
 		$("#parametrs-list").find("ul[data-id!='"+id+"']").slideUp("slow");
 		 $("#parametrs-list").find("ul[data-id='"+id+"']").slideDown("slow");
+		 this.getParametrById(id).slideDown("slow");
 	}
 
 	this.getParametrById = function(id) {
