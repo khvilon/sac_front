@@ -178,12 +178,12 @@ var SVGLoader = function(app, config) {
 			{
 				if(data.subject_id!=null)
 				{
-					this.app.group_id = data.group_id;
+					me.app.group_id = data.group_id;
 	                me.clickSVG(data.subject_id);
 				}
 				else
 				{
-				    this.app.vitrLoaded = true;
+				    me.app.vitrLoaded = true;
 				}
 			});
 
