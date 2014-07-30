@@ -1,7 +1,7 @@
 <div style='position:absolute; top:0px; left: 0px'><img src=<%= '/static/images/formats/adv'+event.event_status_id+'.png' %>></div>
 <div class="inner">
     <span class="close" style="right:55px; top:65px"></span>
-    <div style="font-size: 35px; position:absolute; top:60px"><%= event.name %></div>
+    <div style="font-size: 27px; position:absolute; top:60px; font-weight:bold; width:88%"><%= event.name %></div>
     <div style="font-size: 25px; position:relative; top: 40px"><%= event.subject_name %></div>
     <div style="font-size: 25px; position:relative; top: 70px"><%= event.source %></div>
     <div style="font-size: 25px; position:relative; top: 100px"><%= event.date_time.replace("T00:00:00Z", "") %></div>
