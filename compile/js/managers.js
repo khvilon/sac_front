@@ -294,6 +294,18 @@ var RegionsManagerLocal = function(app) {
 
 	}
 
+	this.getStations = function(min_lat, min_lon, max_lat, max_lon)
+	{
+		var url = this.app.apiHost + "/stations.json?min_lat=" +
+			min_lat + "&min_lon="+min_lon+"&max_lat="+max_lat+"&max_lon="+max_lon;
+   		var me = this;
+		$.get(url,function(data)
+		{
+              me.app.olmap.addStations(data);
+		});
+
+	}
+
 	this.geRegionLatLonById = function(id)
 	{
 	   var url = this.app.apiHost + "/subjects/get_subject_lat_lon/"+id;
