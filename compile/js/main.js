@@ -233,6 +233,7 @@ var SVGLoader = function(app, config) {
 
 				var classes = "zoom"+self.app.currentZoom+" "+CSSclasses;
 				var val = decorateValues(data[id], 2);
+				if(data[id+'_text'] != null) val = decorateValues(data[id+'_text'], 2);
 				$(newElement).html(Number(val));
 				$(newElement).attr({
 					x: x,
