@@ -567,7 +567,7 @@ var ParametrsWidgets = function(app) {
 						var html = "<li data-name='"+value2.name+"' data-id='"+value2.id+"'><span  class='param'><em class='spr'>-</em> <em class='name' id='parameter_name_"+value2.id+"'>"+value2.name+"</em></span><i>"+value2.value+"</i></li>";
 
 						elementCurrentGroup.find("ul").append(html);
-					} else if(self.app.ConfigApp["SAC_TYPE"] != 'vimpel'){
+					} else if(ConfigApp["SAC_TYPE"] != 'vimpel'){
 						paramCurrent.find("i").html(param_vals[value2.id]);
 				 	}
 				 	else paramCurrent.find("i").html("");
