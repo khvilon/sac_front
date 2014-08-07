@@ -232,9 +232,9 @@ var SVGLoader = function(app, config) {
 				}
 
 				var classes = "zoom"+self.app.currentZoom+" "+CSSclasses;
-				var val = decorateValues(data[id], 2);
+				var val = Number(decorateValues(data[id], 2));
 				if(data[id+'_text'] != null) val = data[id+'_text'];
-				$(newElement).html(Number(val));
+				$(newElement).html(val);
 				$(newElement).attr({
 					x: x,
 					y: y,
