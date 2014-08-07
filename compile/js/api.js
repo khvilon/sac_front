@@ -557,12 +557,17 @@ var ParametrsWidgets = function(app) {
 						value2.value = "";
 					}
 					if(param_vals[value2.id] == null) param_vals[value2.id] = 0;
-					if(value2.value != "") param_vals[value2.id] += parseInt(value2.value);
+					if(value2.value != "")
+					{
+						param_vals[value2.id] += parseInt(value2.value);
+
+				//		param_vals[value2.id] +=
+					}
 					if(paramCurrent.size() == 0) {
 						var html = "<li data-name='"+value2.name+"' data-id='"+value2.id+"'><span  class='param'><em class='spr'>-</em> <em class='name' id='parameter_name_"+value2.id+"'>"+value2.name+"</em></span><i>"+value2.value+"</i></li>";
 
 						elementCurrentGroup.find("ul").append(html);
-					} else {
+					} else if(self.app.ConfigApp["SAC_TYPE"] != 'vimpel'){
 						paramCurrent.find("i").html(param_vals[value2.id]);
 				 	}
 
