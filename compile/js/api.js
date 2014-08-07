@@ -570,6 +570,7 @@ var ParametrsWidgets = function(app) {
 					} else if(self.app.ConfigApp["SAC_TYPE"] != 'vimpel'){
 						paramCurrent.find("i").html(param_vals[value2.id]);
 				 	}
+				 	else paramCurrent.find("i").html("");
 
                     if(self.currentParametr != null && self.currentParametr.name == value2.name &&
                     	self.currentParametr.id != value2.id)
