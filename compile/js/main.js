@@ -768,6 +768,7 @@ var MapEventsPanel = function(app) {
 
 				var classes = "zoom"+self.app.currentZoom+" ";
 				var val = data[id];
+				if(data[id + '_text'] != null) val = data[id + '_text'];
 				$(newElement).html(Number(val));
 				$(newElement).attr({
 					x: x,
