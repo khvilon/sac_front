@@ -207,7 +207,7 @@ var SVGLoader = function(app, config) {
 
 		$.each($(svg).find("g"), function(key, value) {
 			var id = $(value).attr("target");
-			if(id && data[id] != 0) {
+			if(id) {
 				var newElement = document.createElementNS("http://www.w3.org/2000/svg", "text");
 				var path = $(value).find("path")[0];
 
