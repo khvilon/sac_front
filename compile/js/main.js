@@ -1192,7 +1192,7 @@ var Application = function() {
         this.cubeManager.getCubeReports();
 
 
-        var divsToHide = ['bg-events', 'bg-event-image', 'bg-svg', 'bg-regions-imag', 'miniMap',
+        var divsToHide = ['bg-events', 'bg-event-image', /*'bg-svg',*/ 'bg-regions-imag', 'miniMap',
         	'legend-widget'];
 		this.olmap = new OLMap('content', this.apiHost,  ConfigApp["SAC_TYPE"],
 			ConfigApp["GIS_SERVER"], divsToHide, this.regionsManagerLocal,
