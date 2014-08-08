@@ -1,4 +1,4 @@
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2012 by OpenLayers Contributors (see authors.txt for 
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -127,9 +127,7 @@ OpenLayers.String = {
                 if (i == 0) {
                     replacement = context;
                 }
-                if (replacement === undefined) {
-                    break;
-                }
+
                 replacement = replacement[subs[i]];
             }
 
@@ -191,18 +189,13 @@ OpenLayers.String = {
      * 
      * Parameters:
      * value - {String}
-     * trimWhitespace - {Boolean}
      *
      * Returns:
      * {Number|String} a Number if the passed value is a number, a String
      *     otherwise. 
      */
-    numericIf: function(value, trimWhitespace) {
-        var originalValue = value;
-        if (trimWhitespace === true && value != null && value.replace) {
-            value = value.replace(/^\s*|\s*$/g, "");
-        }
-        return OpenLayers.String.isNumeric(value) ? parseFloat(value) : originalValue;
+    numericIf: function(value) {
+        return OpenLayers.String.isNumeric(value) ? parseFloat(value) : value;
     }
 
 };
@@ -297,25 +290,7 @@ OpenLayers.Number = {
             str = integer + dsep + rem;
         }
         return str;
-    },
-
-    /**
-     * Method: zeroPad
-     * Create a zero padded string optionally with a radix for casting numbers.
-     *
-     * Parameters:
-     * num - {Number} The number to be zero padded.
-     * len - {Number} The length of the string to be returned.
-     * radix - {Number} An integer between 2 and 36 specifying the base to use
-     *     for representing numeric values.
-     */
-    zeroPad: function(num, len, radix) {
-        var str = num.toString(radix || 10);
-        while (str.length < len) {
-            str = "0" + str;
-        }
-        return str;
-    }    
+    }
 };
 
 /**

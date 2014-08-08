@@ -10,10 +10,7 @@
         // a fake protocol
         var protocol = {
             read: function(options) {
-                options.callback.call(options.scope, {
-                    features: featureList, 
-                    success: OpenLayers.Function.True
-                });
+                options.callback.call(options.scope, {features: featureList});
             }
         };
         
@@ -65,53 +62,44 @@
     
     function test_events(t) {
         
-        t.plan(7);
+        t.plan(3);
         
-        var log = [];
-
-        var response = new OpenLayers.Protocol.Response();
+        var log = {
+            loadstart: 0,
+            loadend: 0
+        };
         
         var map = new OpenLayers.Map("map");
         var layer = new OpenLayers.Layer.Vector(null, {
-            filter: new OpenLayers.Filter.Comparison({
-                type: '==',
-                property: 'foo',
-                value: 'bar'
-            }),
             strategies: [new OpenLayers.Strategy.Fixed()],
             protocol: new OpenLayers.Protocol({
                 read: function(config) {
-                    config.callback.call(config.scope, response);
+                    config.callback.call(config.scope, {});
                 }
             }),
             isBaseLayer: true,
             eventListeners: {
-                loadstart: function(event) {
-                    log.push(event);
+                loadstart: function() {
+                    ++log.loadstart;
                 },
-                loadend: function(event) {
-                    log.push(event);
+                loadend: function() {
+                    ++log.loadend;
                 }
             }
         });
 
         map.addLayer(layer);
         map.zoomToMaxExtent();
-
-        t.eq(log.length, 2, "2 events logged");
-        t.eq(log[0].type, "loadstart", "loadstart first");
-        t.eq(log[0].filter, layer.filter, "filter passed on as argument to loadstart");
-        t.eq(log[1].type, "loadend", "loadend second");
-        t.ok(log[1].response == response, "loadend includes response");
         
-        var calls = [];
+        t.eq(log.loadstart, 1, "loadstart triggered");
+        t.eq(log.loadend, 1, "loadend triggered");
+        var log = {};
         layer.protocol.read = function(obj) {
-            calls.push(obj);
+            log.obj = obj;
         }
         layer.refresh({whee: 'chicken'});
 
-        t.eq(calls.length, 1, "1 call to read");
-        t.eq(calls[0].whee, "chicken", "properties passed to read");
+        t.eq(log.obj && log.obj.whee, "chicken", "properties passed to read on refresh correctly.");
         
         map.destroy();
         
@@ -165,7 +153,7 @@
         ];
 
         // call merge with a mocked up response
-        strategy.merge({features: features, success: OpenLayers.Function.True});
+        strategy.merge(new OpenLayers.Projection("EPSG:900913"), {features: features});
         
         // confirm that the original features were destroyed
         t.eq(layer.features.length, 2, "old features destroyed");
@@ -189,7 +177,7 @@
         ];
         
         // call merge again with mocked up response
-        strategy.merge({features: features, success: OpenLayers.Function.True});
+        strategy.merge(new OpenLayers.Projection("EPSG:900913"), {features: features});
 
         // test that feature geometries have not been transformed
         t.geom_eq(layer.features[0].geometry, features[0].geometry, "[same proj] feature 0 geometry not transformed");
@@ -198,7 +186,7 @@
     }
 
     function test_load(t) {
-        t.plan(3);
+        t.plan(4);
 
         // set up
 
@@ -213,8 +201,8 @@
         var response = new OpenLayers.Protocol.Response();
 
         var strategy = new OpenLayers.Strategy.Fixed({
-            merge: function(r) {
-                log = {scope: this, response: r};
+            merge: function(p, r) {
+                log = {scope: this, projection: p, response: r};
             }
         });
 
@@ -238,6 +226,8 @@
              "merge was called");
         t.ok(log.scope == strategy,
              "merge called with expected scope");
+        t.eq(log.projection.getCode(), map.getProjectionObject().getCode(),
+             "merge called the map projection as the first arg");
         t.ok(log.response == response,
              "merge called with response as the first arg");
 

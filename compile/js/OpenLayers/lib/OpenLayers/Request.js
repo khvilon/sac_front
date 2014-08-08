@@ -1,11 +1,10 @@
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2012 by OpenLayers Contributors (see authors.txt for 
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
 
 /**
  * @requires OpenLayers/Events.js
- * @requires OpenLayers/Request/XMLHttpRequest.js
  */
 
 /**
@@ -20,14 +19,7 @@ OpenLayers.ProxyHost = "";
  *     with XMLHttpRequests.  These methods work with a cross-browser
  *     W3C compliant <OpenLayers.Request.XMLHttpRequest> class.
  */
-if (!OpenLayers.Request) {
-    /**
-     * This allows for OpenLayers/Request/XMLHttpRequest.js to be included
-     * before or after this script.
-     */
-    OpenLayers.Request = {};
-}
-OpenLayers.Util.extend(OpenLayers.Request, {
+OpenLayers.Request = {
     
     /**
      * Constant: DEFAULT_CONFIG
@@ -106,6 +98,9 @@ OpenLayers.Util.extend(OpenLayers.Request, {
                 } else {
                     url = proxy + encodeURIComponent(url);
                 }
+            } else {
+                OpenLayers.Console.warn(
+                    OpenLayers.i18n("proxyNeeded"), {url: url});
             }
         }
         return url;
@@ -173,10 +168,8 @@ OpenLayers.Util.extend(OpenLayers.Request, {
             this.DEFAULT_CONFIG,
             {proxy: OpenLayers.ProxyHost}
         );
-        config = config || {};
-        config.headers = config.headers || {};
         config = OpenLayers.Util.applyDefaults(config, defaultConfig);
-        config.headers = OpenLayers.Util.applyDefaults(config.headers, defaultConfig.headers);
+        
         // Always set the "X-Requested-With" header to signal that this request
         // was issued through the XHR-object. Since header keys are case 
         // insensitive and we want to allow overriding of the "X-Requested-With"
@@ -426,4 +419,4 @@ OpenLayers.Util.extend(OpenLayers.Request, {
         return OpenLayers.Request.issue(config);
     }
 
-});
+};

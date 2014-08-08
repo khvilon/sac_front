@@ -1,4 +1,4 @@
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2012 by OpenLayers Contributors (see authors.txt for 
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -59,6 +59,13 @@ OpenLayers.Handler.Feature = OpenLayers.Class(OpenLayers.Handler, {
      * {<OpenLayers.Pixel>} The location of the last mouseup.
      */
     up: null,
+
+    /**
+     * Property: touch
+     * {Boolean} When a touchstart event is fired, touch will be true and all
+     *     mouse related listeners will do nothing.
+     */
+    touch: false,
     
     /**
      * Property: clickTolerance
@@ -132,7 +139,17 @@ OpenLayers.Handler.Feature = OpenLayers.Class(OpenLayers.Handler, {
      * {Boolean} Let the event propagate.
      */
     touchstart: function(evt) {
-        this.startTouch(); 
+        if(!this.touch) {
+            this.touch =  true;
+            this.map.events.un({
+                mousedown: this.mousedown,
+                mouseup: this.mouseup,
+                mousemove: this.mousemove,
+                click: this.click,
+                dblclick: this.dblclick,
+                scope: this
+            });
+        }
         return OpenLayers.Event.isMultiTouch(evt) ?
                 true : this.mousedown(evt);
     },
@@ -147,7 +164,7 @@ OpenLayers.Handler.Feature = OpenLayers.Class(OpenLayers.Handler, {
      * evt - {Event}
      */
     touchmove: function(evt) {
-        OpenLayers.Event.preventDefault(evt);
+        OpenLayers.Event.stop(evt);
     },
 
     /**
@@ -278,7 +295,7 @@ OpenLayers.Handler.Feature = OpenLayers.Class(OpenLayers.Handler, {
             if(type === "touchstart") {
                 // stop the event to prevent Android Webkit from
                 // "flashing" the map div
-                OpenLayers.Event.preventDefault(evt);
+                OpenLayers.Event.stop(evt);
             }
             var inNew = (this.feature != this.lastFeature);
             if(this.geometryTypeMatches(this.feature)) {
@@ -308,8 +325,10 @@ OpenLayers.Handler.Feature = OpenLayers.Class(OpenLayers.Handler, {
                 // we enter handle. Yes, a bit hackish...
                 this.feature = null;
             }
-        } else if(this.lastFeature && (previouslyIn || click)) {
-            this.triggerCallback(type, 'out', [this.lastFeature]);
+        } else {
+            if(this.lastFeature && (previouslyIn || click)) {
+                this.triggerCallback(type, 'out', [this.lastFeature]);
+            }
         }
         return handled;
     },
@@ -334,11 +353,6 @@ OpenLayers.Handler.Feature = OpenLayers.Class(OpenLayers.Handler, {
                 if(dpx <= this.clickTolerance) {
                     this.callback(key, args);
                 }
-                // we're done with this set of events now: clear the cached
-                // positions so we can't trip over them later (this can occur
-                // if one of the up/down events gets eaten before it gets to us
-                // but we still get the click)
-                this.up = this.down = null;
             } else {
                 this.callback(key, args);
             }
@@ -381,6 +395,7 @@ OpenLayers.Handler.Feature = OpenLayers.Class(OpenLayers.Handler, {
             this.lastFeature = null;
             this.down = null;
             this.up = null;
+            this.touch = false;
             this.map.events.un({
                 "removelayer": this.handleMapEvents,
                 "changelayer": this.handleMapEvents,

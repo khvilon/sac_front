@@ -1,4 +1,4 @@
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2012 by OpenLayers Contributors (see authors.txt for 
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -217,11 +217,10 @@ OpenLayers.Strategy.BBOX = OpenLayers.Class(OpenLayers.Strategy, {
             this.layer.protocol.abort(this.response);
             this.layer.events.triggerEvent("loadend");
         }
-        var evt = {filter: this.createFilter()};
-        this.layer.events.triggerEvent("loadstart", evt);
+        this.layer.events.triggerEvent("loadstart");
         this.response = this.layer.protocol.read(
             OpenLayers.Util.applyDefaults({
-                filter: evt.filter,
+                filter: this.createFilter(),
                 callback: this.merge,
                 scope: this
         }, options));
@@ -263,27 +262,23 @@ OpenLayers.Strategy.BBOX = OpenLayers.Class(OpenLayers.Strategy, {
      */
     merge: function(resp) {
         this.layer.destroyFeatures();
-        if (resp.success()) {
-            var features = resp.features;
-            if(features && features.length > 0) {
-                var remote = this.layer.projection;
-                var local = this.layer.map.getProjectionObject();
-                if(!local.equals(remote)) {
-                    var geom;
-                    for(var i=0, len=features.length; i<len; ++i) {
-                        geom = features[i].geometry;
-                        if(geom) {
-                            geom.transform(remote, local);
-                        }
+        var features = resp.features;
+        if(features && features.length > 0) {
+            var remote = this.layer.projection;
+            var local = this.layer.map.getProjectionObject();
+            if(!local.equals(remote)) {
+                var geom;
+                for(var i=0, len=features.length; i<len; ++i) {
+                    geom = features[i].geometry;
+                    if(geom) {
+                        geom.transform(remote, local);
                     }
                 }
-                this.layer.addFeatures(features);
             }
-        } else {
-            this.bounds = null;
+            this.layer.addFeatures(features);
         }
         this.response = null;
-        this.layer.events.triggerEvent("loadend", {response: resp});
+        this.layer.events.triggerEvent("loadend");
     },
    
     CLASS_NAME: "OpenLayers.Strategy.BBOX" 

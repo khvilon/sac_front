@@ -1,4 +1,4 @@
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2012 by OpenLayers Contributors (see authors.txt for 
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -82,7 +82,7 @@ OpenLayers.Format.WFST.v1_0_0 = OpenLayers.Class(
         // Not the superclass, only the mixin classes inherit from
         // Format.GML.v2. We need this because we don't want to get readNode
         // from the superclass's superclass, which is OpenLayers.Format.XML.
-        return OpenLayers.Format.GML.v2.prototype.readNode.apply(this, arguments);
+        return OpenLayers.Format.GML.v2.prototype.readNode.apply(this, [node, obj]);
     },
     
     /**
@@ -103,7 +103,7 @@ OpenLayers.Format.WFST.v1_0_0 = OpenLayers.Class(
             "InsertResult": function(node, container) {
                 var obj = {fids: []};
                 this.readChildNodes(node, obj);
-                container.insertIds = container.insertIds.concat(obj.fids);
+                container.insertIds.push(obj.fids[0]);
             },
             "TransactionResult": function(node, obj) {
                 this.readChildNodes(node, obj);

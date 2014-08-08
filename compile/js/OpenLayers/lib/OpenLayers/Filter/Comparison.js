@@ -1,4 +1,4 @@
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2012 by OpenLayers Contributors (see authors.txt for 
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -26,8 +26,7 @@ OpenLayers.Filter.Comparison = OpenLayers.Class(OpenLayers.Filter, {
      * - OpenLayers.Filter.Comparison.LESS_THAN_OR_EQUAL_TO    = "<=";
      * - OpenLayers.Filter.Comparison.GREATER_THAN_OR_EQUAL_TO = ">=";
      * - OpenLayers.Filter.Comparison.BETWEEN                  = "..";
-     * - OpenLayers.Filter.Comparison.LIKE                     = "~";
-     * - OpenLayers.Filter.Comparison.IS_NULL                  = "NULL";
+     * - OpenLayers.Filter.Comparison.LIKE                     = "~"; 
      */
     type: null,
     
@@ -155,9 +154,6 @@ OpenLayers.Filter.Comparison = OpenLayers.Class(OpenLayers.Filter, {
                 var regexp = new RegExp(this.value, "gi");
                 result = regexp.test(got);
                 break;
-            case OpenLayers.Filter.Comparison.IS_NULL:
-                result = (got === null);
-                break;
         }
         return result;
     },
@@ -264,4 +260,3 @@ OpenLayers.Filter.Comparison.LESS_THAN_OR_EQUAL_TO    = "<=";
 OpenLayers.Filter.Comparison.GREATER_THAN_OR_EQUAL_TO = ">=";
 OpenLayers.Filter.Comparison.BETWEEN                  = "..";
 OpenLayers.Filter.Comparison.LIKE                     = "~";
-OpenLayers.Filter.Comparison.IS_NULL                  = "NULL";

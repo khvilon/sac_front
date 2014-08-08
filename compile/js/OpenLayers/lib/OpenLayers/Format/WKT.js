@@ -1,4 +1,4 @@
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2012 by OpenLayers Contributors (see authors.txt for 
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -6,12 +6,6 @@
 /**
  * @requires OpenLayers/Format.js
  * @requires OpenLayers/Feature/Vector.js
- * @requires OpenLayers/Geometry/Point.js
- * @requires OpenLayers/Geometry/MultiPoint.js
- * @requires OpenLayers/Geometry/LineString.js
- * @requires OpenLayers/Geometry/MultiLineString.js
- * @requires OpenLayers/Geometry/Polygon.js
- * @requires OpenLayers/Geometry/MultiPolygon.js
  */
 
 /**
@@ -47,7 +41,7 @@ OpenLayers.Format.WKT = OpenLayers.Class(OpenLayers.Format, {
     },
 
     /**
-     * APIMethod: read
+     * Method: read
      * Deserialize a WKT string and return a vector feature or an
      * array of vector features.  Supports WKT for POINT, MULTIPOINT,
      * LINESTRING, MULTILINESTRING, POLYGON, MULTIPOLYGON, and
@@ -90,7 +84,7 @@ OpenLayers.Format.WKT = OpenLayers.Class(OpenLayers.Format, {
     },
 
     /**
-     * APIMethod: write
+     * Method: write
      * Serialize a feature or array of features into a WKT string.
      *
      * Parameters:
@@ -101,7 +95,7 @@ OpenLayers.Format.WKT = OpenLayers.Class(OpenLayers.Format, {
      * {String} The WKT string representation of the input geometries
      */
     write: function(features) {
-        var collection, geometry, isCollection;
+        var collection, geometry, type, data, isCollection;
         if (features.constructor == Array) {
             collection = features;
             isCollection = true;

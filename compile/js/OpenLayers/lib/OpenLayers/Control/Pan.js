@@ -1,10 +1,10 @@
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2012 by OpenLayers Contributors (see authors.txt for 
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
 
 /**
- * @requires OpenLayers/Control/Button.js
+ * @requires OpenLayers/Control.js
  */
 
 /**
@@ -15,7 +15,7 @@
  * Inherits from:
  *  - <OpenLayers.Control>
  */
-OpenLayers.Control.Pan = OpenLayers.Class(OpenLayers.Control.Button, {
+OpenLayers.Control.Pan = OpenLayers.Class(OpenLayers.Control, {
 
     /** 
      * APIProperty: slideFactor
@@ -41,6 +41,14 @@ OpenLayers.Control.Pan = OpenLayers.Class(OpenLayers.Control.Button, {
     direction: null,
 
     /**
+     * Property: type
+     * {String} The type of <OpenLayers.Control> -- When added to a 
+     *     <Control.Panel>, 'type' is used by the panel to determine how to 
+     *     handle our events.
+     */
+    type: OpenLayers.Control.TYPE_BUTTON,
+
+    /**
      * Constructor: OpenLayers.Control.Pan 
      * Control which handles the panning (in any of the cardinal directions)
      *     of the map by a set px distance. 
@@ -62,27 +70,26 @@ OpenLayers.Control.Pan = OpenLayers.Class(OpenLayers.Control.Button, {
      * Method: trigger
      */
     trigger: function(){
-        if (this.map) {
-            var getSlideFactor = OpenLayers.Function.bind(function (dim) {
-                return this.slideRatio ?
-                    this.map.getSize()[dim] * this.slideRatio :
-                    this.slideFactor;
-            }, this);
     
-            switch (this.direction) {
-                case OpenLayers.Control.Pan.NORTH: 
-                    this.map.pan(0, -getSlideFactor("h"));
-                    break;
-                case OpenLayers.Control.Pan.SOUTH: 
-                    this.map.pan(0, getSlideFactor("h"));
-                    break;
-                case OpenLayers.Control.Pan.WEST: 
-                    this.map.pan(-getSlideFactor("w"), 0);
-                    break;
-                case OpenLayers.Control.Pan.EAST: 
-                    this.map.pan(getSlideFactor("w"), 0);
-                    break;
-            }   
+        var getSlideFactor = OpenLayers.Function.bind(function (dim) {
+            return this.slideRatio ?
+                this.map.getSize()[dim] * this.slideRatio :
+                this.slideFactor;
+        }, this);
+
+        switch (this.direction) {
+            case OpenLayers.Control.Pan.NORTH: 
+                this.map.pan(0, -getSlideFactor("h"));
+                break;
+            case OpenLayers.Control.Pan.SOUTH: 
+                this.map.pan(0, getSlideFactor("h"));
+                break;
+            case OpenLayers.Control.Pan.WEST: 
+                this.map.pan(-getSlideFactor("w"), 0);
+                break;
+            case OpenLayers.Control.Pan.EAST: 
+                this.map.pan(getSlideFactor("w"), 0);
+                break;
         }
     },
 

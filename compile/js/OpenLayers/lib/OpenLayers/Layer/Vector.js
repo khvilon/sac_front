@@ -1,4 +1,4 @@
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2012 by OpenLayers Contributors (see authors.txt for 
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -123,8 +123,7 @@ OpenLayers.Layer.Vector = OpenLayers.Class(OpenLayers.Layer, {
     /** 
      * APIProperty: isFixed
      * {Boolean} Whether the layer remains in one place while dragging the
-     * map. Note that setting this to true will move the layer to the bottom
-     * of the layer stack.
+     * map.
      */
     isFixed: false,
 
@@ -483,9 +482,9 @@ OpenLayers.Layer.Vector = OpenLayers.Class(OpenLayers.Layer, {
                 viewHeight = viewSize.h,
                 offsetLeft = (viewWidth / 2 * this.ratio) - viewWidth / 2,
                 offsetTop = (viewHeight / 2 * this.ratio) - viewHeight / 2;
-            offsetLeft += this.map.layerContainerOriginPx.x;
+            offsetLeft += parseInt(this.map.layerContainerDiv.style.left, 10);
             offsetLeft = -Math.round(offsetLeft);
-            offsetTop += this.map.layerContainerOriginPx.y;
+            offsetTop += parseInt(this.map.layerContainerDiv.style.top, 10);
             offsetTop = -Math.round(offsetTop);
 
             this.div.style.left = offsetLeft + 'px';

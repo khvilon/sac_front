@@ -1,4 +1,4 @@
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2012 by OpenLayers Contributors (see authors.txt for 
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -71,8 +71,15 @@ OpenLayers.Util.isElement = function(o) {
  * {Boolean} true if the object is an array.
  */
 OpenLayers.Util.isArray = function(a) {
-    return (Object.prototype.toString.call(a) === '[object Array]');
+	return (Object.prototype.toString.call(a) === '[object Array]');
 };
+
+/** 
+ * Maintain existing definition of $.
+ */
+if(typeof window.$  === "undefined") {
+    window.$ = OpenLayers.Util.getElement;
+}
 
 /** 
  * Function: removeItem
@@ -105,7 +112,7 @@ OpenLayers.Util.removeItem = function(array, item) {
  * obj - {*}
  * 
  * Returns:
- * {Integer} The index at which the first object was found in the array.
+ * {Integer} The index at, which the first object was found in the array.
  *           If not found, returns -1.
  */
 OpenLayers.Util.indexOf = function(array, obj) {
@@ -123,17 +130,6 @@ OpenLayers.Util.indexOf = function(array, obj) {
 };
 
 
-/**
- * Property: dotless
- * {RegExp}
- * Compiled regular expression to match dots (".").  This is used for replacing
- *     dots in identifiers.  Because object identifiers are frequently used for
- *     DOM element identifiers by the library, we avoid using dots to make for
- *     more sensible CSS selectors.
- *
- * TODO: Use a module pattern to avoid bloating the API with stuff like this.
- */
-OpenLayers.Util.dotless = /\./g;
 
 /**
  * Function: modifyDOMElement
@@ -143,8 +139,7 @@ OpenLayers.Util.dotless = /\./g;
  *
  * Parameters:
  * element - {DOMElement} DOM element to modify.
- * id - {String} The element id attribute to set.  Note that dots (".") will be
- *     replaced with underscore ("_") in setting the element id.
+ * id - {String} The element id attribute to set.
  * px - {<OpenLayers.Pixel>|Object} The element left and top position,
  *                                  OpenLayers.Pixel or an object with
  *                                  a 'x' and 'y' properties.
@@ -162,7 +157,7 @@ OpenLayers.Util.modifyDOMElement = function(element, id, px, sz, position,
                                             border, overflow, opacity) {
 
     if (id) {
-        element.id = id.replace(OpenLayers.Util.dotless, "_");
+        element.id = id;
     }
     if (px) {
         element.style.left = px.x + "px";
@@ -200,8 +195,7 @@ OpenLayers.Util.modifyDOMElement = function(element, id, px, sz, position,
  * Parameters:
  * id - {String} An identifier for this element.  If no id is
  *               passed an identifier will be created 
- *               automatically.  Note that dots (".") will be replaced with
- *               underscore ("_") when generating ids.
+ *               automatically.
  * px - {<OpenLayers.Pixel>|Object} The element left and top position,
  *                                  OpenLayers.Pixel or an object with
  *                                  a 'x' and 'y' properties.
@@ -866,17 +860,11 @@ OpenLayers.Util.destinationVincenty = function(lonlat, brng, dist) {
  * url - {String} Optional url used to extract the query string.
  *                If url is null or is not supplied, query string is taken 
  *                from the page location.
- * options - {Object} Additional options. Optional.
- *
- * Valid options:
- *   splitArgs - {Boolean} Split comma delimited params into arrays? Default is
- *       true.
  * 
  * Returns:
  * {Object} An object of key/value pairs from the query string.
  */
-OpenLayers.Util.getParameters = function(url, options) {
-    options = options || {};
+OpenLayers.Util.getParameters = function(url) {
     // if no url specified, take it from the location bar
     url = (url === null || url === undefined) ? window.location.href : url;
 
@@ -912,9 +900,7 @@ OpenLayers.Util.getParameters = function(url, options) {
             }
             
             // follow OGC convention of comma delimited values
-            if (options.splitArgs !== false) {
-                value = value.split(",");
-            }
+            value = value.split(",");
 
             //if there's only one value, do not return as array                    
             if (value.length == 1) {
@@ -942,7 +928,6 @@ OpenLayers.Util.lastSeqID = 0;
  * 
  * Parameters:
  * prefix - {String} Optional string to prefix unique id. Default is "id_".
- *     Note that dots (".") in the prefix will be replaced with underscore ("_").
  * 
  * Returns:
  * {String} A unique id string, built on the passed in prefix.
@@ -950,8 +935,6 @@ OpenLayers.Util.lastSeqID = 0;
 OpenLayers.Util.createUniqueID = function(prefix) {
     if (prefix == null) {
         prefix = "id_";
-    } else {
-        prefix = prefix.replace(OpenLayers.Util.dotless, "_");
     }
     OpenLayers.Util.lastSeqID += 1; 
     return prefix + OpenLayers.Util.lastSeqID;        
@@ -970,8 +953,8 @@ OpenLayers.INCHES_PER_UNIT = {
     'inches': 1.0,
     'ft': 12.0,
     'mi': 63360.0,
-    'm': 39.37,
-    'km': 39370,
+    'm': 39.3701,
+    'km': 39370.1,
     'dd': 4374754,
     'yd': 36
 };
@@ -1052,8 +1035,8 @@ OpenLayers.Util.extend(OpenLayers.INCHES_PER_UNIT, {
     "ch": OpenLayers.INCHES_PER_UNIT["IntnlChain"],  //International Chain
     "link": OpenLayers.INCHES_PER_UNIT["IntnlLink"], //International Link
     "us-in": OpenLayers.INCHES_PER_UNIT["inches"], //U.S. Surveyor's Inch
-    "us-ft": OpenLayers.INCHES_PER_UNIT["Foot"], //U.S. Surveyor's Foot
-    "us-yd": OpenLayers.INCHES_PER_UNIT["Yard"], //U.S. Surveyor's Yard
+    "us-ft": OpenLayers.INCHES_PER_UNIT["Foot"],	//U.S. Surveyor's Foot
+    "us-yd": OpenLayers.INCHES_PER_UNIT["Yard"],	//U.S. Surveyor's Yard
     "us-ch": OpenLayers.INCHES_PER_UNIT["GunterChain"], //U.S. Surveyor's Chain
     "us-mi": OpenLayers.INCHES_PER_UNIT["Mile"],   //U.S. Surveyor's Statute Mile
     "ind-yd": OpenLayers.INCHES_PER_UNIT["IndianYd37"],  //Indian Yard
@@ -1203,9 +1186,9 @@ OpenLayers.Util.pagePosition =  function(forElement) {
 
     if (forElement.getBoundingClientRect) { // IE
         box = forElement.getBoundingClientRect();
-        var scrollTop = window.pageYOffset || viewportElement.scrollTop;
-        var scrollLeft = window.pageXOffset || viewportElement.scrollLeft;
-        
+        var scrollTop = viewportElement.scrollTop;
+        var scrollLeft = viewportElement.scrollLeft;
+
         pos[0] = box.left + scrollLeft;
         pos[1] = box.top + scrollTop;
 
@@ -1307,8 +1290,7 @@ OpenLayers.Util.isEquivalentUrl = function(url1, url2, options) {
     OpenLayers.Util.applyDefaults(options, {
         ignoreCase: true,
         ignorePort80: true,
-        ignoreHash: true,
-        splitArgs: false
+        ignoreHash: true
     });
 
     var urlObj1 = OpenLayers.Util.createUrlObject(url1, options);
@@ -1349,8 +1331,6 @@ OpenLayers.Util.isEquivalentUrl = function(url1, url2, options) {
  *   ignoreCase - {Boolean} lowercase url,
  *   ignorePort80 - {Boolean} don't include explicit port if port is 80,
  *   ignoreHash - {Boolean} Don't include part of url after the hash (#).
- *   splitArgs - {Boolean} Split comma delimited params into arrays? Default is
- *       true.
  * 
  * Returns:
  * {Object} An object with separate url, a, port, host, and args parsed out 
@@ -1406,8 +1386,7 @@ OpenLayers.Util.createUrlObject = function(url, options) {
         var qMark = url.indexOf("?");
         queryString = (qMark != -1) ? url.substr(qMark) : "";
     }
-    urlObject.args = OpenLayers.Util.getParameters(queryString,
-            {splitArgs: options.splitArgs});
+    urlObject.args = OpenLayers.Util.getParameters(queryString);
 
     // pathname
     //
@@ -1546,7 +1525,7 @@ OpenLayers.Util.getRenderedDimensions = function(contentHTML, size, options) {
     container.style.visibility = "hidden";
         
     var containerElement = (options && options.containerElement) 
-        ? options.containerElement : document.body;
+    	? options.containerElement : document.body;
     
     // Opera and IE7 can't handle a node with position:aboslute if it inherits
     // position:absolute from a parent.
@@ -1722,9 +1701,9 @@ OpenLayers.Util.getFormattedLonLat = function(coordinate, axis, dmsOption) {
     if (!dmsOption) {
         dmsOption = 'dms';    //default to show degree, minutes, seconds
     }
-
-    coordinate = (coordinate+540)%360 - 180; // normalize for sphere being round
-
+	
+	coordinate = (coordinate+540)%360 - 180; // normalize for sphere being round
+	
     var abscoordinate = Math.abs(coordinate);
     var coordinatedegrees = Math.floor(abscoordinate);
 

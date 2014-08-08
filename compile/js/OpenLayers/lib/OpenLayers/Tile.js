@@ -1,4 +1,4 @@
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2012 by OpenLayers Contributors (see authors.txt for 
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -193,23 +193,22 @@ OpenLayers.Tile = OpenLayers.Class({
      *     is to call <clear> and return the result from <shouldDraw>.
      *
      * Parameters:
-     * force - {Boolean} If true, the tile will not be cleared and no beforedraw
-     *     event will be fired. This is used for drawing tiles asynchronously
-     *     after drawing has been cancelled by returning false from a beforedraw
-     *     listener.
+     * deferred - {Boolean} When drawing was aborted by returning false from a
+     *     *beforedraw* listener, the queue manager needs to pass true, so the
+     *     tile will not be cleared and immediately be drawn. Otherwise, the
+     *     tile will be cleared and a *beforedraw* event will be fired.
      * 
      * Returns:
-     * {Boolean} Whether or not the tile should actually be drawn. Returns null
-     *     if a beforedraw listener returned false.
+     * {Boolean} Whether or not the tile should actually be drawn.
      */
-    draw: function(force) {
-        if (!force) {
+    draw: function(deferred) {
+        if (!deferred) {
             //clear tile's contents and mark as not drawn
             this.clear();
         }
         var draw = this.shouldDraw();
-        if (draw && !force && this.events.triggerEvent("beforedraw") === false) {
-            draw = null;
+        if (draw && !deferred) {
+            draw = this.events.triggerEvent("beforedraw") !== false;
         }
         return draw;
     },

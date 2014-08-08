@@ -1,4 +1,4 @@
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2012 by OpenLayers Contributors (see authors.txt for 
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -53,22 +53,6 @@ OpenLayers.Tween = OpenLayers.Class({
     time: null,
     
     /**
-     * APIProperty: minFrameRate
-     * {Number} The minimum framerate for animations in frames per second. After
-     * each step, the time spent in the animation is compared to the calculated
-     * time at this frame rate. If the animation runs longer than the calculated
-     * time, the next step is skipped. Default is 30.
-     */
-    minFrameRate: null,
-
-    /**
-     * Property: startTime
-     * {Number} The timestamp of the first execution step. Used for skipping
-     * frames
-     */
-    startTime: null,
-    
-    /**
      * Property: animationId
      * {int} Loop id returned by OpenLayers.Animation.start
      */
@@ -99,8 +83,7 @@ OpenLayers.Tween = OpenLayers.Class({
      * begin - {Object} values to start the animation with
      * finish - {Object} values to finish the animation with
      * duration - {int} duration of the tween (number of steps)
-     * options - {Object} hash of options (callbacks (start, eachStep, done),
-     *     minFrameRate)
+     * options - {Object} hash of options (for example callbacks (start, eachStep, done))
      */
     start: function(begin, finish, duration, options) {
         this.playing = true;
@@ -108,9 +91,7 @@ OpenLayers.Tween = OpenLayers.Class({
         this.finish = finish;
         this.duration = duration;
         this.callbacks = options.callbacks;
-        this.minFrameRate = options.minFrameRate || 30;
         this.time = 0;
-        this.startTime = new Date().getTime();
         OpenLayers.Animation.stop(this.animationId);
         this.animationId = null;
         if (this.callbacks && this.callbacks.start) {
@@ -158,10 +139,7 @@ OpenLayers.Tween = OpenLayers.Class({
         this.time++;
         
         if (this.callbacks && this.callbacks.eachStep) {
-            // skip frames if frame rate drops below threshold
-            if ((new Date().getTime() - this.startTime) / this.time <= 1000 / this.minFrameRate) {
-                this.callbacks.eachStep.call(this, value);
-            }
+            this.callbacks.eachStep.call(this, value);
         }
         
         if (this.time > this.duration) {

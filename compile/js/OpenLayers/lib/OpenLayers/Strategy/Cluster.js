@@ -1,4 +1,4 @@
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2012 by OpenLayers Contributors (see authors.txt for 
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -79,7 +79,6 @@ OpenLayers.Strategy.Cluster = OpenLayers.Class(OpenLayers.Strategy, {
         if(activated) {
             this.layer.events.on({
                 "beforefeaturesadded": this.cacheFeatures,
-                "featuresremoved": this.clearCache,
                 "moveend": this.cluster,
                 scope: this
             });
@@ -101,7 +100,6 @@ OpenLayers.Strategy.Cluster = OpenLayers.Class(OpenLayers.Strategy, {
             this.clearCache();
             this.layer.events.un({
                 "beforefeaturesadded": this.cacheFeatures,
-                "featuresremoved": this.clearCache,
                 "moveend": this.cluster,
                 scope: this
             });
@@ -136,9 +134,7 @@ OpenLayers.Strategy.Cluster = OpenLayers.Class(OpenLayers.Strategy, {
      * Clear out the cached features.
      */
     clearCache: function() {
-        if(!this.clustering) {
-            this.features = null;
-        }
+        this.features = null;
     },
     
     /**
@@ -173,9 +169,7 @@ OpenLayers.Strategy.Cluster = OpenLayers.Class(OpenLayers.Strategy, {
                         }
                     }
                 }
-                this.clustering = true;
                 this.layer.removeAllFeatures();
-                this.clustering = false;
                 if(clusters.length > 0) {
                     if(this.threshold > 1) {
                         var clone = clusters.slice();

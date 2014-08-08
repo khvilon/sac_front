@@ -1,4 +1,4 @@
-/* Copyright (c) 2006-2013 by OpenLayers Contributors (see authors.txt for
+/* Copyright (c) 2006-2012 by OpenLayers Contributors (see authors.txt for 
  * full list of contributors). Published under the 2-clause BSD license.
  * See license.txt in the OpenLayers distribution or repository for the
  * full text of the license. */
@@ -42,8 +42,7 @@ OpenLayers.Strategy.Fixed = OpenLayers.Class(OpenLayers.Strategy, {
      *      the strategy was already active.
      */
     activate: function() {
-        var activated = OpenLayers.Strategy.prototype.activate.apply(this, arguments);
-        if(activated) {
+        if(OpenLayers.Strategy.prototype.activate.apply(this, arguments)) {
             this.layer.events.on({
                 "refresh": this.load,
                 scope: this
@@ -56,8 +55,9 @@ OpenLayers.Strategy.Fixed = OpenLayers.Class(OpenLayers.Strategy, {
                     scope: this
                 });
             }
+            return true;
         }
-        return activated;
+        return false;
     },
     
     /**
@@ -88,11 +88,11 @@ OpenLayers.Strategy.Fixed = OpenLayers.Class(OpenLayers.Strategy, {
      */
     load: function(options) {
         var layer = this.layer;
-        layer.events.triggerEvent("loadstart", {filter: layer.filter});
+        layer.events.triggerEvent("loadstart");
         layer.protocol.read(OpenLayers.Util.applyDefaults({
-            callback: this.merge,
-            filter: layer.filter,
-            scope: this
+            callback: OpenLayers.Function.bind(this.merge, this,
+                layer.map.getProjectionObject()),
+            filter: layer.filter
         }, options));
         layer.events.un({
             "visibilitychanged": this.load,
@@ -103,32 +103,28 @@ OpenLayers.Strategy.Fixed = OpenLayers.Class(OpenLayers.Strategy, {
     /**
      * Method: merge
      * Add all features to the layer.
-     *     If the layer projection differs from the map projection, features
-     *     will be transformed from the layer projection to the map projection.
      *
      * Parameters:
-     * resp - {<OpenLayers.Protocol.Response>} The response object passed
-     *      by the protocol.
+     * mapProjection - {<OpenLayers.Projection>} the map projection
+     * resp - {Object} options to pass to protocol read.
      */
-    merge: function(resp) {
+    merge: function(mapProjection, resp) {
         var layer = this.layer;
         layer.destroyFeatures();
         var features = resp.features;
         if (features && features.length > 0) {
-            var remote = layer.projection;
-            var local = layer.map.getProjectionObject();
-            if(!local.equals(remote)) {
+            if(!mapProjection.equals(layer.projection)) {
                 var geom;
                 for(var i=0, len=features.length; i<len; ++i) {
                     geom = features[i].geometry;
                     if(geom) {
-                        geom.transform(remote, local);
+                        geom.transform(layer.projection, mapProjection);
                     }
                 }
             }
             layer.addFeatures(features);
         }
-        layer.events.triggerEvent("loadend", {response: resp});
+        layer.events.triggerEvent("loadend");
     },
 
     CLASS_NAME: "OpenLayers.Strategy.Fixed"
