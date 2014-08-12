@@ -1,7 +1,8 @@
 var ConfigApp = {
 	"GIS_SERVER" : "http://gis.rosminzdrav.ru",
 	"CUBES_SERVER" : "http://cubes.rosminzdrav.ru",
-	"SAC_TYPE" : "vimpel",
+	//"SAC_TYPE" : "vimpel",
+	"SAC_TYPE" : "lpu",
 	"PATHES": {
 		"VIDEO": "/static/video/",
 		"SVG": "/static/svg/",
