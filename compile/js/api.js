@@ -2147,14 +2147,15 @@ var ReportsParamsSelector = function(app) {
 
 		var vimpelReports = [{id: 666, name:'Таблица "План/Факт"', link:'vimpel_table'},
 		{id: 667, name:'График "План/Факт"', link:'vimpel_line_chart'},
-		{id: 668, name:'Гистограмма "План/Факт"', link:'vimpel_histo'}];
+		{id: 668, name:'График2 "План/Факт"', link:'vimpel_combo_chart'},
+		{id: 669, name:'Гистограмма "План/Факт"', link:'vimpel_histo'}];
 
 		$.each(vimpelReports, function(key, value)
 		{
 			var elementCurrentGroup = $("ul[data-id='"+value.id+"']", self.CSS["DATA-PLACE"]);
 			if(elementCurrentGroup.size() == 0)
 			{
-				var html =  "<ul data-id='"+value.id+"' class='first'><li data-name='"+value.name+"' data-time='"+new Date()+"'>";
+				var html =  "<ul data-id='"+value.id+"' class='first'><li data-name='"+value.name+"' data-time='2014-08-15T00:00:00+04:00'>";
 					html += "<span is_arm='false' link='/static/compile/js/reports/"+value.link+"/index.html' report_id=" + value.id + " class='link_click_pdf graph-params-name'>"+value.name+"</span>";
 
 				contentPane.append(html);
