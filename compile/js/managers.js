@@ -141,7 +141,8 @@ var CubeManager = function(app)
  * [FormatManager description]
  * @param {[type]} app [description]
  */
-var FormatManager = function(app) {
+var FormatManager = function(app)
+{
 	this.app = app;
 
 	this.getFormat = function(regions_id, params_id, age, callback) {

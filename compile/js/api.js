@@ -2132,6 +2132,8 @@ var ReportsParamsSelector = function(app) {
 
 		params = cubeReports;
 
+
+
 		$.each(params, function(key, value) {
 			var elementCurrentGroup = $("ul[data-id='"+value.id+"']", self.CSS["DATA-PLACE"]);
 			if(elementCurrentGroup.size() == 0) {
@@ -2143,6 +2145,24 @@ var ReportsParamsSelector = function(app) {
 			}
 		});
 
+		var vimpelReports = [{id: 666, name:'Таблица "План/Факт"', link:'vimpel_table'},
+		{id: 667, name:'График "План/Факт"', link:'vimpel_line_chart'},
+		{id: 668, name:'Гистограмма "План/Факт"', link:'vimpel_histo'}];
+
+		$.each(vimpelReports, function(key, value)
+		{
+			var elementCurrentGroup = $("ul[data-id='"+value.id+"']", self.CSS["DATA-PLACE"]);
+			if(elementCurrentGroup.size() == 0)
+			{
+				var html =  "<ul data-id='"+value.id+"' class='first'><li data-name='"+value.name+"' data-time='"+new Date()+"'>";
+					html += "<span is_arm='false' link='/static/compile/js/reports/"+value.link+"/index.html' report_id=" + value.id + " class='link_click_pdf graph-params-name'>"+value.name+"</span>";
+
+				contentPane.append(html);
+			}
+		});
+
+
+
 		$(".link_click_pdf").on("click", function() {
 			$(self.CSS["LOAD"]).addClass("onShow");
 			var self2 = this;
@@ -2153,7 +2173,8 @@ var ReportsParamsSelector = function(app) {
 				$("#report-pdf h2").html($(self2).html());
 			//	alert(SETTINGS_CONFIG['cube_host']);
 				if($(self2).attr("is_arm") == "true") $("#report-pdf-in").html('<object width="100%" type="application/pdf" height="670px" src="'+$(self2).attr("link")+'""></object>');
-				else $("#report-pdf-in").html('<iframe src="'+ConfigApp["CUBES_SERVER"]+'/reports/'+$(self2).attr("report_id") +'" style="width:97%;height:650px; display:inline;"></iframe>');
+				else if($(self2).attr("link") == "")$("#report-pdf-in").html('<iframe src="'+ConfigApp["CUBES_SERVER"]+'/reports/'+$(self2).attr("report_id") +'" style="width:97%;height:650px; display:inline;"></iframe>');
+                else $("#report-pdf-in").html('<iframe src="'+$(self2).attr("link")+'" style="width:97%;height:650px; display:inline;"></iframe>');
 
 				$("#reports-data").hide();
 				$("#reports-panel").hide();
